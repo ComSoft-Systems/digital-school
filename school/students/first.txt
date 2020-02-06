@@ -20,4 +20,9 @@ again and again
 This is written by zahid ali mughal
 dsjkj kj jlks
 sdkjkj j kjk sdkjkjsd
+<<<<<<< HEAD
 dsjj kj klkds
+=======
+dsjj kj klkds
+Hello i am Rizwan
+>>>>>>> 4056745853c4d61411818e009a7cb6acd6ad9b27
