@@ -20,9 +20,14 @@ again and again
 This is written by zahid ali mughal
 dsjkj kj jlks
 sdkjkj j kjk sdkjkjsd
-<<<<<<< HEAD
+HEAD
 dsjj kj klkds
 =======
 dsjj kj klkds
 Hello i am Rizwan
->>>>>>> 4056745853c4d61411818e009a7cb6acd6ad9b27
+Tabish-Ali-Mughal
+ 4056745853c4d61411818e009a7cb6acd6ad9b27
+Nabeeha here!!
+create your own text file and then push.
+each member should have his or her own file.
+Development
