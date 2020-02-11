@@ -1,3 +1,17 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+def home(request):
+    return render(request, 'query/entry_test.html')
+
+def form(request):
+    return render(request, 'query/query_form.html')
+
+
+def list(request):
+    return render(request, 'query/query_list.html')
+
+
+def detail(request):
+    return render(request, 'query/query_detail.html')
+
