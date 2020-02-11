@@ -6,6 +6,6 @@ urlpatterns = [
     path('', views.schools),
     path('', views.fee_category),
     path('', views.section),
+    path('', views.session),
     path('', views.family),
-    path('', views.session)
 ]
