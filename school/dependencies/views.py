@@ -11,10 +11,10 @@ def fee_category(request):
     return render(request, 'dependencies/fee_category.html')
 
 def section(request):
-    return render(request, 'dependencies/section')
+    return render(request, 'dependencies/section.html')
 
 def session(request):
-    return render(request, 'dependencies/session')
+    return render(request, 'dependencies/session.html')
 
 def family(request):
-    return render(request, 'dependencies/family')
+    return render(request, 'dependencies/family.html')
