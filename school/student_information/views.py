@@ -1,9 +1,10 @@
-from django.shortcuts import render,HttpResponse
-from .models import *
+from django.shortcuts import render , HttpResponse
+from .models import Gr , Family
+from .forms import ManageGrListForm 
 
 def ManageGrListView(ListView):
-    model = None
-    return render (ListView,'Student/list.html')
+    GrNumber = Gr.objects.all()
+    return render (ListView,'Student/list.html',{'GrNumber':GrNumber})
     
 def ManageGrDetailView(DetailView):
     model = None
