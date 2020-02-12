@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'Query.apps.QueryConfig'
+=======
+    'student_information',
+    'main'
+>>>>>>> 13bf2474b76d3c768ce2b04235144735d566bb05
 ]
 
 MIDDLEWARE = [
@@ -82,6 +87,9 @@ DATABASES = {
         'PASSWORD': 'Admin@123',
         'HOST': '127.0.0.1',
         'PORT': '5432',
+
+
+
     }
 }
 
