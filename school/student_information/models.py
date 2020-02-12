@@ -1,18 +1,5 @@
 from django.db import models
-
-
-
-class Family(models.Model):
-    family_code = models.IntegerField(auto_created=True,primary_key = True,unique = True)
-    surname = models.CharField(unique = True , max_length = 200)
-    father_name = models.CharField(max_length = 200)
-    ph_no_father = models.CharField(unique = True , max_length = 11)
-    mother_name = models.CharField(max_length = 200)
-    ph_no_mother = models.CharField(unique = True , max_length = 11)
-    def __str__(self):
-        return self.surname
-
-
+from dependencies.models import Fee_Category , Class , School , Section , Family
 
 class Gr(models.Model) :
     gr_number = models.IntegerField(auto_created=True , unique = True , primary_key = True)

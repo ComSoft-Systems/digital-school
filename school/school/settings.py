@@ -37,12 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'Query.apps.QueryConfig'
-=======
     'student_information',
+    'dependencies',
     'main'
->>>>>>> 13bf2474b76d3c768ce2b04235144735d566bb05
 ]
 
 MIDDLEWARE = [
