@@ -1,20 +1,45 @@
 from django.shortcuts import render
 
-# Create your views here.
-def classes(request):
-    return render(request, 'dependencies/classes.html')
+def ManageClassesListView(ListView):
+    model = None
+    return render (ListView,'Dependencies/Classes/list.html')
 
-def schools(request):
-    return render(request, 'dependencies/schools.html')
+def ManageClassesDetailView(DetailView):
+    model = None
+    return render (DetailView,'Dependencies/Classes/list.html')
 
-def fee_category(request):
-    return render(request, 'dependencies/fee_category.html')
 
-def section(request):
-    return render(request, 'dependencies/section.html')
+def ManageSchoolsListView(ListView):
+    model = None
+    return render (ListView,'Dependencies/Schools/list.html')
+
+def ManageSchoolsDetailView(DetailView):
+    model = None
+    return render (DetailView,'Dependencies/Schools/list.html')
+
+def ManageFeeCategoryListView(ListView):
+    model = None
+    return render (ListView,'Dependencies/FeesCategory/list.html')
+
+def ManageFeeCategoryDetailView(DetailView):
+    model = None
+    return render (DetailView,'Dependencies/FeesCategory/list.html')
+
+def ManageSectionsListView(ListView):
+    model = None
+    return render(ListView, 'Dependencies/Sections/list.html')
+
+def ManageSectionsDetailView(DetailView):
+    model = None
+    return render(DetailView, 'Dependencies/Sections/list.html')
+
+def ManageFamilyListView(ListView):
+    model = None
+    return render (ListView,'Dependencies/Family/list.html')
+
+def ManageFamilyDetailView(DetailView):
+    model = None
+    return render (DetailView,'Dependencies/Family/list.html')
 
 def session(request):
-    return render(request, 'dependencies/session.html')
-
-def family(request):
-    return render(request, 'dependencies/family.html')
+    return render(request, 'Dependencies/session.html')
