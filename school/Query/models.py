@@ -11,6 +11,5 @@ class Entry_data(models.Model):
     test_teacher = models.CharField(max_length=30, default=1)
     date_of_test = models.DateField()
     Contact = models.CharField(max_length=20, default=1)
-
-def_str_(self):
-    return self.Name
+    def __str__(self):
+        return self.Name
