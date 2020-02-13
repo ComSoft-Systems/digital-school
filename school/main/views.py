@@ -5,4 +5,4 @@ def LoginForm(request):
     return render(request,'LoginPage.html')
 
 def MainScreen(request):
-    return render(request, 'main_page.html')
+    return render(request, 'MainPage.html')
