@@ -25,11 +25,13 @@ def ManageFeeCategoryDetailView(DetailView):
     model = None
     return render (DetailView,'Dependencies/FeesCategory/list.html')
 
-def section(request):
-    return render(request, 'Dependencies/section.html')
+def ManageSectionsListView(ListView):
+    model = None
+    return render(ListView, 'Dependencies/Sections/list.html')
 
-def session(request):
-    return render(request, 'Dependencies/session.html')
+def ManageSectionsDetailView(DetailView):
+    model = None
+    return render(DetailView, 'Dependencies/Sections/list.html')
 
 def ManageFamilyListView(ListView):
     model = None
@@ -38,3 +40,6 @@ def ManageFamilyListView(ListView):
 def ManageFamilyDetailView(DetailView):
     model = None
     return render (DetailView,'Dependencies/Family/list.html')
+
+def session(request):
+    return render(request, 'Dependencies/session.html')
