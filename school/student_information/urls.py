@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('student/',views.ManageGrListView, name="gr_list"),
-    path('student/<name>',views.ManageGrDetailView,name='gr_detail'),
+    path('student/create/',views.ManageGrCreateView, name="gr_create"),
+    path('student/<name>/',views.ManageGrDetailView,name='gr_detail'),
 
 ]
