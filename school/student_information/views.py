@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Gr 
+from django.shortcuts import render , get_object_or_404
+from .models import *
 from .forms import ManageGrEntryForm 
 
 def ManageGrListView(ListView):
@@ -10,7 +10,7 @@ def ManageGrListView(ListView):
     return render (ListView,'Student/list.html',context)
 
 def ManageGrCreateView(request):
-    form = ManageGrEntryForm(request.POST or None)
+    form = ManageGrEntryForm()
     if form.is_valid():
         form.save()
     context = {
@@ -18,7 +18,16 @@ def ManageGrCreateView(request):
     }
     return render (request,'Student/create.html',context)
 
-def ManageGrDetailView(DetailView):
-    model = None
-    return render (DetailView, 'Student/detail.html')
-
+def ManageGrDetailView(DetailView,gr_number):
+    GrNumber = get_object_or_404(Gr,gr_number = gr_number)
+    Grnumber = gr_number
+    if GrNumber == Grnumber :
+        context = {
+            'GrNumber' : GrNumber,
+        }
+        return render (DetailView, 'Student/detail.html',context)
+    else:
+        context = {
+            'GrNumber' : "Not Found",
+        }
+        return render (DetailView, 'Student/detail.html',context)
