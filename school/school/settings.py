@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Query',
-    'student_information',
+    'student_information.apps.StudentInformationConfig',
     'dependencies',
     'main',
 ]
