@@ -18,16 +18,17 @@ class Gr(models.Model):
     admission_date = models.DateField()
     last_school = models.ForeignKey(School , on_delete = models.CASCADE)
     religion = models.CharField(max_length=20)
+    date_of_birth = models.DateField()
     def get_absolute_url(self):
         return reverse('gr_detail',args=[self.gr_number])
     def __str__(self):
         return str(self.gr_number)
     class Meta:
-        ordering = ('name',)
-        index_together = (('gr_number', 'family_code'),)
+        ordering = ('gr_number',)
+        index_together = (('gr_number', 'name'),)
         verbose_name = 'Gr'
         verbose_name_plural = 'Grs'
 
     class GrManager(models.Manager):
         def get_queryset(self):
-            return super(GrManager,self).get_queryset().filter(self.r_number)
+            return super(GrManager,self).get_queryset().filter(self.gr_number)

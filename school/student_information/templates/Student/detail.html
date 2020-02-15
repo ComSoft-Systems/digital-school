@@ -1,11 +1,23 @@
-{% extends "MainPage.html" %}
+{% comment %} {% extends "MainPage.html" %} {% endcomment %}
 {% load static %}
-{% block content %}}
+{% comment %} {% block content %} {% endcomment %}
 <h1>Here Are All Gr Numbers In detail Form</h1>
 <h3>
-{% for gr in GrNumber %}
-<a>{{ gr }} </a>
-{% endfor %}
+{% comment %} {% for GrNumber %} {% endcomment %}
+<a>{{ GrNumber.gr_number }} </a>
+<a>{{ GrNumber.name }} </a>
+<img src='{% if GrNumber.picture %}{{ GrNumber.picture.url }}{% else %}{% static "img\no_image.png" %}{% endif %}'></a>
+<a>{{ GrNumber.family_code }} </a>
+<a>{{ GrNumber.fee_category_code }} </a>
+<a>{{ GrNumber.class_of_admission }} </a>
+<a>{{ GrNumber.session_of_admission }} </a>
+<a>{{ GrNumber.current_class }} </a>
+<a>{{ GrNumber.current_session }} </a>
+<a>{{ GrNumber.admission_date }} </a>
+<a>{{ GrNumber.last_school }} </a>
+<a>{{ GrNumber.religion }} </a>
+<a>{{ GrNumber.date_of_birth }} </a>
+{% comment %} {% endfor %} {% endcomment %}
 </li>
-{% endblock %}}
+{% comment %} {% endblock %} {% endcomment %}
 </h3>

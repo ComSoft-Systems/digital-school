@@ -1,7 +1,8 @@
 from django import forms
 from .models import Gr
+from django.contrib.auth.models import User
 
-class ManageGrEntryForm(forms.Form):
+class ManageGrEntryForm(forms.models.Field):
     class meta:
         model = Gr
         fields = [
