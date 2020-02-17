@@ -1,6 +1,7 @@
 <h1>here we can add gr information</h1>
 
-<form method='POST'>
-{{ form.as_p }}
-<input type='submit' value = 'Save' ></input>
+<form method=GET>
+{% csrf_token %}
+<h3>Gr = {{ form.gr_number }} </h3>
+<input type='submit' value = 'Save Gr' ></input>
 </form>
