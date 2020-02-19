@@ -1,6 +1,6 @@
-{% comment %} {% extends "MainPage.html" %} {% endcomment %}
+{% extends "MainPage.html" %}
 {% load static %}
-{% comment %} {% block content %} {% endcomment %}
+{% block content %}
 <h1>Here Are All Gr Numbers In detail Form</h1>
 <h3>
 {% comment %} {% for GrNumber %} {% endcomment %}
@@ -19,5 +19,5 @@
 <a>{{ GrNumber.date_of_birth }} </a>
 {% comment %} {% endfor %} {% endcomment %}
 </li>
-{% comment %} {% endblock %} {% endcomment %}
+{% endblock %}
 </h3>

@@ -1,4 +1,4 @@
-{% comment %} {% extends "MainPage.html" %} {% endcomment %}
+{% extends "MainPage.html" %}
 {% load static %}
 {% block content %}
 <h1>Here Are All Gr Numbers In List Form</h1>
@@ -7,7 +7,7 @@
 <li {% if GrNumber.gr_number == gr.gr_number %}class="selected"{% endif %}>
 <a href="{{ gr.get_absolute_url }}">{{ gr.gr_number }} </a>
 <a href="{{ gr.get_absolute_url }}">{{gr.name}}</a>
-<img src="{% if gr.picture %}{{ gr.picture.url }}{% endif %}"></img>
+<img src="{% if gr.picture %}{{ gr.picture.url }}{% endif %}" />
 <a href="{{ gr.get_absolute_url }}">{{gr.family_code}}</a>
 <a href="{{ gr.get_absolute_url }}">{{gr.current_class}}</a>
 {% endfor %}
