@@ -2,11 +2,9 @@ from django.db import models
 from django.utils import timezone
 from dependencies.models import Fee_Category , Class , School , Section , Family
 
-class PublishedManager(models.Manager):				
+class Entry_dataManager(models.Manager):				
     def	get_queryset(self):
-        return super(PublishedManager,
-                     self).get_queryset()\
-                          .filter(status='published')
+        return super(Entry_dataManager,self).get_queryset().filter(self.Name)
 
 class Entry_data(models.Model):
     Query_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
@@ -23,13 +21,13 @@ class Entry_data(models.Model):
     Fee_type = models.ForeignKey(Fee_Category, on_delete= models.CASCADE)
     Contact = models.CharField(max_length=20)
     objects	=models.Manager()
-    published =	PublishedManager()
+    published =Entry_dataManager()
     def	get_absolute_url(self):								
         return reverse('Query:Entry_data_detail',
-                    args=[self.publish.Name,
-                          self.publish.Father,
-                          self.publish.last,
-                          self.publish.Address
+                    args=[self.Name,
+                          self.Father,
+                          self.last,
+                          self.Address
                           ])
     def __str__(self):
         return self.Name
