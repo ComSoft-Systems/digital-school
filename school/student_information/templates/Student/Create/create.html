@@ -1,0 +1,8 @@
+<h1>here we can add gr information</h1>
+
+
+<form action="{% url "gr_create" %}" method="POST">
+{{ user_form.as_p }}
+{% csrf_token %}
+<input type="submit" value="Add to Gr">
+</form>

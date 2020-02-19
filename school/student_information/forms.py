@@ -1,9 +1,9 @@
-from django import forms
+from django import *
+from django.forms import ModelForm
 from .models import Gr
-from django.contrib.auth.models import User
 
-class ManageGrEntryForm(forms.models.Field):
-    class meta:
+class EntryForm(forms.ModelForm):
+    class Meta:
         model = Gr
         fields = [
             'gr_number',
@@ -19,6 +19,7 @@ class ManageGrEntryForm(forms.models.Field):
             'admission_date',
             'last_school',
             'religion',
+            'date_of_birth',
         ]
 
 
