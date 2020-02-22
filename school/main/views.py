@@ -5,3 +5,18 @@ def MainScreen(request):
 
 def LoginForm(request):
     return render(request,'LoginPage.html')
+
+def about(request):
+    return render(request,'about.html')
+
+def school(request):
+    return render(request,'schools.html')
+
+def contact(request):
+    return render(request,'contact.html')
+
+def team(request):
+    return render(request,'team.html')
+
+def detail(request):
+    return render(request,'detail.html')
