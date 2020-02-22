@@ -10,15 +10,23 @@ def ManageGrListView(ListView):
     return render (ListView,'Student/list.html',context)
 
 
-def ManageGrCreateView(request):
-    if request.method == 'POST':
-        user_form = EntryForm(request.POST)
+def ManageGrCreateView(CreateView):
+    if CreateView.method == 'POST':
+        user_form = EntryForm(CreateView.POST)
         if user_form.is_valid():
             form = user_form.save()
-            return render(request,'Student/Create/created.html')
+            context = {
+                'return': 'Has Been Added SuccessFully'
+            }
+            return render(CreateView,'Student/Create/created.html',context)
+        else:
+            context = {
+                'return': 'Is Not Valid'
+            }
+            return render(CreateView,'Student/Create/created.html',context)
     else:
         user_form = EntryForm()
-        return render(request,'Student/Create/create.html',{'user_form':user_form})
+        return render(CreateView,'Student/Create/create.html',{'user_form':user_form})
 
     
 

@@ -1,6 +1,6 @@
+{% extends "MainPage.html" %}
+{% block content %}
 <h1>here we can add gr information</h1>
-
-
 <form action="{% url "gr_create" %}" method="POST">
 <a>Gr Number = {{user_form.gr_number }}</a><br><br>
 <a>Query = {{user_form.query_code }}</a><a href=""> + </a><br><br>
@@ -19,3 +19,4 @@
 {% csrf_token %}
 <input type="submit" value="Add to Gr">
 </form>
+{% endblock %}
