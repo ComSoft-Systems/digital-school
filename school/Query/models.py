@@ -4,7 +4,7 @@ from dependencies.models import Fee_Category , Class , School , Section , Family
 
 class Entry_dataManager(models.Manager):				
     def	get_queryset(self):
-        return super(Entry_dataManager,self).get_queryset().filter(self.Name)
+        return super(Entry_dataManager,self).get_queryset().filter(self.Entry_data)
 
 class Entry_data(models.Model):
     Query_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
@@ -22,12 +22,12 @@ class Entry_data(models.Model):
     Contact = models.CharField(max_length=20)
     objects	=models.Manager()
     published =Entry_dataManager()
+
+    class Meta:
+        ordering = ('Query_code',)
+        index_together = (('Query_code', 'Name'),)
+
     def	get_absolute_url(self):								
-        return reverse('Query:Entry_data_detail',
-                    args=[self.Name,
-                          self.Father,
-                          self.last,
-                          self.Address
-                          ])
+        return reverse('query/query_detail',args=[self.Name])
     def __str__(self):
         return self.Name
