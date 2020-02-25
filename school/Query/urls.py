@@ -1,13 +1,9 @@
 from django.urls import path
-from .import views
-
-app_name = 'blog'
+from . import views
 
 urlpatterns = [
     path('', views.home),
-    path('form/', views.form),
+    path('form/', views.form , name = 'entry_form'),
     path('list/', views.list),
-    path('detail/', views.detail),
-    path('e_list/', views.Entry_data_list, name='Entry_data_list'),
-    path('e_detail/', views.Entry_data_detail, name='Entry_data_detail')
+    path('detail/', views.detail)
 ]
