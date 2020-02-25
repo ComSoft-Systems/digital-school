@@ -20,3 +20,6 @@ def team(request):
 
 def detail(request):
     return render(request,'detail.html')
+
+def afterlogin(request):
+    return render(request,'main.html')

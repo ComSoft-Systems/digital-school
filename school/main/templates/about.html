@@ -6,7 +6,7 @@
 		
 			<!-- R -->
 
-			<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
+			<link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}" />
 	
 			<!--FontFamily-->
 			
@@ -73,7 +73,7 @@
 
 				<div class="post-img">
 
-					<img class="img-responsive" src="{% static 'assets/images/new.jpg' %}" alt="LOGO">
+					<img class="img-responsive js-tilt" src="{% static 'assets/images/new.jpg' %}" alt="LOGO">
 
 				</div><!-- /.post-img -->
 
@@ -108,3 +108,10 @@
 
 	</body>
 </html>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1
+		})
+	</script>
