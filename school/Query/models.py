@@ -31,3 +31,4 @@ class Entry_data(models.Model):
         return reverse('query/query_detail',args=[self.Name])
     def __str__(self):
         return self.Name
+					
