@@ -6,7 +6,7 @@ from django.urls import reverse
 
 class Gr(models.Model):
     gr_number = models.IntegerField(auto_created=True , unique = True , primary_key = True)
-    query_code = models.ForeignKey(Entry_data , on_delete= models.CASCADE , unique = True)
+    query_code = models.OneToOneField(Entry_data , on_delete= models.CASCADE , unique = True)
     name = models.CharField(max_length = 200)
     picture = models.FileField(upload_to='images/%Y/%m/%d',blank=True)
     family_code = models.ForeignKey(Family , on_delete= models.CASCADE)
