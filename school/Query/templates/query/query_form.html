@@ -1,12 +1,12 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<h1>here we can add gr information</h1>
-<form action="{% url "entry_form" %}" method="POST">
-<a>query_code = {{user_form.Query_code }}</a><br><br>
+<h1>here we can add Query information</h1>
+<form action="{% url 'entry_form' %}" method="POST">
+<a>Query_code = {{user_form.Query_code }}</a><br><br>
 <a>Name = {{user_form.Name }}</a><br><br>
 <a>Father = {{user_form.father_name }}</a><br><br>
 <a>Address = {{user_form.Address }}</a><br><br>
-<a>last = {{user_form.last }}</a><a href=""> + </a><br><br>
+<a>Last = {{user_form.last }}</a><a href=""> + </a><br><br>
 <a>Previous_school= {{user_form.Previous_school}}</a><a href=""> + </a><br><br>
 <a>Addmission_required = {{user_form.Addmission_required }}</a><a href=""> + </a><br><br>
 <a>Test_performed = {{user_form.Test_performed }}</a><br><br>

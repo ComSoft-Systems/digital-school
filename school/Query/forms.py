@@ -1,4 +1,4 @@
-from django import *
+from django import forms
 from django.forms import ModelForm
 from .models import Entry_data
 
