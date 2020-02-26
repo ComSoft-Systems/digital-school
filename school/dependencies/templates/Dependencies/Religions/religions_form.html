@@ -1,0 +1,9 @@
+{% block content %}
+<h1>Here we can add Religions</h1>
+<form action ="{% url 'religion_form' %}" method = "POST">
+<a>Religion_code = {{user_form.religion_code}}</a><br><br>
+<a>Religion = {{user_form.religion}}</a><br><br>
+{% csrf_token %}
+<input type ="submit" value="Add to Religions">
+</form>
+{% endblock %}
