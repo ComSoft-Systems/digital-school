@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+{% block content %}
+<h1>here we can add user profile information</h1>
+<form action="{% url "userprofilecreate_url" %}" method="POST">
+{{ form.as_p }}
+{% csrf_token %}
+<input type="submit" value="Add to User Profile">
+</form>
+{% endblock %}

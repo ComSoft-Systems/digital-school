@@ -1,0 +1,11 @@
+{% block content %}
+<h1>Here we can add Fee Categories</h1>
+<form action ="{% url 'fee_category_form' %}" method = "POST">
+<a>Fee_Category_Code = {{user_form.fee_category_code}}</a><br><br>
+<a>Fee_Category_Name = {{user_form.fee_category_name}}</a><br><br>
+<a>Percent = {{user_form.percent}}</a><br><br>
+<a>Amount = {{user_form.amount}}</a><br><br>
+{% csrf_token %}
+<input type ="submit" value="Add to Fee Categories">
+</form>
+{% endblock %}

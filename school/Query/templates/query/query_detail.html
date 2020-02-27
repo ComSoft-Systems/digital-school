@@ -1,0 +1,15 @@
+{% extends "main/MainPage.html" %}
+{% block content %}
+<h1>Here Are All queries In detail Form</h1>
+<h3>
+{% comment %} {% for Entry_data %} {% endcomment %}
+<a>{{ Entry_data.Query_code }} </a>
+<a>{{ Entry_data.Name }} </a>
+<a>{{ Entry_data.Address }} </a>
+<a>{{ Entry_data.last}} </a>
+<a>{{ Entry_data.Addmission_required }} </a>
+<a>{{ Entry_data.Fee_type }} </a>
+{% comment %} {% endfor %} {% endcomment %}
+</li>
+{% endblock %}
+</h3>
