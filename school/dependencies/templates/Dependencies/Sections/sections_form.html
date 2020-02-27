@@ -1,10 +1,14 @@
+{% extends 'MainPage.html' %}
+
 {% block content %}
-<h1>Here we can add Sections</h1>
+<h1>Add Section</h1>
 <form action ="{% url 'section_form' %}" method = "POST">
-<a>Section_code = {{user_form.sect_code}}</a><br><br>
-<a>Section_name = {{user_form.sect_name}}</a><br><br>
+<a>Section Code = {{user_form.sect_code}}</a><br><br>
+<a>Section Name = {{user_form.sect_name}}</a><br><br>
 <a>Remarks = {{user_form.remarks}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Add to Sections">
+<input type ="submit" value="Save">
+<button > <a href="http://127.0.0.1:8000/dependencies/section_list/">Back</a></button>
+
 </form>
 {% endblock %}

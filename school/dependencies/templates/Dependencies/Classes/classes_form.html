@@ -1,10 +1,13 @@
+{% extends 'MainPage.html' %}
+
 {% block content %}
-<h1>Here we can add Classes</h1>
+<h1>Add Class</h1>
 <form action ="{% url 'class_form' %}" method = "POST">
-<a>Class_code = {{user_form.class_code}}</a><br><br>
-<a>Class_name = {{user_form.class_name}}</a><br><br>
+<a>Class Code = {{user_form.class_code}}</a><br><br>
+<a>Class Name = {{user_form.class_name}}</a><br><br>
 <a>Remarks = {{user_form.remarks}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Add to Classes">
+<input type ="submit" value="Save">
+<button > <a href="http://127.0.0.1:8000/dependencies/class_list/">Back</a></button>
 </form>
 {% endblock %}

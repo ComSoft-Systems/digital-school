@@ -1,1 +1,33 @@
-<h1>Here Are All Schools In List Form</h1>
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Schools</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Schools</caption>
+    <thead>
+    <tr>
+    <th>School Code</th>
+    <th>School Name</th>
+    <th>School Area</th>
+    <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for schol in schol %}
+    <tr>
+      <td>{{schol.school_code}}</td>
+      <td>{{schol.school_name}}</td>
+      <td>{{schol.school_area}}</td>
+      <td>{{schol.remarks}}</td>
+      <td><a href="">Edit</a></td>
+      <td><a href="">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'school_form' %}">Add</a>
+  </div>
+    {% endblock %}

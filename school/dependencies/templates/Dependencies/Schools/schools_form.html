@@ -1,11 +1,15 @@
+{% extends 'MainPage.html' %}
+
 {% block content %}
-<h1>Here we can add Schools</h1>
+<h1>Add School</h1>
 <form action ="{% url 'school_form' %}" method = "POST">
-<a>School_code = {{user_form.school_code}}</a><br><br>
-<a>School_name = {{user_form.school_name}}</a><br><br>
-<a>School_Area = {{user_form.school_area}}</a><br><br>
+<a>School Code = {{user_form.school_code}}</a><br><br>
+<a>School Name = {{user_form.school_name}}</a><br><br>
+<a>School Area = {{user_form.school_area}}</a><br><br>
 <a>Remarks = {{user_form.remarks}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Add to Schools">
+<input type ="submit" value="Save">
+<button > <a href="http://127.0.0.1:8000/dependencies/school_list/">Back</a></button>
+
 </form>
 {% endblock %}

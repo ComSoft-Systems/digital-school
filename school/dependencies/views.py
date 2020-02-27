@@ -61,6 +61,12 @@ def ManageReligionsDetailView(DetailView):
     return render(DetailView, 'Dependencies/Religions/list.html')
 
 
+
+def class_list(request):
+    clas = Class.objects.all()
+    context = {'clas': clas}
+    return render(request, 'Dependencies/Classes/list.html', context)
+
 def classes(request):
     if request.method == 'POST':
         user_form = class_form(request.POST)
@@ -78,6 +84,13 @@ def classes(request):
     else:
         user_form = class_form()
         return render(request,'Dependencies/Classes/classes_form.html',{'user_form':user_form})
+
+
+
+def school_list(request):
+    schol = School.objects.all()
+    context = {'schol': schol}
+    return render(request, 'Dependencies/Schools/list.html', context)
 
 
 def schools(request):
@@ -99,6 +112,12 @@ def schools(request):
         return render(request,'Dependencies/Schools/schools_form.html',{'user_form':user_form})
 
 
+def family_list(request):
+    fami = Family.objects.all()
+    context = {'fami': fami}
+    return render(request, 'Dependencies/Family/list.html', context)
+
+
 def families(request):
     if request.method == 'POST':
         user_form = family_form(request.POST)
@@ -117,6 +136,13 @@ def families(request):
         user_form = family_form()
         return render(request,'Dependencies/Family/families_form.html',{'user_form':user_form})
 
+
+def fee_category_list(request):
+    fee = Fee_Category.objects.all()
+    context = {'fee': fee}
+    return render(request, 'Dependencies/FeeCategory/list.html', context)
+
+
 def fee_categories(request):
     if request.method == 'POST':
         user_form = fee_category_form(request.POST)
@@ -134,6 +160,12 @@ def fee_categories(request):
     else:
         user_form = fee_category_form()
         return render(request,'Dependencies/FeeCategory/fee_categories_form.html',{'user_form':user_form})
+
+
+def section_list(request):
+    sec = Section.objects.all()
+    context = {'sec': sec}
+    return render(request, 'Dependencies/Sections/list.html', context)
 
 
 def sections(request):
@@ -155,6 +187,13 @@ def sections(request):
         return render(request,'Dependencies/Sections/sections_form.html',{'user_form':user_form})
             
 
+
+def session_list(request):
+    sess = Session.objects.all()
+    context = {'sess': sess}
+    return render(request, 'Dependencies/Sessions/list.html', context)
+
+
 def sessions(request):
     if request.method == 'POST':
         user_form = session_form(request.POST)
@@ -174,6 +213,13 @@ def sessions(request):
         return render(request,'Dependencies/Sessions/sessions_form.html',{'user_form':user_form})
 
     
+
+def religion_list(request):
+    reli = Religion.objects.all()
+    context = {'reli': reli}
+    return render(request, 'Dependencies/Religions/list.html', context)
+
+
 def religions(request):
     if request.method == 'POST':
         user_form = religion_form(request.POST)
