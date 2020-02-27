@@ -1,0 +1,29 @@
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Religions</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Religions</caption>
+    <thead>
+    <tr align="center">
+    <th>Religion Code</th>
+    <th>Religion</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for reli in reli %}
+    <tr align="center">
+      <td>{{reli.religion_code}}</td>
+      <td>{{reli.religion}}</td>
+      <td><a href="">Edit</a></td>
+      <td><a href="">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'religion_form' %}">Add</a>
+  </div>
+    {% endblock %}

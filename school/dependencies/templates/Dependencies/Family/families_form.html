@@ -1,14 +1,18 @@
+{% extends 'MainPage.html' %}
+
 {% block content %}
-<h1>Here we can add Families</h1>
+<h1>Add Family</h1>
 <form action ="{% url 'family_form' %}" method = "POST">
-<a>Family_code = {{user_form.family_code}}</a><br><br>
+<a>Family Code = {{user_form.family_code}}</a><br><br>
 <a>Surname = {{user_form.surname}}</a><br><br>
-<a>Father_Name = {{user_form.father_name}}</a><br><br>
-<a>Father_Phone_No = {{user_form.ph_no_father}}</a><br><br>
-<a>Mother_Name = {{user_form.mother_name}}</a><br><br>
-<a>Mother_Phone_No = {{user_form.ph_no_mother}}</a><br><br>
+<a>Father Name = {{user_form.father_name}}</a><br><br>
+<a>Father Phone_No = {{user_form.ph_no_father}}</a><br><br>
+<a>Mother Name = {{user_form.mother_name}}</a><br><br>
+<a>Mother Phone_No = {{user_form.ph_no_mother}}</a><br><br>
 <a>Address = {{user_form.address}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Add to Families">
+<input type ="submit" value="Save">
+<button > <a href="http://127.0.0.1:8000/dependencies/family_list/">Back</a></button>
+
 </form>
 {% endblock %}
