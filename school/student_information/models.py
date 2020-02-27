@@ -8,7 +8,7 @@ class Gr(models.Model):
     gr_number = models.IntegerField(auto_created=True , unique = True , primary_key = True)
     query_code = models.OneToOneField(Entry_data , on_delete= models.CASCADE , unique = True)
     name = models.CharField(max_length = 200)
-    picture = models.FileField(upload_to='images/%Y/%m/%d',blank=True)
+    picture = models.ImageField(upload_to='images/%Y/%m/%d',blank=True)
     family_code = models.ForeignKey(Family , on_delete= models.CASCADE)
     fee_category_code = models.ForeignKey(Fee_Category , on_delete= models.CASCADE)
     class_of_admission = models.ForeignKey(Class , on_delete= models.CASCADE , related_name= 'admission_class')

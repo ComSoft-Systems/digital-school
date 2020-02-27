@@ -4,19 +4,19 @@
 <h1>Here Are All Gr Numbers In detail Form</h1>
 <h3>
 {% comment %} {% for GrNumber %} {% endcomment %}
-<a>{{ GrNumber.gr_number }} </a>
-<a>{{ GrNumber.name }} </a>
-<img src='{% if GrNumber.picture %}{{ GrNumber.picture.url }}{% else %}{% static "img\no_image.png" %}{% endif %}'></a>
-<a>{{ GrNumber.family_code }} </a>
-<a>{{ GrNumber.fee_category_code }} </a>
-<a>{{ GrNumber.class_of_admission }} </a>
-<a>{{ GrNumber.session_of_admission }} </a>
-<a>{{ GrNumber.current_class }} </a>
-<a>{{ GrNumber.current_session }} </a>
-<a>{{ GrNumber.admission_date }} </a>
-<a>{{ GrNumber.last_school }} </a>
-<a>{{ GrNumber.religion }} </a>
-<a>{{ GrNumber.date_of_birth }} </a>
+<a>{{ GrNumber.gr_number }} </a><br>
+<a>{{ GrNumber.name }} </a><br>
+<img src='{% if GrNumber.picture %}{{ GrNumber.picture.url }}{% else %}{% static "img\no_image.png" %}{% endif %}'></a><br>
+<a>{{ GrNumber.family_code }} </a><br>
+<a>{{ GrNumber.fee_category_code }} </a><br>
+<a>{{ GrNumber.class_of_admission }} </a><br>
+<a>{{ GrNumber.session_of_admission }} </a><br>
+<a>{{ GrNumber.current_class }} </a><br>
+<a>{{ GrNumber.current_session }} </a><br>
+<a>{{ GrNumber.admission_date }} </a><br>
+<a>{{ GrNumber.last_school }} </a><br>
+<a>{{ GrNumber.religion }} </a><br>
+<a>{{ GrNumber.date_of_birth }} </a><br>
 {% comment %} {% endfor %} {% endcomment %}
 </li>
 {% endblock %}
