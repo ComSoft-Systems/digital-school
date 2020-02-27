@@ -2,12 +2,15 @@ from django.urls import path
 from . import views
 
 urlpatterns = [    
-    path('', views.MainScreen, name='MainScreen'),
-    path('digilogin/', views.LoginForm, name='LOGIN'),
-    path('about/', views.about, name='about'),
-    path('school/', views.school, name='school'),
-    path('contact/', views.contact, name='contact'),
-    path('team/', views.team, name='team'),
-    path('detail/', views.detail, name='detail'),
-    path('digilogin/main', views.afterlogin, name='after_login')
+    path('', views.ManageMainScreenView, name='MainScreen_url'),
+    path('admin/', views.ManageAfterLoginView, name='after_login_url'),
+    path('about/', views.ManageAboutView, name='about_url'),
+    path('school/', views.ManageSchoolView, name='school_url'),
+    path('contact/', views.ManageContactView, name='contact_url'),
+    path('team/', views.ManageTeamView, name='team_url'),
+    path('detail/', views.ManageDetailView, name='detail_url'),
+    path('usertype/', views.ManageUserTypeView, name='usertype_url'),
+    path('userprofile/', views.ManageUserProfileView, name='userprofile_url'),
+    path('usertype/create/', views.ManageUserTypeCreateView, name='usertypecreate_url'),
+    path('userprofile/create/', views.ManageUserProfileCreateView, name='userprofilecreate_url'),
 ]
