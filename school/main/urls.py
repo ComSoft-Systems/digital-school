@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [    
     path('', views.ManageMainScreenView, name='MainScreen_url'),
-    path('admin/', views.ManageAfterLoginView, name='after_login_url'),
+    path('main/', views.ManageAfterLoginView, name='after_login_url'),
     path('about/', views.ManageAboutView, name='about_url'),
     path('school/', views.ManageSchoolView, name='school_url'),
     path('contact/', views.ManageContactView, name='contact_url'),
