@@ -32,8 +32,9 @@ def detail(request,Query_code):
     return render(request, 'query/query_detail.html', context)
 
 
-def edit(request):
+def edit(request,pk):
     return render(request, 'query/edit_query.html')
+
 
 def list_view(request):
     Entry_dataa = Entry_data.objects.all()

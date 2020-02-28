@@ -1,9 +1,10 @@
 {% extends 'Mainpage.html' %}
 {% block content %}
      <div class="container">
-        <form action="{% url 'entry_form' %}" method="POST">
-        <h4 class="text-center">Edit Query</h4>
+        <h4 class="text-center">Edit </h4>
         <hr/> 
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             {% for field in form %}
             <div class="form-group row">
                 <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
@@ -13,7 +14,7 @@
                 </div>
             </div>
             {% endfor %}
-            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" name="button">Update</button>
         </form>
      <br/><br/>
     </div>  
