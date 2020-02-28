@@ -1,1 +1,31 @@
-<h1>Here Are All Sections In Detail Form</h1>
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Sections</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Sections</caption>
+    <thead>
+    <tr align="center">
+    <th>Section Code</th>
+    <th>Section Name</th>
+    <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sec in sec %}
+    <tr align="center">
+      <td>{{sec.sect_code}}</td>
+      <td>{{sec.sect_name}}</td>
+      <td>{{sec.remarks}}</td>
+      <td><a href="">Edit</a></td>
+      <td><a href="">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'section_form' %}">Add</a>
+  </div>
+    {% endblock %}

@@ -47,7 +47,7 @@ def ManageUserTypeCreateView(CreateView):
         context = {
                 'form' : user_form
             }
-        return render(CreateView,'User/UserType/Create.html',)
+        return render(CreateView,'User/UserType/Create.html',context)
 
 def ManageUserProfileView(ListView):
     return render(ListView,'User/UserProfile/List.html')
@@ -71,4 +71,4 @@ def ManageUserProfileCreateView(CreateView):
         context = {
                 'form' : user_form
             }
-        return render(CreateView,'User/UserProfile/Create.html',)
+        return render(CreateView,'User/UserProfile/Create.html',context)
