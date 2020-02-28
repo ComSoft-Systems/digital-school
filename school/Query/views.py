@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Entry_data
 from .forms import Form
 
@@ -32,11 +32,29 @@ def detail(request,Query_code):
     return render(request, 'query/query_detail.html', context)
 
 
-def edit(request,pk):
-    return render(request, 'query/edit_query.html')
-
-
 def list_view(request):
     Entry_dataa = Entry_data.objects.all()
     context = {'Entry': Entry_dataa}
     return render (request,'query/query_list.html', context)
+
+
+def edit(request,Query_code):
+    i = get_object_or_404(Entry_data, Query_code=Query_code)
+    if request.method == "POST":
+        user_form = Form(request.POST, instance=i)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('list_view')
+    else:
+        user_form = Form(instance=i)
+        return render(request, 'query/edit_query.html', {'user_form':user_form})
+    
+
+def delete(request, Query_code):
+    Entry_data.objects.filter(Query_code=Query_code).delete()
+    a = Entry_data.objects.all()
+
+    context = {
+        'Entry' : a
+    }
+    return render(request, 'query/query_list.html', context)

@@ -2,20 +2,18 @@
 {% block content %}
      <div class="container">
         <h4 class="text-center">Edit </h4>
-        <hr/> 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST">
+            <br>
             {% csrf_token %}
-            {% for field in form %}
+            {% for field in user_form %}
             <div class="form-group row">
                 <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
                 <div class="col-10">
                     {{ field }}
-                    {{ field.errors }}
                 </div>
             </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary" name="button">Update</button>
+            <button type="submit" class="btn btn-primary" name="button">UPDATE</button>
         </form>
-     <br/><br/>
     </div>  
     {% endblock %}
