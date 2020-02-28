@@ -13,12 +13,12 @@
     </tr>
   </thead>
   <tbody>
-    {% for sess in sess %}
+    {% for d in session %}
     <tr align="center">
-      <td>{{sess.session_code}}</td>
-      <td>{{sess.session_name}}</td>
-      <td><a href="">Edit</a></td>
-      <td><a href="">Delete</a></td>
+      <td>{{d.session_code}}</td>
+      <td>{{d.session_name}}</td>
+      <td><a href="{% url 'edit_session' session_code=d.session_code %}">Edit</a></td>
+      <td><a href="{% url 'delete_session' session_code=d.session_code %}">Delete</a></td>
 
     </tr>
     {% endfor %}
