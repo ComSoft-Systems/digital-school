@@ -1,1 +1,29 @@
-<h1> hi list</h1>
+{% extends "MainPage.html" %}
+{% block content %}
+<div class="container">
+      <h2 class="text-center" style="font-family:sans-serif;">List</h2>
+      <h1>Queries</h1>
+      <table class="table table-hover table-sm table-dark">
+    <thead>
+      <tr>
+      <th>Query_code</th>
+      <th>Name</th>
+      <th>Father</th>
+      <th>Address</th>
+      <th>date_of_test</th>
+      </tr>
+    </thead>
+    {% for i in Entry %}
+    <tbody>
+      <tr>
+        <td>{{i.Query_code}}</td> 
+        <td><a href="{{ i.get_absolute_url }}">{{i.Name}}</a></td>
+        <td>{{i.father_name}}</td>
+        <td>{{i.Address}}</td>
+        <td>{{i.date_of_test}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+      </table>
+    </div>
+{% endblock %}

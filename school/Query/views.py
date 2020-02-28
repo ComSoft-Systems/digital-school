@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse, get_object_or_404
+from django.shortcuts import render,HttpResponseRedirect, get_object_or_404
 from .models import Entry_data
 from .forms import Form
 
@@ -22,11 +22,21 @@ def form(request):
     else:
         user_form = Form()
         return render(request,'Query/Query_form.html',{'user_form':user_form})
-    
-
-def list(request):
-    return render(request, 'query/query_list.html')
 
 
-def detail(request):
-    return render(request, 'query/query_detail.html')
+def detail(request,Query_code):
+    abc = get_object_or_404(Entry_data,Query_code = Query_code)
+    context = {
+        'Entry': abc,
+    }
+    return render(request, 'query/query_detail.html', context)
+
+
+def edit(request,pk):
+    return render(request, 'query/edit_query.html')
+
+
+def list_view(request):
+    Entry_dataa = Entry_data.objects.all()
+    context = {'Entry': Entry_dataa}
+    return render (request,'query/query_list.html', context)
