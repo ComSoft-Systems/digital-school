@@ -1,1 +1,33 @@
-<h1>Here Are All FeeCategory In List Form</h1>
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Fee Categories</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Fee Categories</caption>
+    <thead>
+    <tr align="center">
+    <th>Fee Category Code</th>
+    <th>Fee Category Name</th>
+    <th>Percent</th>
+    <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for fee in fee %}
+    <tr align="center">
+      <td>{{fee.fee_category_code}}</td>
+      <td>{{fee.fee_category_name}}</td>
+      <td>{{fee.percent}}</td>
+      <td>{{fee.amount}}</td>
+      <td><a href="">Edit</a></td>
+      <td><a href="">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'fee_category_form' %}">Add</a>
+  </div>
+    {% endblock %}

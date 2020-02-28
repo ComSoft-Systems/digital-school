@@ -1,9 +1,13 @@
+{% extends 'MainPage.html' %}
+
 {% block content %}
-<h1>Here we can add Religions</h1>
+<h1>Add Religion</h1>
 <form action ="{% url 'religion_form' %}" method = "POST">
-<a>Religion_code = {{user_form.religion_code}}</a><br><br>
+<a>Religion Code = {{user_form.religion_code}}</a><br><br>
 <a>Religion = {{user_form.religion}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Add to Religions">
+<input type ="submit" value="Save">
+<button > <a href="http://127.0.0.1:8000/dependencies/religion_list/">Back</a></button>
+
 </form>
 {% endblock %}

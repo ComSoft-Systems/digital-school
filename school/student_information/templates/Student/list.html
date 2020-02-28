@@ -1,0 +1,30 @@
+{% extends "MainPage.html" %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center" style="font-family:sans-serif;">View All Gr Numbers</h2><hr/>
+        <a href="{% url "gr_create" %}">Add Another</a>
+        <table class="table table-hover table-sm table-dark">
+            <thead align="center">
+                <tr>
+                    <th>Gr Number</th>
+                    <th>Name</th>
+                    <th>Family</th>
+                    <th>Class</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            {% for gr in GrNumber %}
+            <tbody align="center">
+                    <th>{{ gr.gr_number }}</th>
+                    <th><a href="{{ gr.get_absolute_url }}">{{gr.name}}</a></th>
+                    <th>{{gr.family_code}}</th>
+                    <th>{{gr.current_class}}</th>
+                    <th><a class="btn btn-primary" href="">Delete</a><a class="btn btn-primary" href="">Edit</a></th>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    {% csrf_token %}
+</form>
+
+{% endblock %}

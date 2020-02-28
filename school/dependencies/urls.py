@@ -23,6 +23,13 @@ urlpatterns = [
     path('fee_category_form/',views.fee_categories, name = 'fee_category_form'),
     path('section_form/',views.sections, name = 'section_form'),
     path('session_form/',views.sessions, name = 'session_form'),
-    path('religion_form/',views.religions, name = 'religion_form')
+    path('religion_form/',views.religions, name = 'religion_form'),
 
+    path('class_list/',views.class_list, name = 'class_list'),
+    path('school_list/',views.school_list, name = 'school_list'),
+    path('family_list/',views.family_list, name = 'family_list'),
+    path('fee_category_list/',views.fee_category_list, name = 'fee_category_list'),
+    path('section_list/',views.section_list, name = 'section_list'),
+    path('session_list/',views.session_list, name = 'session_list'),
+    path('religion_list/',views.religion_list, name = 'religion_list')
 ]

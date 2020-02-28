@@ -1,8 +1,11 @@
-{% extends "main.html" %}
+{% extends "MainPage.html" %}
 {% block content %}
 <h1>here we can add user type information</h1>
 <form action="{% url "usertypecreate_url" %}" method="POST">
-{{ form.as_p }}
+<a>Type Code = {{ form.TypeCode }}</a><br><br>
+<a>User Type = {{ form.UserType }}</a><br><br>
+
+
 {% csrf_token %}
 <input type="submit" value="Add to User Type">
 </form>
