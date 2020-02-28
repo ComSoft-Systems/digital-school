@@ -13,15 +13,15 @@ def form(request):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Query/created.html',context)
+            return render(request,'query/created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(request,'Query/created.html',context)
+            return render(request,'query/created.html',context)
     else:
         user_form = Form()
-        return render(request,'Query/Query_form.html',{'user_form':user_form})
+        return render(request,'query/query_form.html',{'user_form':user_form})
 
 
 def detail(request,Query_code):
