@@ -46,12 +46,25 @@
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                        Query
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'list_view' %}">Query list</a>
+                        <a class="dropdown-item" href="{% url 'entry_form' %}">Add Query</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
                         Dependencies
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url "class_list" %}">Classes</a>
-                        <a class="dropdown-item" href="{% url "school_list" %}">Schools</a>
-                        <a class="dropdown-item" href="{% url "family_list" %}">Families</a>
+                        <a class="dropdown-item" href="{% url 'class_list' %}">Classes</a>
+                        <a class="dropdown-item" href="{% url 'school_list' %}">Schools</a>
+                        <a class="dropdown-item" href="{% url 'family_list' %}">Families</a>
                         <a class="dropdown-item" href="{% url "fee_category_list" %}">Fee Categories</a>
                         <a class="dropdown-item" href="{% url "section_list" %}">Sections</a>
                         <a class="dropdown-item" href="{% url "session_list" %}">Sessions</a>
