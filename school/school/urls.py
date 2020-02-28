@@ -24,5 +24,6 @@ urlpatterns = [
     path('Query/', include('Query.urls')),
     path('students/', include('student_information.urls')),
     path('dependencies/', include('dependencies.urls')),
+    path('homework/', include('home_work.urls')),
 ]
 
