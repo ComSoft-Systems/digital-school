@@ -9,8 +9,13 @@ urlpatterns = [
     path('contact/', views.ManageContactView, name='contact_url'),
     path('team/', views.ManageTeamView, name='team_url'),
     path('detail/', views.ManageDetailView, name='detail_url'),
-    path('usertype/', views.ManageUserTypeView, name='usertype_url'),
-    path('userprofile/', views.ManageUserProfileView, name='userprofile_url'),
+
+    path('usertype/list', views.ManageUserTypeListView, name='usertype_url'),
+    path('usertype/edit/<TypeCode>', views.ManageUserTypeEditView, name='usertypeedit_url'),
     path('usertype/create/', views.ManageUserTypeCreateView, name='usertypecreate_url'),
+
+    path('userprofile/list', views.ManageUserProfileListView, name='userprofilelist_url'),
+    path('userprofile/detail/<UserCode>/', views.ManageUserProfileDetailView, name='userprofiledetail_url'),
+    path('userprofile/edit/<UserCode>/', views.ManageUserProfileEditView, name='userprofileedit_url'),
     path('userprofile/create/', views.ManageUserProfileCreateView, name='userprofilecreate_url'),
 ]
