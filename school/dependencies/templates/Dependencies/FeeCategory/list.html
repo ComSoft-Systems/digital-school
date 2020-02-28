@@ -15,14 +15,14 @@
     </tr>
   </thead>
   <tbody>
-    {% for fee in fee %}
+    {% for b in fees %}
     <tr align="center">
-      <td>{{fee.fee_category_code}}</td>
-      <td>{{fee.fee_category_name}}</td>
-      <td>{{fee.percent}}</td>
-      <td>{{fee.amount}}</td>
-      <td><a href="">Edit</a></td>
-      <td><a href="">Delete</a></td>
+      <td>{{b.fee_category_code}}</td>
+      <td>{{b.fee_category_name}}</td>
+      <td>{{b.percent}}</td>
+      <td>{{b.amount}}</td>
+      <td><a href="{% url 'edit_fee_category' fee_category_code=b.fee_category_code %}">Edit</a></td>
+      <td><a href="{% url 'delete_fee_category' fee_category_code=b.fee_category_code %}">Delete</a></td>
 
     </tr>
     {% endfor %}

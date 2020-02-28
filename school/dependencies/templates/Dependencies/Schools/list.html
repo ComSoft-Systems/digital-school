@@ -15,14 +15,14 @@
     </tr>
   </thead>
   <tbody>
-    {% for schol in schol %}
+    {% for j in school %}
     <tr>
-      <td>{{schol.school_code}}</td>
-      <td>{{schol.school_name}}</td>
-      <td>{{schol.school_area}}</td>
-      <td>{{schol.remarks}}</td>
-      <td><a href="">Edit</a></td>
-      <td><a href="">Delete</a></td>
+      <td>{{j.school_code}}</td>
+      <td>{{j.school_name}}</td>
+      <td>{{j.school_area}}</td>
+      <td>{{j.remarks}}</td>
+      <td><a href="{% url 'edit_school' school_code=j.school_code %}">Edit</a></td>
+      <td><a href="{% url 'delete_school' school_code=j.school_code %}">Delete</a></td>
 
     </tr>
     {% endfor %}

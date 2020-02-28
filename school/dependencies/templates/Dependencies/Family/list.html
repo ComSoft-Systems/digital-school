@@ -18,17 +18,17 @@
     </tr>
   </thead>
   <tbody>
-    {% for fami in fami %}
+    {% for a in family %}
     <tr align="center">
-      <td>{{fami.family_code}}</td>
-      <td>{{fami.surname}}</td>
-      <td>{{fami.father_name}}</td>
-      <td>{{fami.ph_no_father}}</td>
-      <td>{{fami.mother_name}}</td>
-      <td>{{fami.ph_no_mother}}</td>
-      <td>{{fami.address}}</td>
-      <td><a href="">Edit</a></td>
-      <td><a href="">Delete</a></td>
+      <td>{{a.family_code}}</td>
+      <td>{{a.surname}}</td>
+      <td>{{a.father_name}}</td>
+      <td>{{a.ph_no_father}}</td>
+      <td>{{a.mother_name}}</td>
+      <td>{{a.ph_no_mother}}</td>
+      <td>{{a.address}}</td>
+      <td><a href="{% url 'edit_family' family_code=a.family_code %}">Edit</a></td>
+      <td><a href="{% url 'delete_family' family_code=a.family_code %}">Delete</a></td>
 
     </tr>
     {% endfor %}
