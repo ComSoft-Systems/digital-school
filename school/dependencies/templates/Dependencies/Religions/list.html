@@ -13,12 +13,12 @@
     </tr>
   </thead>
   <tbody>
-    {% for reli in reli %}
+    {% for e in religion %}
     <tr align="center">
-      <td>{{reli.religion_code}}</td>
-      <td>{{reli.religion}}</td>
-      <td><a href="">Edit</a></td>
-      <td><a href="">Delete</a></td>
+      <td>{{e.religion_code}}</td>
+      <td>{{e.religion}}</td>
+      <td><a href="{% url 'edit_religion' religion_code=e.religion_code %}">Edit</a></td>
+      <td><a href="{% url 'delete_religion' religion_code=e.religion_code %}">Delete</a></td>
 
     </tr>
     {% endfor %}
