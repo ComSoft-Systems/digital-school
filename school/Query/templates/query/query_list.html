@@ -21,6 +21,9 @@
         <td>{{i.father_name}}</td>
         <td>{{i.Address}}</td>
         <td>{{i.date_of_test}}</td>
+        
+        <td><a href="{% url 'edit_query' Query_code=i.Query_code %}">Edit</a></td>
+        <td><a href="{% url 'delete_query' Query_code=i.Query_code%}">Delete</a></td>
       </tr>
     </tbody>
     {% endfor %}
