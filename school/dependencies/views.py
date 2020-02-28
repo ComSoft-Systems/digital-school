@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Class, School, Family, Fee_Category, Section, Session, Religion
 from .forms import class_form, school_form, family_form, fee_category_form, section_form, session_form, religion_form
 
@@ -85,6 +85,19 @@ def classes(request):
         user_form = class_form()
         return render(request,'Dependencies/Classes/classes_form.html',{'user_form':user_form})
 
+
+def edit_class(request, pk):
+    clas = get_object_or_404(Class, pk=pk)
+
+    if request.method == "POST":
+        user_form = class_form(request.POST or None, instance=clas)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('class_list')
+    else:
+        user_form = class_form(instance=clas)
+
+        return render(request, 'Dependencies/Classes/editclass.html', {'user_form': user_form}) 
 
 
 def school_list(request):

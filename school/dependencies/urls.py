@@ -26,6 +26,7 @@ urlpatterns = [
     path('religion_form/',views.religions, name = 'religion_form'),
 
     path('class_list/',views.class_list, name = 'class_list'),
+    path('edit_class/<int:pk>/', views.edit_class, name = 'edit_class'),
     path('school_list/',views.school_list, name = 'school_list'),
     path('family_list/',views.family_list, name = 'family_list'),
     path('fee_category_list/',views.fee_category_list, name = 'fee_category_list'),
