@@ -23,4 +23,3 @@ class Gr(models.Model):
         return reverse('gr_detail',args=[self.gr_number])
     def __str__(self):
         return str(self.gr_number)
-
