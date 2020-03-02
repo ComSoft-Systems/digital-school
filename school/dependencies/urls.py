@@ -3,20 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    path('classes/', views.ManageClassesListView),
-    path('classes/<name>/', views.ManageClassesDetailView),
-    path('schools/', views.ManageSchoolsListView),
-    path('schools/<name>/', views.ManageSchoolsDetailView),
-    path('fee_category/', views.ManageFeeCategoryListView),
-    path('fee_category/<name>/', views.ManageFeeCategoryDetailView),
-    path('sections/', views.ManageSectionsListView),
-    path('sections/<name>/', views.ManageSectionsDetailView),
-    path('sessions/', views.ManageSessionsListView),
-    path('sessions/<name>/', views.ManageSessionsDetailView),
-    path('family/', views.ManageFamilyListView),
-    path('family/<name>/', views.ManageFamilyDetailView),
-    path('religion/',views.ManageReligionsListView),
-    path('religion/<name>/',views.ManageReligionsDetailView),
+ 
    
     path('class_form/',views.classes, name = 'class_form'),
     path('class_list/',views.class_list, name = 'class_list'),
@@ -57,6 +44,12 @@ urlpatterns = [
     path('religion_list/',views.religion_list, name = 'religion_list'),
     path('edit_religion/<religion_code>+/', views.edit_religion, name = 'edit_religion'),
     path('delete_religion/<religion_code>+/', views.delete_religion, name = 'delete_religion'),
+
+
+    path('subject_form/',views.subjects, name = 'subject_form'),
+    path('subject_list/',views.subject_list, name = 'subject_list'),
+    path('edit_subject/<subject_code>+/',views.edit_subject, name = 'edit_subject'),
+    path('delete_subject/<subject_code>+/', views.delete_subject, name = 'delete_subject'),
 
 
 ]

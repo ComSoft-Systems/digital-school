@@ -56,3 +56,9 @@ class Religion(models.Model):
     religion = models.CharField(max_length = 200)
     def __str__(self):
         return self.religion
+
+class Subject(models.Model):
+    subject_code = models.IntegerField(auto_created=True, primary_key= True, unique= True)
+    subjects = models.CharField(max_length = 200)
+    def __str__(self):
+        return self.subjects
