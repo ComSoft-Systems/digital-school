@@ -12,7 +12,7 @@
 <a>Address = {{user_form.address}}</a><br><br>
 {% csrf_token %}
 <input type ="submit" value="Save">
-<button > <a href="http://127.0.0.1:8000/dependencies/family_list/">Back</a></button>
+<button > <a href="{% url 'family_list' %}">Back</a></button>
 
 </form>
 {% endblock %}

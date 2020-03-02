@@ -9,7 +9,7 @@
 <a>Amount = {{user_form.amount}}</a><br><br>
 {% csrf_token %}
 <input type ="submit" value="Save">
-<button > <a href="http://127.0.0.1:8000/dependencies/fee_category_list/">Back</a></button>
+<button > <a href="{% url 'fee_category_list' %}">Back</a></button>
 
 </form>
 {% endblock %}

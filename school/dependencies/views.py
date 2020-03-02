@@ -1,64 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Class, School, Family, Fee_Category, Section, Session, Religion
-from .forms import class_form, school_form, family_form, fee_category_form, section_form, session_form, religion_form
+from .models import Class, School, Family, Fee_Category, Section, Session, Religion, Subject
+from .forms import class_form, school_form, family_form, fee_category_form, section_form, session_form, religion_form, subject_form
 
-
-def ManageClassesListView(ListView):
-    model = Class()
-    return render (ListView,'Dependencies/Classes/list.html')
-
-def ManageClassesDetailView(DetailView):
-    model = Class()
-    return render (DetailView,'Dependencies/Classes/list.html')
-
-
-def ManageSchoolsListView(ListView):
-    model = School()
-    return render (ListView,'Dependencies/Schools/list.html')
-
-def ManageSchoolsDetailView(DetailView):
-    model = School()
-    return render (DetailView,'Dependencies/Schools/list.html')
-
-def ManageFeeCategoryListView(ListView):
-    model = Fee_Category()
-    return render (ListView,'Dependencies/FeesCategory/list.html')
-
-def ManageFeeCategoryDetailView(DetailView):
-    model = Fee_Category()
-    return render (DetailView,'Dependencies/FeesCategory/list.html')
-
-def ManageSectionsListView(ListView):
-    model = Section()
-    return render(ListView, 'Dependencies/Sections/list.html')
-
-def ManageSectionsDetailView(DetailView):
-    model = Section()
-    return render(DetailView, 'Dependencies/Sections/list.html')
-
-def ManageFamilyListView(ListView):
-    model = Family()
-    return render (ListView,'Dependencies/Family/list.html')
-
-def ManageFamilyDetailView(DetailView):
-    model = Family()
-    return render (DetailView,'Dependencies/Family/list.html')
-
-def ManageSessionsListView(ListView):
-    model = Session()
-    return render(ListView, 'Dependencies/Sessions/list.html')
-
-def ManageSessionsDetailView(DetailView):
-    model = Session()
-    return render(DetailView, 'Dependencies/Sessions/list.html')
-
-def ManageReligionsListView(ListView):
-    model = Religion()
-    return render(ListView, 'Dependencies/Religions/list.html')
-
-def ManageReligionsDetailView(DetailView):
-    model = Religion()
-    return render(DetailView, 'Dependencies/Religions/list.html')
 
 
 
@@ -106,7 +49,6 @@ def delete_class(request, class_code):
         'Class' : cla
     }
     return render(request, 'Dependencies/Classes/list.html', context) 
-
 
 def school_list(request):
     schol = School.objects.all()
@@ -402,3 +344,52 @@ def delete_religion(request, religion_code):
         'religion' : relig
     }
     return render(request, 'Dependencies/Religions/list.html', context)
+
+
+def subject_list(request):
+    sub = Subject.objects.all()
+    context = {'subject': sub}
+    return render(request, 'Dependencies/Subjects/list.html', context)
+
+
+def subjects(request):
+    if request.method == 'POST':
+        user_form = subject_form(request.POST)
+        if user_form.is_valid():
+            subjects = user_form.save()
+            context = {
+                'return': 'Has been added successfully'
+            }
+            return render(request,'Dependencies/Subjects/created_subjects_form.html', context)
+        else:
+            context = {
+                'return': 'Is not valid'
+            }
+            return render(request,'Dependencies/Subjects/created_subjects_form.html', context)
+    else:
+        user_form = subject_form()
+        return render(request,'Dependencies/Subjects/subjects_form.html',{'user_form':user_form})
+
+
+def edit_subject(request, subject_code):
+    sub = get_object_or_404(Subject, subject_code=subject_code)
+
+    if request.method == "POST":
+        user_form = subject_form(request.POST or None, instance=sub)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('subject_list')
+    else:
+        user_form = subject_form(instance=sub)
+
+        return render(request, 'Dependencies/Subjects/editsubject.html', {'user_form': user_form})
+
+
+def delete_subject(request, subject_code):
+    Subject.objects.filter(subject_code=subject_code).delete()
+    subje = Subject.objects.all()
+
+    context = {
+        'subject' : subje
+    }
+    return render(request, 'Dependencies/Subjects/list.html', context)
