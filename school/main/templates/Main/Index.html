@@ -16,13 +16,9 @@
                     <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" checked />
                     <label class="menu-open-button" for="menu-open">
                     <img class="logo" src="{% static 'index soursecode/images/new.jpg' %}" alt="LOGO" />
-                     <!--<span class="lines line-1"></span>
-                     <span class="lines line-2"></span>
-                     <span class="lines line-3"></span>
-                     -->
                     </label>
                 
-                    <a href="{% url "after_login_url" %}" class="menu-item blue"> <i class="fa fa-anchor">Login</i></a>
+                    <a href="{% url "login_url" %}" class="menu-item blue"> <i class="fa fa-anchor">Login</i></a>
                     <a href="{% url "about_url" %}" class="menu-item green"> <i class="fa fa-coffee">About</i></a>
                     <a href="{% url "school_url" %}" class="menu-item red"> <i class="fa fa-heart">Schools</i></a>
                     <a href="{% url "contact_url" %}" class="menu-item purple"> <i class="fa fa-microphone">Contact</i></a>

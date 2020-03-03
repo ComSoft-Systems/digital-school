@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'student_information.apps.StudentInformationConfig',
     'dependencies',
     'main',
+    'authentication',
 ]
 
 MIDDLEWARE = [
