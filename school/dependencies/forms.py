@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Class, School, Family, Fee_Category, Section, Session, Religion
+from .models import Class, School, Family, Fee_Category, Section, Session, Religion, Subject
 
 class class_form(forms.ModelForm):
     class Meta:
@@ -67,4 +67,13 @@ class religion_form(forms.ModelForm):
         fields = {
             'religion_code',
             'religion'
+        }
+
+
+class subject_form(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = {
+            'subject_code',
+            'subjects'
         }

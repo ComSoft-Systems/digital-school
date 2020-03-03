@@ -9,7 +9,7 @@
 <a>Remarks = {{user_form.remarks}}</a><br><br>
 {% csrf_token %}
 <input type ="submit" value="Save">
-<button > <a href="http://127.0.0.1:8000/dependencies/school_list/">Back</a></button>
+<button > <a href="{% url 'school_list' %}">Back</a></button>
 
 </form>
 {% endblock %}

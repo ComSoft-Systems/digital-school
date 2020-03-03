@@ -8,7 +8,7 @@ class UserTypeForm(forms.ModelForm):
         model = UserType
         fields = [
             'TypeCode',
-            'UserType',
+            'Usertype',
         ]
 
 
@@ -17,10 +17,10 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = [
             'UserCode',
-            'UserType',
+            'Usertype',
             'Name',
             'Father',
-            'Address' ,
+            'Address',
             'Mobile',
             'Email',
             'Password',
