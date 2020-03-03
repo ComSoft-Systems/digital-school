@@ -13,7 +13,7 @@
 <a>Suggested_class = {{user_form.Suggested_class }}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
 <a>Test_teacher = {{user_form.test_teacher }}</a><br><br>
 <a>Date_of_test = {{user_form.date_of_test }}</a><br><br>
-<a>Fee_type= {{user_form.Fee_type }}</a><a href="{% url 'fee_category_form' %}"> Add Fee </a><br><br>
+<a>Fee_type= {{user_form.Fee_type }}</a><a href="{% url 'fee_concession_form' %}"> Add Fee </a><br><br>
 <a>Contact = {{user_form.Contact }}</a><br><br>
 {% csrf_token %}
 <input type="submit" value="Add to Entry_data">

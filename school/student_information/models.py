@@ -10,7 +10,7 @@ class Gr(models.Model):
     name = models.CharField(max_length = 200)
     picture = models.ImageField(upload_to='images/%Y/%m/%d',blank=True)
     family_code = models.ForeignKey(Family , on_delete= models.CASCADE)
-    fee_category_code = models.ForeignKey(Fee_Category , on_delete= models.CASCADE)
+    fee_concession_code = models.ForeignKey(Fee_Concession , on_delete= models.CASCADE)
     class_of_admission = models.ForeignKey(Class , on_delete= models.CASCADE , related_name= 'admission_class')
     session_of_admission = models.ForeignKey(Session , on_delete= models.CASCADE , related_name= 'session_of_admission')
     current_class = models.ForeignKey(Class , max_length = 15 , on_delete= models.CASCADE , related_name= 'current_class')

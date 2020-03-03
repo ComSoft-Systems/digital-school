@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'student_information.apps.StudentInformationConfig',
     'dependencies',
     'main',
+    'multiselectfield',
     'authentication',
 ]
 
@@ -84,7 +85,7 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
-        'HOST': '192.168.1.101',
+        'HOST': '192.168.1.100',
         'PORT': '5432',
     }
 }
