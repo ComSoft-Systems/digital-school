@@ -18,7 +18,7 @@
       <td>{{d.session_code}}</td>
       <td>{{d.session_name}}</td>
       <td><a href="{% url 'edit_session' session_code=d.session_code %}">Edit</a></td>
-      <td><a href="{% url 'delete_session' session_code=d.session_code %}">Delete</a></td>
+        <td><a href="{% url 'delete_session' session_code=d.session_code %}">Delete</a></td>
 
     </tr>
     {% endfor %}

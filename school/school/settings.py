@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'student_information',
     'dependencies',
     'main',
+    'authentication',
 ]
 
 MIDDLEWARE = [
