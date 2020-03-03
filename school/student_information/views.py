@@ -43,8 +43,8 @@ def ManageGrCreateView(CreateView):
         user_form = EntryForm()
         return render(CreateView,'Student/Create/create.html',{'user_form':user_form})
 
-allowed_users(allowed_roles=['Admin','Accountant'])
 @login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrEditView(request, gr_number):
     data = get_object_or_404(Gr, gr_number = gr_number)
     if request.method == "POST":
@@ -56,6 +56,11 @@ def ManageGrEditView(request, gr_number):
         user_form = EntryForm(instance=data)
         return render(request, 'Student/Edit/edit.html',{'GrNumber':user_form,'data':data}) 
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
+def ManageGrDeleteView(request, gr_number):
+    Gr.objects.filter(gr_number=gr_number).delete()
+    a = Gr.objects.all()
+    return render(request, 'Delete/delete.html')
 
 

@@ -19,8 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('authentication.urls')),
-    path('main/', include('main.urls')),
+    path('', include('main.urls')),
+    path('auth/', include('authentication.urls')),
     path('admin/', admin.site.urls),
     path('Query/', include('Query.urls')),
     path('students/', include('student_information.urls')),
