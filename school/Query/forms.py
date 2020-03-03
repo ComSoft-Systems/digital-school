@@ -20,3 +20,4 @@ class Form(forms.ModelForm):
             'Fee_type',
             'Contact',
         }
+        

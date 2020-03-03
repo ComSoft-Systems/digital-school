@@ -20,7 +20,7 @@ class Entry_data(models.Model):
     def	get_absolute_url(self):
         return reverse('entry_detail',args=[self.Query_code])
     def __str__(self):
-        return self.Query_code
+        return self.Name
     class Meta:
         ordering = ('Query_code',)
         index_together = (('Query_code', 'Name'),)
