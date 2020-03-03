@@ -19,13 +19,14 @@ urlpatterns = [
     path('family_form/',views.families, name = 'family_form'),
     path('family_list/',views.family_list, name = 'family_list'),
     path('edit_family/<family_code>+/', views.edit_family, name = 'edit_family'),
+    path('family_detail/<family_code>/', views.family_detail, name = 'family_detail'),
     path('delete_family/<family_code>+/', views.delete_family, name = 'delete_family'),
 
     
-    path('fee_category_form/',views.fee_categories, name = 'fee_category_form'),
-    path('fee_category_list/',views.fee_category_list, name = 'fee_category_list'),
-    path('edit_fee_category/<fee_category_code>+/', views.edit_fee_category, name = 'edit_fee_category'),
-    path('delete_fee_category/<fee_category_code>+/', views.delete_fee_category, name = 'delete_fee_category'),
+    path('fee_concession_form/',views.fee_concession, name = 'fee_concession_form'),
+    path('fee_concession_list/',views.fee_concession_list, name = 'fee_concession_list'),
+    path('edit_concession/<fee_concession_code>+/', views.edit_fee_concession, name = 'edit_fee_concession'),
+    path('delete_fee_concession/<fee_concession_code>+/', views.delete_fee_concession, name = 'delete_fee_concession'),
 
 
     path('section_form/',views.sections, name = 'section_form'),
@@ -51,5 +52,9 @@ urlpatterns = [
     path('edit_subject/<subject_code>+/',views.edit_subject, name = 'edit_subject'),
     path('delete_subject/<subject_code>+/', views.delete_subject, name = 'delete_subject'),
 
-
+    path('class_subject_form/',views.class_subjects, name = 'class_subject_form'),
+    path('class_subject_list/',views.class_subject_list, name = 'class_subject_list'),
+    path('edit_class_subject/<Class_code>+/',views.edit_class_subject, name = 'edit_class_subject'),
+    path('class_subject_detail/<Class_code>/', views.class_subject_detail, name = 'class_subject_detail'),
+    path('delete_class_subject/<Class_code>+/', views.delete_class_subject, name = 'delete_class_subject'),
 ]

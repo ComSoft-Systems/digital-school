@@ -1,0 +1,24 @@
+{% extends "Mainpage.html" %}
+{% block content %}
+<div class="container">
+    
+     <h1><caption>Details Of Class Subjects</caption></h1>
+        <table class="table table-hover table-sm table-dark">
+              <tbody>
+                <tr>
+                    <th>Class Subject Code</th>
+                    <th>{{ class_subject.Class_code }}</th>
+                </tr>
+                <tr>
+                    <th>Classes</th>
+                    <th>{{ class_subject.Class }}</th>
+                </tr>
+                <tr>
+                    <th>Subjects</th>
+                    <th>{{ class_subject.class_subjects }}</th>
+                </tr>
+              </tbody>
+        </table>
+        <button class="text-right"><a href="{% url 'class_subject_form' %}">Add</a></button>
+</div>
+{% endblock %}
