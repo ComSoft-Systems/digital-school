@@ -12,7 +12,7 @@ def ManageFeeTypeListView(ListView):
     context = {
         'fee':fee
     }
-    return render (ListView,'FeesType/list.html',context)
+    return render (ListView,'ClassFee/list.html',context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -24,15 +24,15 @@ def ManageFeeTypeCreateView(CreateView):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(CreateView,'FeesType/Create/created.html',context)
+            return render(CreateView,'ClassFee/Create/created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(CreateView,'FeesType/Create/created.html',context)
+            return render(CreateView,'ClassFee/Create/created.html',context)
     else:
         user_form = ClassFeeForm()
-        return render(CreateView,'FeesType/Create/create.html',{'user_form':user_form})
+        return render(CreateView,'ClassFee/Create/create.html',{'user_form':user_form})
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -42,17 +42,17 @@ def ManageFeeTypeEditView(request, fee_type_code):
         user_form = ClassFeeForm(request.POST or None, instance=data)
         if user_form.is_valid():
             user_form.save()
-            return redirect('fee_type_list')
+            return redirect('class_fee_list')
     else:
         user_form = ClassFeeForm(instance=data)
-        return render(request, 'FeesType/Edit/edit.html',{'fee':user_form,'data':data}) 
+        return render(request, 'ClassFee/Edit/edit.html',{'fee':user_form,'data':data}) 
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeTypeDeleteView(request, fee_type_code):
     ClassFee.objects.filter(fee_type_code=fee_type_code).delete()
     a = ClassFee.objects.all()
-    return render(request, 'FeesType/Delete/delete.html')
+    return render(request, 'ClassFee/Delete/delete.html')
 
 
 

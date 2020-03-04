@@ -4,8 +4,8 @@ from . import views
 urlpatterns = [
     path('type/',views.ManageFeeTypeListView, name="fee_type_list"),
     path('type/create/',views.ManageFeeTypeCreateView, name="fee_type_create"),
-    path('type/edit/<fee_type_code>/', views.ManageFeeTypeEditView, name = 'fee_type_edit'),
-    path('type/delete/<fee_type_code>/', views.ManageFeeTypeDeleteView, name = 'fee_type_delete'),
+    path('type/edit/<fee_type_code>/', views.ManageFeeTypeEditView, name = 'class_fee_edit'),
+    path('type/delete/<fee_type_code>/', views.ManageFeeTypeDeleteView, name = 'class_fee_delete'),
 
     path('def/',views.ManageFeeDefListView, name="fee_def_list"),
     path('def/create/',views.ManageFeeDefCreateView, name="fee_def_create"),
