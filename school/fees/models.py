@@ -1,12 +1,15 @@
 from django.db import models 
 from student_information.models import *
+from dependencies.models import *
 
 class ClassFee(models.Model):
-    fee_type_code = models.IntegerField(primary_key=True,auto_created=True,unique=True)
-    fee_type = models.CharField(max_length=50)
-    Description = models.CharField(max_length=200)
+    class_fee_code = models.IntegerField(primary_key=True,auto_created=True,unique=True)
+    class_code = models.ForeignKey(Class,on_delete=models.CASCADE)
+    fee_type_code = models.ForeignKey(Fee_Type,on_delete=models.CASCADE)
+    fee_amount = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
     def __str__(self):
-        return self.fee_type
+        return "{}'s Fees of {} Class".format(self.fee_type_code,self.class_code)
 
 class StFeeDefine(models.Model):
     fee_def_code = models.IntegerField(primary_key=True,auto_created=True,unique=True)

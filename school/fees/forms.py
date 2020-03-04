@@ -6,9 +6,11 @@ class ClassFeeForm(forms.ModelForm):
     class Meta:
         model = ClassFee
         fields =[
+            'class_fee_code',
+            'class_code',
             'fee_type_code',
-            'fee_type',
-            'Description',
+            'fee_amount',
+            'description',
         ]
 
 

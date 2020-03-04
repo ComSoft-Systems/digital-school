@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject
-from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form
+from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type
+from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form
 
 
 
@@ -461,3 +461,54 @@ def delete_class_subject(request, Class_code):
         'class_subject' : cla_subj
     }
     return render(request, 'Dependencies/Class_Subjects/list.html', context)
+
+
+
+def fee_type_list(request):
+    feT = Fee_Type.objects.all()
+    context = {'fee_type': feT}
+    return render(request, 'Dependencies/FeeType/list.html', context)
+
+
+def fee_type(request):
+    if request.method == 'POST':
+        user_form = fee_type_form(request.POST)
+        if user_form.is_valid():
+            fee_type = user_form.save()
+            context = {
+                'return': 'Has been added successfully'
+            }
+            return render(request,'Dependencies/FeeType/created_fee_type_form.html', context)
+        else:
+            context = {
+                'return': 'Is not valid'
+            }
+            return render(request,'Dependencies/FeeType/created_fee_type_form.html', context)
+    else:
+        user_form = fee_type_form()
+        return render(request,'Dependencies/FeeType/fee_type_form.html',{'user_form':user_form})
+
+
+def edit_fee_type(request, fee_type_code):
+    feT = get_object_or_404(Fee_Type, fee_type_code=fee_type_code)
+
+    if request.method == "POST":
+        user_form = fee_type_form(request.POST or None, instance=feT)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('fee_type_list')
+    else:
+        user_form = fee_type_form(instance=feT)
+
+        return render(request, 'Dependencies/FeeType/editfeetype.html', {'user_form': user_form})
+
+
+def delete_fee_type(request, fee_type_code):
+    
+    Fee_Type.objects.filter(fee_type_code=fee_type_code).delete()
+    fT = Fee_Type.objects.all()
+
+    context = {
+        'fee_type' : fT
+    }
+    return render(request, 'Dependencies/FeeType/list.html', context)
