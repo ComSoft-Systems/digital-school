@@ -1,0 +1,15 @@
+{% extends 'MainPage.html' %}
+
+{% block content %}
+<h1>Add School</h1>
+<form action ="{% url 'school_form' %}" method = "POST">
+<a>School Code = {{user_form.school_code}}</a><br><br>
+<a>School Name = {{user_form.school_name}}</a><br><br>
+<a>School Area = {{user_form.school_area}}</a><br><br>
+<a>Remarks = {{user_form.remarks}}</a><br><br>
+{% csrf_token %}
+<input type ="submit" value="Save">
+<button > <a href="{% url 'school_list' %}">Back</a></button>
+
+</form>
+{% endblock %}

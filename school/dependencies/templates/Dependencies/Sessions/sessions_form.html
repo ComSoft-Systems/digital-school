@@ -1,0 +1,13 @@
+
+{% extends 'MainPage.html' %}
+{% block content %}
+<h1>Add Session</h1>
+<form action ="{% url 'session_form' %}" method = "POST">
+<a>Session Code = {{user_form.session_code}}</a><br><br>
+<a>Session Name = {{user_form.session_name}}</a><br><br>
+{% csrf_token %}
+<input type ="submit" value="Save">
+<button > <a href="{% url 'session_list' %}">Back</a></button>
+
+</form>
+{% endblock %}

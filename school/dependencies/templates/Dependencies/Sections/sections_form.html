@@ -1,0 +1,14 @@
+{% extends 'MainPage.html' %}
+
+{% block content %}
+<h1>Add Section</h1>
+<form action ="{% url 'section_form' %}" method = "POST">
+<a>Section Code = {{user_form.sect_code}}</a><br><br>
+<a>Section Name = {{user_form.sect_name}}</a><br><br>
+<a>Remarks = {{user_form.remarks}}</a><br><br>
+{% csrf_token %}
+<input type ="submit" value="Save">
+<button > <a href="{% url 'section_list' %}">Back</a></button>
+
+</form>
+{% endblock %}

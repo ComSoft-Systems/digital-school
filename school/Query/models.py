@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from dependencies.models import Fee_Category , Class , School , Section , Family
+from dependencies.models import Fee_Concession , Class , School , Section , Family
 from django.urls import reverse
 
 class Entry_data(models.Model):
@@ -15,7 +15,7 @@ class Entry_data(models.Model):
     Suggested_class = models.ForeignKey(Class, on_delete= models.CASCADE, related_name='suggested')
     test_teacher = models.CharField(max_length=30)
     date_of_test = models.DateField()
-    Fee_type = models.ForeignKey(Fee_Category, on_delete= models.CASCADE)
+    Fee_type = models.ForeignKey(Fee_Concession, on_delete= models.CASCADE)
     Contact = models.CharField(max_length=20)
     def	get_absolute_url(self):
         return reverse('entry_detail',args=[self.Query_code])

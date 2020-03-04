@@ -1,0 +1,29 @@
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Sessions</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Sessions</caption>
+    <thead>
+    <tr align="center">
+    <th>Session Code</th>
+    <th>Session Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in session %}
+    <tr align="center">
+      <td>{{d.session_code}}</td>
+      <td>{{d.session_name}}</td>
+      <td><a href="{% url 'edit_session' session_code=d.session_code %}">Edit</a></td>
+        <td><a href="{% url 'delete_session' session_code=d.session_code %}">Delete</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'session_form' %}">Add</a>
+  </div>
+    {% endblock %}

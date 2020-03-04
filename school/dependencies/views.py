@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Class, School, Family, Fee_Category, Section, Session, Religion, Subject
-from .forms import class_form, school_form, family_form, fee_category_form, section_form, session_form, religion_form, subject_form
+from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject
+from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form
 
 
 
@@ -138,6 +138,14 @@ def edit_family(request, family_code):
         return render(request, 'Dependencies/Family/editfamily.html', {'user_form': user_form})
 
 
+def family_detail(request,family_code):
+    fmil = get_object_or_404(Family,family_code = family_code)
+    context = {
+        'family': fmil,
+    }
+    return render(request, 'Dependencies/Family/detail.html', context)
+
+
 def delete_family(request, family_code):
     Family.objects.filter(family_code=family_code).delete()
     famil = Family.objects.all()
@@ -148,53 +156,53 @@ def delete_family(request, family_code):
     return render(request, 'Dependencies/Family/list.html', context) 
 
 
-def fee_category_list(request):
-    fee = Fee_Category.objects.all()
+def fee_concession_list(request):
+    fee = Fee_Concession.objects.all()
     context = {'fees': fee}
-    return render(request, 'Dependencies/FeeCategory/list.html', context)
+    return render(request, 'Dependencies/FeeConcession/list.html', context)
 
 
-def fee_categories(request):
+def fee_concession(request):
     if request.method == 'POST':
-        user_form = fee_category_form(request.POST)
+        user_form = fee_concession_form(request.POST)
         if user_form.is_valid():
-            fee_categories = user_form.save()
+            fee_concession = user_form.save()
             context = {
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/FeeCategory/created_fee_categories_form.html', context)
+            return render(request,'Dependencies/FeeConcession/created_fee_concession_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
             }
-            return render(request,'Dependencies/FeeCategory/created_fee_categories_form.html', context)
+            return render(request,'Dependencies/FeeConcession/created_fee_concession_form.html', context)
     else:
-        user_form = fee_category_form()
-        return render(request,'Dependencies/FeeCategory/fee_categories_form.html',{'user_form':user_form})
+        user_form = fee_concession_form()
+        return render(request,'Dependencies/FeeConcession/fee_concession_form.html',{'user_form':user_form})
 
 
-def edit_fee_category(request, fee_category_code):
-    fee = get_object_or_404(Fee_Category, fee_category_code=fee_category_code)
+def edit_fee_concession(request, fee_concession_code):
+    fee = get_object_or_404(Fee_Concession, fee_concession_code=fee_concession_code)
 
     if request.method == "POST":
-        user_form = fee_category_form(request.POST or None, instance=fee)
+        user_form = fee_concession_form(request.POST or None, instance=fee)
         if user_form.is_valid():
             user_form.save()
-            return redirect('fee_category_list')
+            return redirect('fee_concession_list')
     else:
-        user_form = fee_category_form(instance=fee)
+        user_form = fee_concession_form(instance=fee)
 
-        return render(request, 'Dependencies/FeeCategory/editfee.html', {'user_form': user_form})
+        return render(request, 'Dependencies/FeeConcession/editfee.html', {'user_form': user_form})
 
 
-def delete_fee_category(request, fee_category_code):
-    Fee_Category.objects.filter(fee_category_code=fee_category_code).delete()
-    fC = Fee_Category.objects.all()
+def delete_fee_concession(request, fee_concession_code):
+    Fee_Concession.objects.filter(fee_concession_code=fee_concession_code).delete()
+    fC = Fee_Concession.objects.all()
 
     context = {
         'fees' : fC
     }
-    return render(request, 'Dependencies/FeeCategory/list.html', context) 
+    return render(request, 'Dependencies/FeeConcession/list.html', context) 
 
 
 def section_list(request):
@@ -370,9 +378,8 @@ def subjects(request):
         user_form = subject_form()
         return render(request,'Dependencies/Subjects/subjects_form.html',{'user_form':user_form})
 
-
 def edit_subject(request, subject_code):
-    sub = get_object_or_404(Subject, subject_code=subject_code)
+    sub = get_object_or_404(Class_Subject, subject_code=subject_code)
 
     if request.method == "POST":
         user_form = subject_form(request.POST or None, instance=sub)
@@ -385,7 +392,9 @@ def edit_subject(request, subject_code):
         return render(request, 'Dependencies/Subjects/editsubject.html', {'user_form': user_form})
 
 
+
 def delete_subject(request, subject_code):
+
     Subject.objects.filter(subject_code=subject_code).delete()
     subje = Subject.objects.all()
 
@@ -393,3 +402,62 @@ def delete_subject(request, subject_code):
         'subject' : subje
     }
     return render(request, 'Dependencies/Subjects/list.html', context)
+
+
+def class_subject_list(request):
+    cla_sub = Class_Subject.objects.all()
+    context = {'class_subject': cla_sub}
+    return render(request, 'Dependencies/Class_Subjects/list.html', context)
+
+def class_subjects(request):
+    if request.method == 'POST':
+        user_form = classes_subject_form(request.POST)
+        if user_form.is_valid():
+            class_subjects = user_form.save()
+            context = {
+                'return': 'Has been added successfully'
+            }
+            return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
+        else:
+            context = {
+                'return': 'Is not valid'
+            }
+            return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
+    else:
+        user_form = classes_subject_form()
+        return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form})
+
+
+
+
+def edit_class_subject(request, Class_code):
+    cla_sub = get_object_or_404(Class_Subject, Class_code=Class_code)
+
+    if request.method == "POST":
+        user_form = classes_subject_form(request.POST or None, instance=cla_sub)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('class_subject_list')
+    else:
+        user_form = classes_subject_form(instance=cla_sub)
+
+        return render(request, 'Dependencies/Class_Subjects/editclasssubject.html', {'user_form': user_form})
+
+
+def class_subject_detail(request,Class_code):
+    kla = get_object_or_404(Class_Subject,Class_code = Class_code)
+    context = {
+        'class_subject': kla,
+    }
+    return render(request, 'Dependencies/Class_Subjects/detail.html', context)
+
+
+def delete_class_subject(request, Class_code):
+    
+    Class_Subject.objects.filter(Class_code=Class_code).delete()
+    cla_subj = Class_Subject.objects.all()
+
+    context = {
+        'class_subject' : cla_subj
+    }
+    return render(request, 'Dependencies/Class_Subjects/list.html', context)
