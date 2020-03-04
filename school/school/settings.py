@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'main',
     'multiselectfield',
     'authentication',
+    'fees',
 ]
 
 MIDDLEWARE = [
