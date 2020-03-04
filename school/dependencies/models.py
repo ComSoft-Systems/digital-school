@@ -88,3 +88,11 @@ class Class_Subject(models.Model):
         return reverse('class_subject_detail',args=[self.Class_code])
     def __str__(self):
         return self.class_subjects
+
+
+class Fee_Type(models.Model):
+    fee_type_code = models.IntegerField(auto_created= True, unique=True, primary_key=True)
+    fee_type = models.CharField(max_length=200)
+    description = models.TextField()
+    def __str__(self):
+        return self.fee_type

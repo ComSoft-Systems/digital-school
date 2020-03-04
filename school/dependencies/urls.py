@@ -57,4 +57,10 @@ urlpatterns = [
     path('edit_class_subject/<Class_code>+/',views.edit_class_subject, name = 'edit_class_subject'),
     path('class_subject_detail/<Class_code>/', views.class_subject_detail, name = 'class_subject_detail'),
     path('delete_class_subject/<Class_code>+/', views.delete_class_subject, name = 'delete_class_subject'),
+
+    path('fee_type_form/',views.fee_type, name = 'fee_type_form'),
+    path('fee_type_list/',views.fee_type_list, name = 'fee_type_list'),
+    path('edit_fee_type/<fee_type_code>+/', views.edit_fee_type, name = 'edit_fee_type'),
+    path('delete_fee_type/<fee_type_code>+/', views.delete_fee_type, name = 'delete_fee_type'),
+
 ]
