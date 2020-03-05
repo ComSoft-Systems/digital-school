@@ -1,37 +1,38 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<form action="{% url "fee_type_edit" %}" method="POST">
+<form action="{% url "class_fee_edit" data.class_fee_code %}" method="POST">
     <div class="container">
         <h2 class="text-center" style="font-family:sans-serif;">Class Fee Edit Form</h2><hr/>
         <table class="table table-hover table-sm table-dark">
-            <thead>
+            <thead align="center">
                 <tr>
                     <th>Name</th>
                     <th>Form</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody align="center">
                 <tr>
-                    <th>class_fee_code</th>
+                    <th>Code</th>
                     <th>{{ user_form.class_fee_code }}</th>
                 </tr>
                 <tr>
-                    <th>class_code</th>
+                    <th>Class</th>
                     <th>{{ user_form.class_code }}</th>
                 </tr>
                 <tr>
-                    <th>fee_type_code</th>
+                    <th>Fee Type</th>
                     <th>{{ user_form.fee_type_code }}</th>
                 </tr>
                 <tr>
-                    <th>fee_amount</th>
+                    <th>Fee Amount</th>
                     <th>{{ user_form.fee_amount }}</th>
                 </tr>
                 <tr>
-                    <th>description</th>
+                    <th>Description</th>
                     <th>{{ user_form.description }}</th>
                 </tr>
                 <tr>
+                    <th>Action</th>
                     <td><input class="btn btn-primary" type="submit" value="Save to Class Fee"></td>
                 </tr>
             </tbody>
