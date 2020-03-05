@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'dependencies',
     'main',
     'authentication',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
-        'HOST': '192.168.1.101',
+        'HOST': '192.168.1.100',
         'PORT': '5432',
     }
 }

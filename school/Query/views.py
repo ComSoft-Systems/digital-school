@@ -1,10 +1,16 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Entry_data
 from .forms import Form
+from django.contrib.auth.decorators import login_required
+from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
+
+
 
 def home(request):
     return render(request, 'query/entry_test.html')
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def form(request):
     if request.method == 'POST':
         user_form = Form(request.POST)
@@ -31,13 +37,14 @@ def detail(request,Query_code):
     }
     return render(request, 'query/query_detail.html', context)
 
-
+@login_required(login_url='login_url')
 def list_view(request):
     Entry_dataa = Entry_data.objects.all()
     context = {'Entry': Entry_dataa}
     return render (request,'query/query_list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit(request,Query_code):
     i = get_object_or_404(Entry_data, Query_code=Query_code)
     if request.method == "POST":
@@ -49,7 +56,8 @@ def edit(request,Query_code):
         user_form = Form(instance=i)
         return render(request, 'query/edit_query.html', {'user_form':user_form})
     
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete(request, Query_code):
     Entry_data.objects.filter(Query_code=Query_code).delete()
     a = Entry_data.objects.all()
