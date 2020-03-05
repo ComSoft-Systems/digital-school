@@ -10,6 +10,7 @@ class Form(forms.ModelForm):
             'Name',
             'father_name',
             'Address',
+            'gender',
             'last',
             'Previous_school',
             'Addmission_required',
