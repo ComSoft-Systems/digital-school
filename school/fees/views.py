@@ -146,6 +146,16 @@ def ManageFeeRegisterCreateView(CreateView):
         user_form = FeeRegisterForm()
         return render(CreateView,'FeesRegister/Create/create.html',{'user_form':user_form})
 
+def ManageFeeRegisterCreateToAllView(CreateView):
+    if CreateView.method == 'POST':
+        abc = AutoFeesGenration(CreateView.POST)
+        print(abc)
+        return render(CreateView,'FeesRegister/Create/ToAll/created.html')
+    else:
+        user_form = AutoFeesGenration()
+        return render(CreateView,'FeesRegister/Create/ToAll/create.html',{'form':user_form})
+
+
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterEditView(request, fee_reg_id):
