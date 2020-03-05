@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/',views.ManageGrCreateView, name="gr_create"),
     path('<int:gr_number>/',views.ManageGrDetailView,name='gr_detail'),
     path('edit/<gr_number>/', views.ManageGrEditView, name = 'gr_edit'),
+    path('delete/<gr_number>/', views.ManageGrDeleteView, name = 'gr_delete'),
 ]

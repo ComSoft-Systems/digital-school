@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'dependencies',
     'main',
     'home_work',
+    'multiselectfield',
+    'authentication',
+    'fees',
 ]
 
 MIDDLEWARE = [

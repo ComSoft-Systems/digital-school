@@ -1,4 +1,7 @@
 from django.db import models
+from multiselectfield import MultiSelectField
+from django.urls import reverse
+
 
 class Class(models.Model):
     class_code = models.IntegerField(auto_created= True, unique = True, primary_key= True)
@@ -15,16 +18,18 @@ class Family(models.Model):
     mother_name = models.CharField(max_length = 200)
     ph_no_mother = models.CharField(max_length = 200)
     address = models.CharField(max_length=200)
+    def	get_absolute_url(self):
+        return reverse('family_detail',args=[self.family_code])
     def __str__(self):
         return self.surname       
 
-class Fee_Category(models.Model):
-    fee_category_code = models.IntegerField(auto_created= True, unique = True , primary_key = True)
-    fee_category_name = models.CharField(max_length=100)
-    percent = models.FloatField()
-    amount = models.IntegerField()
+class Fee_Concession(models.Model):
+    fee_concession_code = models.IntegerField(auto_created= True, unique = True , primary_key = True)
+    fee_concession_name = models.CharField(max_length=100)
+    concession_percent = models.FloatField()
+    description = models.TextField()
     def __str__(self):
-        return self.fee_category_name
+        return self.fee_concession_name
 
 
 
@@ -62,3 +67,32 @@ class Subject(models.Model):
     subjects = models.CharField(max_length = 200)
     def __str__(self):
         return self.subjects
+
+class Class_Subject(models.Model):
+    SUBJECT_CHOICES = (
+        ('English','English'),
+        ('Urdu', 'Urdu'),
+        ('Math', 'Math'),
+        ('Computer', 'Computer'),
+        ('Sindhi', 'Sindhi'),
+        ('Science', 'Science'),
+        ('Social Studies', 'Social Studies'),
+        ('Early Childhood Education','Early Childhood Education'),
+        ('Islamiat','Islamiat'),
+        ('Drawing', 'Drawing'),
+    )
+    Class_code = models.IntegerField(auto_created=True, primary_key= True, unique= True, default = 1)
+    Class = models.ForeignKey(Class, on_delete= models.CASCADE, default=1)
+    class_subjects = MultiSelectField(default = 1, choices = SUBJECT_CHOICES)
+    def	get_absolute_url(self):
+        return reverse('class_subject_detail',args=[self.Class_code])
+    def __str__(self):
+        return self.class_subjects
+
+
+class Fee_Type(models.Model):
+    fee_type_code = models.IntegerField(auto_created= True, unique=True, primary_key=True)
+    fee_type = models.CharField(max_length=200)
+    description = models.TextField()
+    def __str__(self):
+        return self.fee_type
