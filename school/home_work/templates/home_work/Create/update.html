@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% extends "MainPage.html" %}
+{% block content %}
+<form action="{% url 'homeWork_update' data.homework_ID %}" method="POST">
+    <div class="container">
+        <h2 class="text-center" style="font-family:sans-serif;">Update Home Work</h2><hr/>
+        <table class="table table-hover table-sm table-dark">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Form</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>homework_ID</td>
+                    <td>{{ user.homework_ID }}</td>
+                </tr>
+                <tr>
+                    <td>classes</td>
+                    <td>{{user.classes }}</td>
+                </tr>
+                <tr>
+                    <td>sections</td>
+                    <td>{{user.sections }}</td>
+                </tr>
+                <tr>
+                    <td>Teacher</td>
+                    <td>{{user.teacher}}</td>
+                </tr>
+                <tr>
+                    <td>subjects</td>
+                    <td>{{user.subjects }}</td>
+                </tr>
+                <tr>
+                    <td>chapter</td>
+                    <td>{{user.chapter }}</td>
+                </tr>
+                <tr>
+                    <td>page</td>
+                    <td>{{user.page }}</td>
+                </tr>
+                <tr>
+                    <td>descriptions</td>
+                    <td>{{user.descriptions }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary" name="button">Update</button>
+    </div>
+    {% csrf_token %}
+</form>
+
+{% endblock %}
+    
