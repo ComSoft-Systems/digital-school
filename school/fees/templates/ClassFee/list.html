@@ -10,7 +10,6 @@
                     <th>Class</th>
                     <th>Fee Type</th>
                     <th>Fee Amount</th>
-                    <th>Description</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -20,7 +19,6 @@
                     <th>{{ fee.class_code }}</th>
                     <th>{{ fee.fee_type_code }}</th>
                     <th>{{ fee.fee_amount }}</th>
-                    <th>{{ fee.description }}</th>
                     <th><a class="btn btn-primary" href="{% url 'class_fee_edit' fee.class_fee_code %}">Edit</a><a href="{% url 'class_fee_delete' fee.class_fee_code %}" class="btn btn-primary" href="">Delete</a></th>
             </tbody>
             {% endfor %}
