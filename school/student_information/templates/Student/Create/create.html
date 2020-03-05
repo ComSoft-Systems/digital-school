@@ -1,22 +1,81 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<h1>here we can add gr information</h1>
 <form action="{% url "gr_create" %}" method="POST">
-<a>Gr Number = {{user_form.gr_number }}</a><br><br>
-<a>Query = {{user_form.query_code }}</a><a href="{% url "entry_form" %}"> + </a><br><br>
-<a>Name = {{user_form.name }}</a><br><br>
-<a>Picture = {{user_form.picture }}</a><br><br>
-<a>Family = {{user_form.family_code }}</a><a href="{% url "family_form" %}"> + </a><br><br>
-<a>Fee = {{user_form.fee_category_code }}</a><a href="{% url "fee_category_form" %}"> + </a><br><br>
-<a>Class Of Admission = {{user_form.class_of_admission }}</a><a href="{% url 'class_form' %}"> + </a><br><br>
-<a>Session Of Admission = {{user_form.session_of_admission }}</a><a href="{% url 'session_form' %}"> + </a><br><br>
-<a>Current Class = {{user_form.current_class }}</a><a href="{% url 'class_form' %}"> + </a><br><br>
-<a>Current Session = {{user_form.current_session }}</a><a href="{% url 'session_form' %}"> + </a><br><br>
-<a>Admission Date = {{user_form.admission_date }}</a><br><br>
-<a>Last School = {{user_form.last_school }}</a><a href="{% url 'school_form' %}"> + </a><br><br>
-<a>Religion = {{user_form.religion }}</a><a href="{% url 'religion_form' %}"> + </a><br><br>
-<a>Date Of Birth = {{user_form.date_of_birth }}</a><br><br>
-{% csrf_token %}
-<input type="submit" value="Add to Gr">
+    <div class="container">
+        <h2 class="text-center" style="font-family:sans-serif;">Gr Add Form</h2><hr/>
+        <table class="table table-hover table-sm table-dark">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Form</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gr Number</td>
+                    <td>{{user_form.gr_number }}</td>
+                </tr>
+                <tr>
+                    <td>Query</td>
+                    <td>{{user_form.query_code }}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{user_form.name }}</td>
+                </tr>
+                <tr>
+                    <td>Picture</td>
+                    <td>{{user_form.picture }}</td>
+                </tr>
+                <tr>
+                    <td>Family</td>
+                    <td>{{user_form.family_code }}</td>
+                </tr>
+                <tr>
+                    <td>Fee</td>
+                    <td>{{user_form.fee_category_code }}</td>
+                </tr>
+                <tr>
+                    <td>Class Of Admission</td>
+                    <td>{{user_form.class_of_admission }}</td>
+                </tr>
+                <tr>
+                    <td>Session Of Admission</td>
+                    <td>{{user_form.session_of_admission }}</td>
+                </tr>
+                <tr>
+                    <td>Current Class</td>
+                    <td>{{user_form.current_class }}</td>
+                </tr>
+                <tr>
+                    <td>Current Session</td>
+                    <td>{{user_form.current_session }}</td>
+                </tr>
+                <tr>
+                    <td>Admission Date</td>
+                    <td>{{user_form.admission_date }}</td>
+                </tr>
+                <tr>
+                    <td>Last School</td>
+                    <td>{{user_form.last_school }}</td>
+                </tr>
+                <tr>
+                    <td>Religion</td>
+                    <td>{{user_form.religion }}</td>
+                </tr>
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td>{{user_form.date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <td>Submit</td>
+                    <td><input class="btn btn-primary" type="submit" value="Add to Gr"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% csrf_token %}
+
 </form>
+
 {% endblock %}

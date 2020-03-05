@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render , get_object_or_404 ,redirect
 from .forms import *
+from .models import *
 
 def ManageMainScreenView(request):
     return render(request, 'Main/Index.html')
@@ -25,8 +26,12 @@ def ManageDetailView(request):
 def ManageAfterLoginView(request):
     return render(request,'Admin/Common.html')
 
-def ManageUserTypeView(ListView):
-    return render(ListView,'User/UserType/List.html')
+def ManageUserTypeListView(ListView):
+    usertype = UserType.objects.all()
+    context = {
+        'usertype':usertype
+    }
+    return render (ListView,'User/UserType/List.html',context)
 
 def ManageUserTypeCreateView(CreateView):
     if CreateView.method == 'POST':
@@ -47,10 +52,32 @@ def ManageUserTypeCreateView(CreateView):
         context = {
                 'form' : user_form
             }
-        return render(CreateView,'User/UserType/Create.html',)
+        return render(CreateView,'User/UserType/Create.html',context)
 
-def ManageUserProfileView(ListView):
-    return render(ListView,'User/UserProfile/List.html')
+def ManageUserTypeEditView(request, TypeCode):
+    data = get_object_or_404(UserType, TypeCode = TypeCode)
+    if request.method == "POST":
+        user_form = UserTypeForm(request.POST or None, instance=data)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('usertype_url')
+    else:
+        user_form = UserTypeForm(instance=data)
+        return render(request, 'User/UserType/Edit.html',{'return':user_form,'data':data}) 
+
+def ManageUserProfileListView(ListView):
+    userprofile = UserProfile.objects.all()
+    context = {
+        'userprofile':userprofile
+    }
+    return render (ListView,'User/UserProfile/List.html',context)
+
+def ManageUserProfileDetailView(DetailView,UserCode):
+    userprofile = get_object_or_404(UserProfile,UserCode = UserCode)
+    context = {
+        'userprofile':userprofile
+    }
+    return render (DetailView,'User/UserProfile/Detail.html',context)
 
 def ManageUserProfileCreateView(CreateView):
     if CreateView.method == 'POST':
@@ -71,4 +98,15 @@ def ManageUserProfileCreateView(CreateView):
         context = {
                 'form' : user_form
             }
-        return render(CreateView,'User/UserProfile/Create.html',)
+        return render(CreateView,'User/UserProfile/Create.html',context)
+
+def ManageUserProfileEditView(request, UserCode):
+    data = get_object_or_404(UserProfile, UserCode = UserCode)
+    if request.method == "POST":
+        user_form = UserTypeForm(request.POST or None, instance=data)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('userprofile_url')
+    else:
+        user_form = UserProfileForm(instance=data)
+        return render(request, 'User/UserProfile/edit.html',{'return':user_form,'data':data}) 

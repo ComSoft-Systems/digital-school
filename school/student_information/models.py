@@ -23,12 +23,3 @@ class Gr(models.Model):
         return reverse('gr_detail',args=[self.gr_number])
     def __str__(self):
         return str(self.gr_number)
-    class Meta:
-        ordering = ('gr_number',)
-        index_together = (('gr_number', 'name'),)
-        verbose_name = 'Gr'
-        verbose_name_plural = 'Grs'
-
-    class GrManager(models.Manager):
-        def get_queryset(self):
-            return super(GrManager,self).get_queryset().filter(self.gr_number)

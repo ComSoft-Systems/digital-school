@@ -15,10 +15,10 @@
                 </ul>
             {% endif %}
         </div>
-        <form action="{% url 'home_work_create' %}" method="POST">
+        <form action="{% url 'homeWork_add' %}" method="POST">
             
             <a>Home Work = {{user_form.homework_ID }}</a><br><br>
-            <a>Class = {{user_form.classes }}</a><a href="{% url 'class_form' %}"></a><br><br>
+            <a>Class = {{user_form.classes }}</a><br><br>
             <a>Class Section = {{user_form.sections }}</a><br><br>
             <a>Teacher Name = {{user_form.teacher }}</a><br><br>
             <a>Subject Name= {{user_form.subjects }}</a><br><br>
