@@ -96,3 +96,9 @@ class Fee_Type(models.Model):
     description = models.TextField()
     def __str__(self):
         return self.fee_type
+
+class Month(models.Model):
+    month_code= models.IntegerField(auto_created= True, unique=True, primary_key=True)
+    months = models.CharField(max_length=200)
+    def __str__(self):
+        return self.months
