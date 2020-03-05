@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     'Query',
     'student_information.apps.StudentInformationConfig',
     'dependencies',
-    'main',
+    'main',   
     'home_work',
     'multiselectfield',
     'authentication',
     'fees',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

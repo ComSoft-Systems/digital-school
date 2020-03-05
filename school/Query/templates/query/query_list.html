@@ -3,30 +3,37 @@
 <div class="container">
       <h2 class="text-center" style="font-family:sans-serif;">List</h2>
       <h1>Queries</h1>
+        <form method="GET">
+          {{ myFilter.form }}
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
       <table class="table table-hover table-sm table-dark">
-    <thead>
-      <tr>
-      <th>Query_code</th>
-      <th>Name</th>
-      <th>Father</th>
-      <th>Address</th>
-      <th>date_of_test</th>
-      </tr>
-    </thead>
-    {% for i in Entry %}
-    <tbody>
-      <tr>
-        <td>{{i.Query_code}}</td> 
-        <td><a href="{{ i.get_absolute_url }}">{{i.Name}}</a></td>
-        <td>{{i.father_name}}</td>
-        <td>{{i.Address}}</td>
-        <td>{{i.date_of_test}}</td>
+        <thead>
+          <tr>
+          <th>Query_code</th>
+          <th>Name</th>
+          <th>Father</th>
+          <th>Address</th>
+          <th>date_of_test</th>
+          <th>gender</th>
+          </tr>
+        </thead>
+        {% for i in Entry %}
+        <tbody>
+          <tr>
+            <td>{{i.Query_code}}</td> 
+            <td><a href="{{ i.get_absolute_url }}">{{i.Name}}</a></td>
+            <td>{{i.father_name}}</td>
+            <td>{{i.Address}}</td>
+            <td>{{i.date_of_test}}</td>
+            <td>{{i.gender}}</td>
+            
+            <td><a href="{% url 'edit_query' Query_code=i.Query_code %}">Edit</a></td>
+            <td><a href="{% url 'delete_query' Query_code=i.Query_code%}">Delete</a></td>
+          </tr>
+        </tbody>
         
-        <td><a href="{% url 'edit_query' Query_code=i.Query_code %}">Edit</a></td>
-        <td><a href="{% url 'delete_query' Query_code=i.Query_code%}">Delete</a></td>
-      </tr>
-    </tbody>
-    {% endfor %}
+        {% endfor %}
       </table>
     </div>
 {% endblock %}
