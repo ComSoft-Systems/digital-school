@@ -43,11 +43,7 @@ INSTALLED_APPS = [
     'main',
     'multiselectfield',
     'authentication',
-<<<<<<< HEAD
-    'django_filters'
-=======
     'fees',
->>>>>>> de04d27114e2814c7d2cb3d6e10e6f6d2e8f8e9f
 ]
 
 MIDDLEWARE = [
@@ -90,11 +86,7 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
-<<<<<<< HEAD
-        'HOST': '192.168.1.100',
-=======
         'HOST': '127.0.0.1',
->>>>>>> de04d27114e2814c7d2cb3d6e10e6f6d2e8f8e9f
         'PORT': '5432',
     }
 }
