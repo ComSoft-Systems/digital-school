@@ -5,7 +5,7 @@ from .models import *
 class ClassFeeForm(forms.ModelForm):
     class Meta:
         model = ClassFee
-        fields =[
+        fields = [
             'class_fee_code',
             'class_code',
             'fee_type_code',
@@ -17,7 +17,7 @@ class ClassFeeForm(forms.ModelForm):
 class FeeDefineForm(forms.ModelForm):
     class Meta:
         model = StFeeDefine
-        fields =[
+        fields = [
             'fee_def_code',
             'gr_number',
             'fee_type',
@@ -28,7 +28,7 @@ class FeeDefineForm(forms.ModelForm):
 class FeeRegisterForm(forms.ModelForm):
     class Meta:
         model = FeeRegister
-        fields =[
+        fields = [
             'fee_reg_id',
             'gr_number',
             'fee_types',
@@ -37,3 +37,7 @@ class FeeRegisterForm(forms.ModelForm):
             'due_date',
             'paid_amount',
         ]
+
+class AutoFeesGenration(forms.Form):
+    class_code = chr
+    fee_type_code = chr
