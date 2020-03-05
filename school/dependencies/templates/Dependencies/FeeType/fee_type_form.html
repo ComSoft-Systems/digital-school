@@ -1,0 +1,14 @@
+{% extends 'MainPage.html' %}
+
+{% block content %}
+<h1>Add Fee Type</h1>
+<form action ="{% url 'fee_type_form' %}" method = "POST">
+<a>Fee Type Code = {{user_form.fee_type_code}}</a><br><br>
+<a>Fee Type = {{user_form.fee_type}}</a><br><br>
+<a>Description= {{user_form.description}}</a><br><br>
+{% csrf_token %}
+<input type ="submit" value="Save">
+<button > <a href="{% url 'fee_type_list' %}">Back</a></button>
+
+</form>
+{% endblock %}

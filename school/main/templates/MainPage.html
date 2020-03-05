@@ -28,7 +28,6 @@
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url "gr_list" %}">Gr List</a>
-                        <a class="dropdown-item" href="{% url "gr_create" %}">Gr Create</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                       </div>
@@ -65,11 +64,25 @@
                         <a class="dropdown-item" href="{% url 'class_list' %}">Classes</a>
                         <a class="dropdown-item" href="{% url 'school_list' %}">Schools</a>
                         <a class="dropdown-item" href="{% url 'family_list' %}">Families</a>
-                        <a class="dropdown-item" href="{% url "fee_category_list" %}">Fee Categories</a>
+                        <a class="dropdown-item" href="{% url "fee_concession_list" %}">Fee Concession</a>
                         <a class="dropdown-item" href="{% url "section_list" %}">Sections</a>
                         <a class="dropdown-item" href="{% url "session_list" %}">Sessions</a>
                         <a class="dropdown-item" href="{% url "religion_list" %}">Religions</a>
                         <a class="dropdown-item" href="{% url "subject_list" %}">Subjects</a>
+                        <a class="dropdown-item" href="{% url "class_subject_list" %}">Class_Subjects</a>
+                        <a class="dropdown-item" href="{% url "fee_type_list" %}">Fee_Types</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Fees
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'class_fee_list' %}">Class Fees</a>
+                        <a class="dropdown-item" href="{% url 'fee_def_list' %}">Student Fees Define</a>
+                        <a class="dropdown-item" href="{% url 'fee_reg_list' %}">Fees Register</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                       </div>
