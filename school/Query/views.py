@@ -3,7 +3,7 @@ from .models import Entry_data
 from .forms import Form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
-from .filters import Entry_dataFilter
+
 
 
 def home(request):
