@@ -30,8 +30,5 @@ class Entry_data(models.Model):
         ordering = ('Query_code',)
         index_together = (('Query_code', 'Name'),)
 
-    class Entry_dataManager(models.Manager):				
-        def	get_queryset(self):
-            return super(Entry_dataManager,self).get_queryset().filter(self.Query_code)
 
 					
