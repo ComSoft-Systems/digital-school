@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
-        'HOST': '192.168.1.100',
+        'HOST': '192.168.1.101',
         'PORT': '5432',
     }
 }
@@ -133,5 +133,5 @@ STATIC_URL = '/static/'
 
 # STATICFILES_DIRS by Rizwan 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'main/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]

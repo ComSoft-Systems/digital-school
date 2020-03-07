@@ -113,6 +113,7 @@ def ManageFeeDefDeleteView(request, fee_def_code):
 
 
 @login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterListView(ListView):
     fee = FeeRegister.objects.all()
     context = {
@@ -121,6 +122,7 @@ def ManageFeeRegisterListView(ListView):
     return render (ListView,'FeesRegister/list.html',context)
 
 @login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterDetailView(DetailView,fee_reg_id):
     fee = get_object_or_404(FeeRegister,fee_reg_id = fee_reg_id)
     context = {
@@ -148,15 +150,14 @@ def ManageFeeRegisterCreateView(CreateView):
         user_form = FeeRegisterForm()
         return render(CreateView,'FeesRegister/Create/create.html',{'user_form':user_form})
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterCreateToAllView(CreateView):
     if CreateView.method == 'POST':
         clas = CreateView.POST.get('class_code')
         fee_type = CreateView.POST.get('fee_type_code')
         startmonth = CreateView.POST.get('month')
-        print(clas)
-        print(fee_type)
-        print(startmonth)
-        duedate = '2020-03-03'
+        duedate = CreateView.POST.get('date')
         v = 8
         for gr_row in Gr.objects.all():
             gr_rows = gr_row
@@ -186,7 +187,8 @@ def ManageFeeRegisterCreateToAllView(CreateView):
                                                     )
                                                 v = v+1
                                                 formfill.save()
-        return render(CreateView,'FeesRegister/Create/ToAll/created.html')
+                                                context = {'return' : 'Has Been Added SuccessFully'}
+        return render(CreateView,'FeesRegister/Create/ToAll/created.html',context)
     else:
         class_ = ClassFeeForm()
         fee_type = ClassFeeForm()
