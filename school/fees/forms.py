@@ -38,6 +38,5 @@ class FeeRegisterForm(forms.ModelForm):
             'paid_amount',
         ]
 
-class AutoFeesGenration(forms.Form):
-    class_code = chr
-    fee_type_code = chr
+class DateForm(forms.DateInput):
+    Date = forms.DateField()

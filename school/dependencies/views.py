@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type
-from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form
+from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month
+from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form
 
 
 
@@ -512,3 +512,29 @@ def delete_fee_type(request, fee_type_code):
         'fee_type' : fT
     }
     return render(request, 'Dependencies/FeeType/list.html', context)
+
+
+
+def month_list(request):
+    mon = Month.objects.all()
+    context = {'month': mon}
+    return render(request, 'Dependencies/Months/list.html', context)
+
+
+def months(request):
+    if request.method == 'POST':
+        user_form = month_form(request.POST)
+        if user_form.is_valid():
+            months = user_form.save()
+            context = {
+                'return': 'Has been added successfully'
+            }
+            return render(request,'Dependencies/Months/created_month_form.html', context)
+        else:
+            context = {
+                'return': 'Is not valid'
+            }
+            return render(request,'Dependencies/Months/created_month_form.html', context)
+    else:
+        user_form = month_form()
+        return render(request,'Dependencies/Months/month_form.html',{'user_form':user_form})

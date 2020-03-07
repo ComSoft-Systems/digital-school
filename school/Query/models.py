@@ -4,10 +4,15 @@ from dependencies.models import Fee_Concession , Class , School , Section , Fami
 from django.urls import reverse
 
 class Entry_data(models.Model):
+    Gender_Choices = (
+        ('M', 'Male'),
+        ('FM', 'Female'),
+    )
     Query_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
     Name = models.CharField(max_length=30, verbose_name="Name")
     father_name = models.CharField(max_length=30, verbose_name="Father")
     Address = models.CharField(max_length=30)
+    gender = models.CharField(max_length=10, choices=Gender_Choices, default="none")
     last = models.ForeignKey(Class, on_delete= models.CASCADE, default=1)
     Previous_school = models.ForeignKey(School, on_delete= models.CASCADE, default=1)
     Addmission_required = models.ForeignKey(Class, on_delete= models.CASCADE, related_name='required', default=1)
@@ -25,8 +30,5 @@ class Entry_data(models.Model):
         ordering = ('Query_code',)
         index_together = (('Query_code', 'Name'),)
 
-    class Entry_dataManager(models.Manager):				
-        def	get_queryset(self):
-            return super(Entry_dataManager,self).get_queryset().filter(self.Query_code)
 
 					

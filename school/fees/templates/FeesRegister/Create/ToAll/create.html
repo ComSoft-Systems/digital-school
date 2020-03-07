@@ -1,6 +1,6 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<form action="{% url "fee_reg_create_to_all" %}" method="POST">
+<form method="POST">
     <div class="container">
         <h2 class="text-center" style="font-family:sans-serif;">Fees Register Add Form</h2><hr/>
         <table class="table table-hover table-sm table-dark">
@@ -12,12 +12,20 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>class_code</td>
-                    <td>{{ form.class_code }}</td>
+                    <th>Class</th>
+                    <th>{{ a.class_code }}</th>
                 </tr>
                 <tr>
-                    <td>fee_type_code</td>
-                    <td>{{ form.fee_type_code }}</td>
+                    <th>Fee Type</th>
+                    <th><a>{{ b.fee_type_code }}</a></th>
+                </tr>
+                <tr>
+                    <th>Month</th>
+                    <th>{{ c.month }}</th>
+                </tr>
+                <tr>
+                    <th>Due Date</th>
+                    <th><a><input name="date" type='date'></input></a></th>
                 </tr>
                 <tr>
                     <td>Submit</td>

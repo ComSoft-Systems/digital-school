@@ -1,5 +1,7 @@
 {% extends "MainPage.html" %}
+{% load static %}
 {% block content %}
+    <link href="{% static 'css/base.css' %}"/>
     <div class="container">
         <h2 class="text-center" style="font-family:sans-serif;">View All Gr Numbers</h2><hr/>
         <a href="{% url "gr_create" %}">Add Another</a>

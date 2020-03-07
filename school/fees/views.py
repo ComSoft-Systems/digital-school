@@ -1,8 +1,10 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from .forms import *
 from .models import *
+from dependencies.forms import *
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
+import datetime
 
 
 
@@ -45,7 +47,7 @@ def ManageFeeTypeEditView(request, fee_type_code):
             return redirect('class_fee_list')
     else:
         user_form = ClassFeeForm(instance=data)
-        return render(request, 'ClassFee/Edit/edit.html',{'fee':user_form,'data':data}) 
+        return render(request, 'ClassFee/Edit/edit.html',{'user_form':user_form,'data':data}) 
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -97,7 +99,7 @@ def ManageFeeDefEditView(request, fee_def_code):
             return redirect('fee_def_list')
     else:
         user_form = FeeDefineForm(instance=data)
-        return render(request, 'FeesDefine/Edit/edit.html',{'GrNumber':user_form,'data':data}) 
+        return render(request, 'FeesDefine/Edit/edit.html',{'user_form':user_form,'data':data}) 
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -111,6 +113,7 @@ def ManageFeeDefDeleteView(request, fee_def_code):
 
 
 @login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterListView(ListView):
     fee = FeeRegister.objects.all()
     context = {
@@ -119,6 +122,7 @@ def ManageFeeRegisterListView(ListView):
     return render (ListView,'FeesRegister/list.html',context)
 
 @login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterDetailView(DetailView,fee_reg_id):
     fee = get_object_or_404(FeeRegister,fee_reg_id = fee_reg_id)
     context = {
@@ -146,15 +150,57 @@ def ManageFeeRegisterCreateView(CreateView):
         user_form = FeeRegisterForm()
         return render(CreateView,'FeesRegister/Create/create.html',{'user_form':user_form})
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterCreateToAllView(CreateView):
     if CreateView.method == 'POST':
-        abc = AutoFeesGenration(CreateView.POST)
-        print(abc)
-        return render(CreateView,'FeesRegister/Create/ToAll/created.html')
+        clas = CreateView.POST.get('class_code')
+        fee_type = CreateView.POST.get('fee_type_code')
+        startmonth = CreateView.POST.get('month')
+        duedate = CreateView.POST.get('date')
+        v = 8
+        for gr_row in Gr.objects.all():
+            gr_rows = gr_row
+            for std_fee_rows in StFeeDefine.objects.all():
+                st_fe_def_rows = std_fee_rows
+                for feerows in ClassFee.objects.all():
+                    fee_type_rows = feerows
+                    for cla_rows in Class.objects.all():
+                        class_rows = cla_rows
+                        for feetyperows in Fee_Type.objects.all():
+                            feerows = feetyperows
+                            if str(gr_rows.name) == str(st_fe_def_rows.gr_number):
+                                if str(class_rows.class_code) == clas:
+                                    class_ = class_rows.class_name
+                                    if str(feerows.fee_type_code) == fee_type:
+                                        feetype = feerows.fee_type
+                                        if str(gr_rows.current_class) == str(class_):
+                                            if str(feerows.fee_type) == feetype:
+                                                formfill = FeeRegister(
+                                                    int(v) ,
+                                                    gr_rows.gr_number ,
+                                                    feerows.fee_type_code ,
+                                                    int(fee_type_rows.fee_amount)-(int(fee_type_rows.fee_amount)*(st_fe_def_rows.concession_percent)/100) ,
+                                                    startmonth ,
+                                                    duedate ,
+                                                    '0' ,
+                                                    )
+                                                v = v+1
+                                                formfill.save()
+                                                context = {'return' : 'Has Been Added SuccessFully'}
+        return render(CreateView,'FeesRegister/Create/ToAll/created.html',context)
     else:
-        user_form = AutoFeesGenration()
-        return render(CreateView,'FeesRegister/Create/ToAll/create.html',{'form':user_form})
-
+        class_ = ClassFeeForm()
+        fee_type = ClassFeeForm()
+        month = FeeRegisterForm()
+        date_form = DateForm()
+        context = {
+            'a' : class_,
+            'b' : fee_type,
+            'c' : month,
+            'd' : date_form,
+        }
+        return render(CreateView,'FeesRegister/Create/ToAll/create.html',context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
