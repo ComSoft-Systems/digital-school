@@ -5,6 +5,9 @@
         <!--bootstrap file "relation stylesheet"-->
         <link rel="stylesheet" type="text/css" href="{% static './assets/css/bootstrap1.css' %}" />
 
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://resources/demos/style.css">
+
         <!--Page Title-->
         <title>DIGITAL SCHOOL</title>
     </head>
@@ -149,5 +152,12 @@
                 </div>
         <script src="{% static './assets/js/jquery.js' %}"></script>
         <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+          $( function() {
+            $( "#datepicker" ).datepicker();
+          } );
+        </script>
     </body>
 </html>
