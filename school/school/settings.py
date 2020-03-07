@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'multiselectfield',
     'authentication',
     'fees',
-    'django_filters',
+    'Exam'
 ]
 
 MIDDLEWARE = [
