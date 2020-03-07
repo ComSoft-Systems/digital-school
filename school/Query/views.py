@@ -6,6 +6,8 @@ from authentication.user_handeling import unauthenticated_user, allowed_users, a
 
 
 
+
+
 def home(request):
     return render(request, 'query/entry_test.html')
 
