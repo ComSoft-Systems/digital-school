@@ -5,9 +5,6 @@ from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 
 
-
-
-
 def home(request):
     return render(request, 'query/entry_test.html')
 
@@ -42,9 +39,7 @@ def detail(request,Query_code):
 @login_required(login_url='login_url')
 def list_view(request):
     Entry_dataa = Entry_data.objects.all()
-    myFilter = Entry_dataFilter(request.GET, queryset = Entry_dataa)
-    Entry_dataa = myFilter.queryset 
-    context = {'Entry': Entry_dataa, 'myFilter': myFilter }
+    context = {'Entry': Entry_dataa}
     return render (request,'query/query_list.html', context)
 
 @login_required(login_url='login_url')

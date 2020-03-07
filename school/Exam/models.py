@@ -7,6 +7,8 @@ from django.urls import reverse
 class Exam(models.Model):
     exam_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
     exam_session = models.ForeignKey(Session, on_delete= models.CASCADE)
+    def	get_absolute_url(self):
+        return reverse('exam_detail',args=[self.exam_code])
     def __str__(self):
         return str(self.exam_session)
 
@@ -17,6 +19,8 @@ class Semester(models.Model):
     semester_name = models.CharField(max_length=30, verbose_name="semester")
     def __str__(self):
         return self.semester_name
+    def	get_absolute_url(self):
+        return reverse('semester_detail',args=[self.semester_code])
 
 class Semesterbreakup(models.Model):
     exam_code = models.ForeignKey(Exam, on_delete= models.CASCADE)
@@ -25,6 +29,8 @@ class Semesterbreakup(models.Model):
     semesterbreakup_name = models.CharField(max_length=30, verbose_name="semester-breakup")
     def __str__(self):
         return self.semesterbreakup_name
+    def	get_absolute_url(self):
+        return reverse('semesterB_detail',args=[self.semesterbreakup_code])
 
 class Quater(models.Model):
     exam_code = models.ForeignKey(Exam, on_delete= models.CASCADE)
