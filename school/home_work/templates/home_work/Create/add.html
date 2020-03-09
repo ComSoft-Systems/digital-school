@@ -16,15 +16,16 @@
             {% endif %}
         </div>
         <form action="{% url 'homeWork_add' %}" method="POST">
-            
-            <a>Home Work = {{user_form.homework_ID }}</a><br><br>
-            <a>Class = {{user_form.classes }}</a><br><br>
-            <a>Class Section = {{user_form.sections }}</a><br><br>
-            <a>Teacher Name = {{user_form.teacher }}</a><br><br>
-            <a>Subject Name= {{user_form.subjects }}</a><br><br>
-            <a>Chapter Name = {{user_form.chapter }}</a><br><br>
-            <a>Page Number = {{user_form.page }}</a><br><br>
-            <a>Descriptions = {{user_form.descriptions }}</a><br><br>
+
+            <a>Home Work = {{form.homework_ID }}</a><br><br>
+            <a>Class = {{form.classes }}</a><br><br>
+            <a>Class Section = {{form.sections }}</a><br><br>
+            <a>Teacher Name = {{form.teacher }}</a><br><br>
+            <a>Subject Name= {{form.subjects }}</a><br><br>
+            <a>Chapter Name = {{form.chapter }}</a><br><br>
+            <a>Page Number = {{form.page }}</a><br><br>
+            <a>Descriptions = {{form.descriptions }}</a><br><br>
+            <a>Date = {{form.date }}</a><br><br>
             
             {% csrf_token %}
         
