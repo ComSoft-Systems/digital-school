@@ -1,0 +1,22 @@
+{% extends "MainPage.html" %}
+{% block content %}
+<form method='POST'>
+    {% csrf_token %}
+    
+    
+    <select name="tool" >
+    <option value="">---------</option>
+    <option value="Sms">Sms</option>
+    <option value="WhatsApp">WhatsApp</option>
+    </select><br><br>
+    <select name="clas">
+    <option value="">---------</option>
+    {% for i in data %}
+    <option value="{{ i.class_name }}">{{ i.class_name }}</option>
+    {% endfor %}
+    </select><br><br>
+    <input class="input100" type="text" name="sms" placeholder="Type Message"><br><br>
+    <div class="container-login100-form-btn">
+    <button class="login100-form-btn">Login</button>
+</form>
+{% endblock %}
