@@ -40,11 +40,14 @@ INSTALLED_APPS = [
     'Query',
     'student_information.apps.StudentInformationConfig',
     'dependencies',
-    'main',
+    'main',   
     'home_work',
     'multiselectfield',
     'authentication',
     'fees',
+    'Exam',
+    'Question_Bank' 
+
 ]
 
 MIDDLEWARE = [
@@ -87,7 +90,7 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
-        #'HOST': '192.168.1.100',
+        # 'HOST': '192.168.1.100',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -134,5 +137,5 @@ STATIC_URL = '/static/'
 
 # STATICFILES_DIRS by Rizwan 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'main/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]

@@ -1,15 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type
-from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form
+from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month, City
+from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
+from django.contrib.auth.decorators import login_required
+from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 
 
-
-
+@login_required(login_url='login_url')
 def class_list(request):
     clas = Class.objects.all()
     context = {'Class': clas}
     return render(request, 'Dependencies/Classes/list.html', context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def classes(request):
     if request.method == 'POST':
         user_form = class_form(request.POST)
@@ -28,7 +31,8 @@ def classes(request):
         user_form = class_form()
         return render(request,'Dependencies/Classes/classes_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_class(request,class_code):
     clas = get_object_or_404(Class, class_code=class_code)
     if request.method == "POST":
@@ -41,6 +45,8 @@ def edit_class(request,class_code):
 
         return render(request, 'Dependencies/Classes/editclass.html', {'user_form': user_form})
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_class(request, class_code):
     Class.objects.filter(class_code=class_code).delete()
     cla = Class.objects.all()
@@ -50,12 +56,14 @@ def delete_class(request, class_code):
     }
     return render(request, 'Dependencies/Classes/list.html', context) 
 
+@login_required(login_url='login_url')
 def school_list(request):
     schol = School.objects.all()
     context = {'school': schol}
     return render(request, 'Dependencies/Schools/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def schools(request):
     if request.method == 'POST':
         user_form = school_form(request.POST)
@@ -74,7 +82,8 @@ def schools(request):
         user_form = school_form()
         return render(request,'Dependencies/Schools/schools_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_school(request, school_code):
     schol = get_object_or_404(School, school_code=school_code)
 
@@ -88,7 +97,8 @@ def edit_school(request, school_code):
 
         return render(request, 'Dependencies/Schools/editschool.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_school(request, school_code):
     School.objects.filter(school_code=school_code).delete()
     sch = School.objects.all()
@@ -98,13 +108,14 @@ def delete_school(request, school_code):
     }
     return render(request, 'Dependencies/Schools/list.html', context) 
 
-
+@login_required(login_url='login_url')
 def family_list(request):
     fami = Family.objects.all()
     context = {'family': fami}
     return render(request, 'Dependencies/Family/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def families(request):
     if request.method == 'POST':
         user_form = family_form(request.POST)
@@ -123,7 +134,8 @@ def families(request):
         user_form = family_form()
         return render(request,'Dependencies/Family/families_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_family(request, family_code):
     fami = get_object_or_404(Family, family_code=family_code)
 
@@ -137,7 +149,8 @@ def edit_family(request, family_code):
 
         return render(request, 'Dependencies/Family/editfamily.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def family_detail(request,family_code):
     fmil = get_object_or_404(Family,family_code = family_code)
     context = {
@@ -145,7 +158,8 @@ def family_detail(request,family_code):
     }
     return render(request, 'Dependencies/Family/detail.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_family(request, family_code):
     Family.objects.filter(family_code=family_code).delete()
     famil = Family.objects.all()
@@ -155,13 +169,14 @@ def delete_family(request, family_code):
     }
     return render(request, 'Dependencies/Family/list.html', context) 
 
-
+@login_required(login_url='login_url')
 def fee_concession_list(request):
     fee = Fee_Concession.objects.all()
     context = {'fees': fee}
     return render(request, 'Dependencies/FeeConcession/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def fee_concession(request):
     if request.method == 'POST':
         user_form = fee_concession_form(request.POST)
@@ -180,7 +195,8 @@ def fee_concession(request):
         user_form = fee_concession_form()
         return render(request,'Dependencies/FeeConcession/fee_concession_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_fee_concession(request, fee_concession_code):
     fee = get_object_or_404(Fee_Concession, fee_concession_code=fee_concession_code)
 
@@ -194,7 +210,8 @@ def edit_fee_concession(request, fee_concession_code):
 
         return render(request, 'Dependencies/FeeConcession/editfee.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_fee_concession(request, fee_concession_code):
     Fee_Concession.objects.filter(fee_concession_code=fee_concession_code).delete()
     fC = Fee_Concession.objects.all()
@@ -204,13 +221,14 @@ def delete_fee_concession(request, fee_concession_code):
     }
     return render(request, 'Dependencies/FeeConcession/list.html', context) 
 
-
+@login_required(login_url='login_url')
 def section_list(request):
     sec = Section.objects.all()
     context = {'section': sec}
     return render(request, 'Dependencies/Sections/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def sections(request):
     if request.method == 'POST':
         user_form = section_form(request.POST)
@@ -229,7 +247,8 @@ def sections(request):
         user_form = section_form()
         return render(request,'Dependencies/Sections/sections_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_section(request, sect_code):
     sec = get_object_or_404(Section, sect_code=sect_code)
 
@@ -243,7 +262,8 @@ def edit_section(request, sect_code):
 
         return render(request, 'Dependencies/Sections/editsection.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_section(request, sect_code):
     Section.objects.filter(sect_code=sect_code).delete()
     sect = Section.objects.all()
@@ -254,13 +274,14 @@ def delete_section(request, sect_code):
     return render(request, 'Dependencies/Sections/list.html', context)
             
 
-
+@login_required(login_url='login_url')
 def session_list(request):
     sess = Session.objects.all()
     context = {'session': sess}
     return render(request, 'Dependencies/Sessions/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def sessions(request):
     if request.method == 'POST':
         user_form = session_form(request.POST)
@@ -279,7 +300,8 @@ def sessions(request):
         user_form = session_form()
         return render(request,'Dependencies/Sessions/sessions_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_session(request, session_code):
     sess = get_object_or_404(Session, session_code=session_code)
 
@@ -293,7 +315,8 @@ def edit_session(request, session_code):
 
         return render(request, 'Dependencies/Sessions/editsession.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_session(request, session_code):
     Session.objects.filter(session_code=session_code).delete()
     sessi = Session.objects.all()
@@ -303,14 +326,14 @@ def delete_session(request, session_code):
     }
     return render(request, 'Dependencies/Sessions/list.html', context)
 
-    
-
+@login_required(login_url='login_url')  
 def religion_list(request):
     reli = Religion.objects.all()
     context = {'religion': reli}
     return render(request, 'Dependencies/Religions/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def religions(request):
     if request.method == 'POST':
         user_form = religion_form(request.POST)
@@ -329,7 +352,8 @@ def religions(request):
         user_form = religion_form()
         return render(request,'Dependencies/Religions/religions_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_religion(request, religion_code):
     reli = get_object_or_404(Religion, religion_code=religion_code)
 
@@ -343,7 +367,8 @@ def edit_religion(request, religion_code):
 
         return render(request, 'Dependencies/Religions/editreligion.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_religion(request, religion_code):
     Religion.objects.filter(religion_code=religion_code).delete()
     relig = Religion.objects.all()
@@ -353,13 +378,14 @@ def delete_religion(request, religion_code):
     }
     return render(request, 'Dependencies/Religions/list.html', context)
 
-
+@login_required(login_url='login_url')
 def subject_list(request):
     sub = Subject.objects.all()
     context = {'subject': sub}
     return render(request, 'Dependencies/Subjects/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def subjects(request):
     if request.method == 'POST':
         user_form = subject_form(request.POST)
@@ -378,6 +404,8 @@ def subjects(request):
         user_form = subject_form()
         return render(request,'Dependencies/Subjects/subjects_form.html',{'user_form':user_form})
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_subject(request, subject_code):
     sub = get_object_or_404(Class_Subject, subject_code=subject_code)
 
@@ -391,8 +419,8 @@ def edit_subject(request, subject_code):
 
         return render(request, 'Dependencies/Subjects/editsubject.html', {'user_form': user_form})
 
-
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_subject(request, subject_code):
 
     Subject.objects.filter(subject_code=subject_code).delete()
@@ -403,12 +431,14 @@ def delete_subject(request, subject_code):
     }
     return render(request, 'Dependencies/Subjects/list.html', context)
 
-
+@login_required(login_url='login_url')
 def class_subject_list(request):
     cla_sub = Class_Subject.objects.all()
     context = {'class_subject': cla_sub}
     return render(request, 'Dependencies/Class_Subjects/list.html', context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def class_subjects(request):
     if request.method == 'POST':
         user_form = classes_subject_form(request.POST)
@@ -427,9 +457,8 @@ def class_subjects(request):
         user_form = classes_subject_form()
         return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form})
 
-
-
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_class_subject(request, Class_code):
     cla_sub = get_object_or_404(Class_Subject, Class_code=Class_code)
 
@@ -443,7 +472,7 @@ def edit_class_subject(request, Class_code):
 
         return render(request, 'Dependencies/Class_Subjects/editclasssubject.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
 def class_subject_detail(request,Class_code):
     kla = get_object_or_404(Class_Subject,Class_code = Class_code)
     context = {
@@ -451,7 +480,8 @@ def class_subject_detail(request,Class_code):
     }
     return render(request, 'Dependencies/Class_Subjects/detail.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_class_subject(request, Class_code):
     
     Class_Subject.objects.filter(Class_code=Class_code).delete()
@@ -462,14 +492,14 @@ def delete_class_subject(request, Class_code):
     }
     return render(request, 'Dependencies/Class_Subjects/list.html', context)
 
-
-
+@login_required(login_url='login_url')
 def fee_type_list(request):
     feT = Fee_Type.objects.all()
     context = {'fee_type': feT}
     return render(request, 'Dependencies/FeeType/list.html', context)
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def fee_type(request):
     if request.method == 'POST':
         user_form = fee_type_form(request.POST)
@@ -488,7 +518,8 @@ def fee_type(request):
         user_form = fee_type_form()
         return render(request,'Dependencies/FeeType/fee_type_form.html',{'user_form':user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_fee_type(request, fee_type_code):
     feT = get_object_or_404(Fee_Type, fee_type_code=fee_type_code)
 
@@ -502,7 +533,8 @@ def edit_fee_type(request, fee_type_code):
 
         return render(request, 'Dependencies/FeeType/editfeetype.html', {'user_form': user_form})
 
-
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_fee_type(request, fee_type_code):
     
     Fee_Type.objects.filter(fee_type_code=fee_type_code).delete()
@@ -512,3 +544,58 @@ def delete_fee_type(request, fee_type_code):
         'fee_type' : fT
     }
     return render(request, 'Dependencies/FeeType/list.html', context)
+
+
+@login_required(login_url='login_url')
+def month_list(request):
+    mon = Month.objects.all()
+    context = {'month': mon}
+    return render(request, 'Dependencies/Months/list.html', context)
+
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
+def months(request):
+    if request.method == 'POST':
+        user_form = month_form(request.POST)
+        if user_form.is_valid():
+            months = user_form.save()
+            context = {
+                'return': 'Has been added successfully'
+            }
+            return render(request,'Dependencies/Months/created_month_form.html', context)
+        else:
+            context = {
+                'return': 'Is not valid'
+            }
+            return render(request,'Dependencies/Months/created_month_form.html', context)
+    else:
+        user_form = month_form()
+        return render(request,'Dependencies/Months/month_form.html',{'user_form':user_form})
+
+@login_required(login_url='login_url')
+def city_list(request):
+    cit = City.objects.all()
+    context = {'city': cit}
+    return render(request, 'Dependencies/Cities/list.html', context)
+
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
+def cities(request):
+    if request.method == 'POST':
+        user_form = city_form(request.POST)
+        if user_form.is_valid():
+            cities = user_form.save()
+            context = {
+                'return': 'Has been added successfully'
+            }
+            return render(request,'Dependencies/Cities/created_city_form.html', context)
+        else:
+            context = {
+                'return': 'Is not valid'
+            }
+            return render(request,'Dependencies/Cities/created_city_form.html', context)
+    else:
+        user_form = city_form()
+        return render(request,'Dependencies/Cities/city_form.html',{'user_form':user_form})
+
+

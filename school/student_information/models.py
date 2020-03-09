@@ -22,4 +22,4 @@ class Gr(models.Model):
     def get_absolute_url(self):
         return reverse('gr_detail',args=[self.gr_number])
     def __str__(self):
-        return self.name
+        return str(self.name)

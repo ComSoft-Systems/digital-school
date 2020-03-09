@@ -9,7 +9,7 @@ class ClassFee(models.Model):
     fee_amount = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
     def __str__(self):
-        return "{}'s Fees of {} Class".format(self.fee_type_code,self.class_code)
+        return str(self.fee_type_code)
 
 class StFeeDefine(models.Model):
     fee_def_code = models.IntegerField(primary_key=True,auto_created=True,unique=True)
@@ -17,7 +17,7 @@ class StFeeDefine(models.Model):
     fee_type = models.ForeignKey(ClassFee,on_delete=models.CASCADE)
     concession_percent = models.IntegerField()
     def __str__(self):
-        return '{} Fees of {}'.format(self.fee_type,self.gr_number)
+        return str(self.fee_type)
 
 class FeeRegister(models.Model):
     fee_reg_id = models.IntegerField(primary_key=True,auto_created=True,unique=True)
@@ -31,3 +31,4 @@ class FeeRegister(models.Model):
         return '{} Fees Of Month # {}'.format(self.fee_types,self.month)
     def get_absolute_url(self):
         return reverse('fee_reg_detail',args=[self.fee_reg_id])
+
