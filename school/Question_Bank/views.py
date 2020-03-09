@@ -49,6 +49,13 @@ def edit_book(request,book_code):
 
         return render(request, 'Question_Bank/Books/editbook.html', {'user_form': user_form})
 
+def book_detail(request,book_code):
+    bk = get_object_or_404(Book,book_code = book_code)
+    context = {
+        'book': bk,
+    }
+    return render(request, 'Question_Bank/Books/detail.html', context)
+
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_book(request, book_code):
@@ -267,6 +274,14 @@ def edit_question_bank(request,question_code):
         user_form = question_bank_form(instance=quest)
 
         return render(request, 'Question_Bank/Question_Bank/editquestionbank.html', {'user_form': user_form})
+
+
+def question_bank_detail(request,question_code):
+    queb = get_object_or_404(Question_Bank,question_code = question_code)
+    context = {
+        'question_bank': queb,
+    }
+    return render(request, 'Question_Bank/Question_Bank/detail.html', context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
