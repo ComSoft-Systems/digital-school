@@ -25,7 +25,7 @@ SECRET_KEY = 'a#fi=r!+i%k^d^uu9@4)&3$2_vp9_-vv0kvta%zh(uixwkix+a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.100','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'Query',
     'student_information.apps.StudentInformationConfig',
     'dependencies',
-    'main',
+    'main',   
+    'home_work',
     'multiselectfield',
     'authentication',
     'fees',
+
 ]
 
 MIDDLEWARE = [
@@ -132,5 +134,5 @@ STATIC_URL = '/static/'
 
 # STATICFILES_DIRS by Rizwan 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'main/static'),
+    os.path.join(BASE_DIR, 'static'),
 ]

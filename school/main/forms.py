@@ -7,7 +7,6 @@ class UserTypeForm(forms.ModelForm):
     class Meta:
         model = UserType
         fields = [
-            'TypeCode',
             'Usertype',
         ]
 
@@ -16,7 +15,6 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = [
-            'UserCode',
             'Usertype',
             'Name',
             'Father',

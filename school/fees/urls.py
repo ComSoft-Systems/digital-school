@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('type/',views.ManageFeeTypeListView, name="fee_type_list"),
-    path('type/create/',views.ManageFeeTypeCreateView, name="fee_type_create"),
+    path('type/',views.ManageFeeTypeListView, name="class_fee_list"),
+    path('type/create/',views.ManageFeeTypeCreateView, name="class_fee_create"),
     path('type/edit/<fee_type_code>/', views.ManageFeeTypeEditView, name = 'class_fee_edit'),
     path('type/delete/<fee_type_code>/', views.ManageFeeTypeDeleteView, name = 'class_fee_delete'),
 
@@ -14,6 +14,7 @@ urlpatterns = [
 
     path('reg/',views.ManageFeeRegisterListView, name="fee_reg_list"),
     path('reg/create/',views.ManageFeeRegisterCreateView, name="fee_reg_create"),
+    path('reg/create/all/',views.ManageFeeRegisterCreateToAllView, name="fee_reg_create_to_all"),
     path('reg/detail/<fee_reg_id>/',views.ManageFeeRegisterDetailView, name="fee_reg_detail"),
     path('reg/edit/<fee_reg_id>/', views.ManageFeeRegisterEditView, name = 'fee_reg_edit'),
     path('reg/delete/<fee_reg_id>/', views.ManageFeeRegisterDeleteView, name = 'fee_reg_delete'),

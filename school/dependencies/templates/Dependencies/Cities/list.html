@@ -1,0 +1,28 @@
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Cities</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Cities</caption>
+    <thead>
+    <tr>
+    <th>City Code</th>
+    <th>Cities</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for z in city %}
+    <tr>
+      <td>{{z.city_code}}</td>
+      <td>{{z.cities}}</td>
+
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'city_form' %}">Add</a>
+  </div>
+    {% endblock %}
