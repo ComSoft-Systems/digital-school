@@ -13,11 +13,11 @@
             <tbody>
                 <tr>
                     <th>Class</th>
-                    <th>{{ a.class_code }}</th>
+                    <th>{{ a.class_code }}<a href"{% url "class_form" %}">+</a></th>
                 </tr>
                 <tr>
                     <th>Fee Type</th>
-                    <th><a>{{ b.fee_type_code }}</a></th>
+                    <th>{{ b.fee_type_code }}<a href"{% url "fee_type_form" %}">+</a></th>
                 </tr>
                 <tr>
                     <th>Month</th>

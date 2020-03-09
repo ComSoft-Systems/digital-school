@@ -4,7 +4,6 @@ from dependencies.models import *
 from student_information.models import *
 from django.urls import reverse
 
-
 class Exam(models.Model):
     exam_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
     exam_session = models.ForeignKey(Session, on_delete= models.CASCADE)
