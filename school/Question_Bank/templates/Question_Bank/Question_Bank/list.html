@@ -17,10 +17,10 @@
   <tbody>
     {% for qb in question_bank %}
     <tr>
-      <td>{{qb.book_code}}</td>
-      <td>{{qb.book_name}}</td>
-      <td>{{qb.classes}}</td>
+      <td>{{qb.question_code}}</td>
+      <td><a href="{{ qb.get_absolute_url }}">{{qb.question}}</a></td>
       <td>{{qb.subject}}</td>
+      <td>{{qb.classes}}</td>
       <td><a href="{% url 'edit_question_bank' question_code=qb.question_code %}">Edit</a></td>
       <td><a href="{% url 'delete_question_bank' question_code=qb.question_code %}">Delete</a></td>
     </tr>

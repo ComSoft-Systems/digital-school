@@ -7,6 +7,7 @@ urlpatterns = [
     path('book_list/',views.book_list, name = 'book_list'),
     path('book_form/',views.books, name = 'book_form'),
     path('edit_book/<book_code>+/', views.edit_book, name = 'edit_book'),
+        path('book_detail/<book_code>/', views.book_detail, name = 'book_detail'),
     path('delete_book/<book_code>+/', views.delete_book, name = 'delete_book'),
 
 
@@ -30,7 +31,8 @@ urlpatterns = [
 
     path('question_bank_list/',views.question_bank_list, name = 'question_bank_list'),
     path('question_bank_form/',views.question_banks, name = 'question_bank_form'),
-    path('edit_question_type/<question_code>+/', views.edit_question_type, name = 'edit_question_bank'),
+    path('edit_question_bank/<question_code>+/', views.edit_question_bank, name = 'edit_question_bank'),
+    path('question_bank_detail/<question_code>/', views.question_bank_detail, name = 'question_bank_detail'),
     path('delete_question_bank/<question_code>+/', views.delete_question_bank, name = 'delete_question_bank'),
 
 ]
