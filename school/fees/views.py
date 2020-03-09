@@ -158,7 +158,6 @@ def ManageFeeRegisterCreateToAllView(CreateView):
         fee_type = CreateView.POST.get('fee_type_code')
         startmonth = CreateView.POST.get('month')
         duedate = CreateView.POST.get('date')
-        v = 8
         for gr_row in Gr.objects.all():
             gr_rows = gr_row
             for std_fee_rows in StFeeDefine.objects.all():
@@ -176,16 +175,12 @@ def ManageFeeRegisterCreateToAllView(CreateView):
                                         feetype = feerows.fee_type
                                         if str(gr_rows.current_class) == str(class_):
                                             if str(feerows.fee_type) == feetype:
-                                                formfill = FeeRegister(
-                                                    int(v) ,
-                                                    gr_rows.gr_number ,
-                                                    feerows.fee_type_code ,
-                                                    int(fee_type_rows.fee_amount)-(int(fee_type_rows.fee_amount)*(st_fe_def_rows.concession_percent)/100) ,
-                                                    startmonth ,
-                                                    duedate ,
-                                                    '0' ,
-                                                    )
-                                                v = v+1
+                                                formfill = FeeRegisterForm({'gr_number' : gr_rows.gr_number ,
+                                                    'fee_types' : feerows.fee_type_code ,
+                                                    'fee_amount' : int(fee_type_rows.fee_amount)-(int(fee_type_rows.fee_amount)*(st_fe_def_rows.concession_percent)/100) ,
+                                                    'month' : startmonth ,
+                                                    'due_date' : duedate ,
+                                                    'paid_amount' : '0' ,})
                                                 formfill.save()
                                                 context = {'return' : 'Has Been Added SuccessFully'}
         return render(CreateView,'FeesRegister/Create/ToAll/created.html',context)
