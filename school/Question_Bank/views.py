@@ -3,6 +3,7 @@ from .models import Book, Publisher, Chapter, Question_Type, Question_Bank
 from .forms import book_form, publisher_form, chapter_form, question_type_form, question_bank_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
+from .filters import Question_Bank_filter
 
 # Create your views here.
 @login_required(login_url='login_url')
@@ -234,7 +235,11 @@ def delete_question_type(request, Q_type_code):
 @login_required(login_url='login_url')
 def question_bank_list(request):
     quest = Question_Bank.objects.all()
-    context = {'question_bank': quest}
+
+    myFilter = Question_Bank_filter(request.GET, queryset=quest)
+    quest = myFilter.qs
+    
+    context = {'question_bank': quest,'myFilter' : myFilter}
     return render(request, 'Question_Bank/Question_Bank/list.html', context)
 
 @login_required(login_url='login_url')
@@ -244,11 +249,12 @@ def question_banks(request):
         user_form = question_bank_form(request.POST)
         if user_form.is_valid():
             question_banks = user_form.save()
+
             context = {
                 'return': 'Has been added successfully'
             }
             return render(request,'Question_Bank/Question_Bank/created_question_bank_form.html', context)
-            
+
         else:
             context = {
                 'return': 'Is not valid'
@@ -293,3 +299,5 @@ def delete_question_bank(request, question_code):
         'question_bank' : QB
     }
     return render(request, 'Question_Bank/Question_Bank/list.html', context) 
+
+

@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'multiselectfield',
     'authentication',
     'fees',
+    'Exam',
+    'Question_Bank',
+    'django_filters',
 
 ]
 
