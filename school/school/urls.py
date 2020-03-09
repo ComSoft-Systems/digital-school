@@ -30,6 +30,5 @@ urlpatterns = [
     path('homework/', include('home_work.urls')),
     path('Question_Bank/', include('Question_Bank.urls')),
     path('sms/', include('sms.urls'))
-
 ]
 
