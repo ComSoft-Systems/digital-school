@@ -28,7 +28,8 @@ urlpatterns = [
     path('dependencies/', include('dependencies.urls')),
     path('Exam/', include('Exam.urls')),
     path('homework/', include('home_work.urls')),
-    path('sms/', include('sms.urls')),
+    path('Question_Bank/', include('Question_Bank.urls')),
+    path('sms/', include('sms.urls'))
 
 ]
 
