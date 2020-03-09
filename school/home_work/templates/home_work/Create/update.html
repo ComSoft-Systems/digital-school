@@ -2,8 +2,15 @@
 {% extends "MainPage.html" %}
 {% block content %}
 <form action="{% url 'homeWork_update' data.homework_ID %}" method="POST">
+    
+    <!--Main Heading-->
     <div class="container">
-        <h2 class="text-center" style="font-family:sans-serif;">Update Home Work</h2><hr/>
+    <div class="section-title">
+        <h2>home work Edit <span class="light-text">DIGITAL SCHOOL</span></h2>
+        <div class="title-border-container">
+            <div class="title-border"></div>
+        </div>
+    </div>
         <table class="table table-hover table-sm table-dark">
             <thead>
                 <tr>
@@ -12,10 +19,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>homework_ID</td>
-                    <td>{{ user.homework_ID }}</td>
-                </tr>
                 <tr>
                     <td>classes</td>
                     <td>{{user.classes }}</td>
