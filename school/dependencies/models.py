@@ -102,3 +102,10 @@ class Month(models.Model):
     months = models.CharField(max_length=200)
     def __str__(self):
         return self.months
+
+
+class City(models.Model):
+    city_code = models.AutoField(unique = True, primary_key = True)
+    cities = models.CharField(max_length=200)
+    def __str__(self):
+        return self.cities
