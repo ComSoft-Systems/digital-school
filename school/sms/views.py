@@ -17,7 +17,6 @@ def ManageSmsView(SmsView):
             pass
         if Tool == 'WhatsApp':
             pass
-        
         return render(SmsView , 'Sms/Create/created.html',context)
     else:
         data = Class.objects.all()

@@ -1,6 +1,8 @@
 from django.shortcuts import render , get_object_or_404 ,redirect
 from .forms import *
 from .models import *
+from django.contrib.auth.decorators import login_required
+from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 
 def ManageMainScreenView(request):
     return render(request, 'Main/Index.html')
@@ -26,6 +28,8 @@ def ManageDetailView(request):
 def ManageAfterLoginView(request):
     return render(request,'Admin/Common.html')
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserTypeListView(ListView):
     usertype = UserType.objects.all()
     context = {
@@ -33,6 +37,8 @@ def ManageUserTypeListView(ListView):
     }
     return render (ListView,'User/UserType/List.html',context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserTypeCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = UserTypeForm(CreateView.POST)
@@ -54,6 +60,8 @@ def ManageUserTypeCreateView(CreateView):
             }
         return render(CreateView,'User/UserType/Create.html',context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserTypeEditView(request, TypeCode):
     data = get_object_or_404(UserType, TypeCode = TypeCode)
     if request.method == "POST":
@@ -65,6 +73,8 @@ def ManageUserTypeEditView(request, TypeCode):
         user_form = UserTypeForm(instance=data)
         return render(request, 'User/UserType/Edit.html',{'return':user_form,'data':data}) 
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserProfileListView(ListView):
     userprofile = UserProfile.objects.all()
     context = {
@@ -72,6 +82,8 @@ def ManageUserProfileListView(ListView):
     }
     return render (ListView,'User/UserProfile/List.html',context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserProfileDetailView(DetailView,UserCode):
     userprofile = get_object_or_404(UserProfile,UserCode = UserCode)
     context = {
@@ -79,6 +91,8 @@ def ManageUserProfileDetailView(DetailView,UserCode):
     }
     return render (DetailView,'User/UserProfile/Detail.html',context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserProfileCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = UserProfileForm(CreateView.POST)
@@ -100,6 +114,8 @@ def ManageUserProfileCreateView(CreateView):
             }
         return render(CreateView,'User/UserProfile/Create.html',context)
 
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageUserProfileEditView(request, UserCode):
     data = get_object_or_404(UserProfile, UserCode = UserCode)
     if request.method == "POST":
