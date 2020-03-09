@@ -25,6 +25,8 @@ class Book(models.Model):
     subject = models.ForeignKey(Subject, on_delete= models.CASCADE, default=1)
     publisher = models.ForeignKey(Publisher, on_delete= models.CASCADE, default=1)
     medium = models.CharField(max_length=10, choices=MEDIUM_CHOICES, default="none")
+    def	get_absolute_url(self):
+        return reverse('book_detail',args=[self.book_code])
     def __str__(self):
         return self.book_name
 
@@ -52,6 +54,10 @@ class Question_Taken(models.Model):
 
 
 class Question_Bank(models.Model):
+    QUESTION_CHOICES = (
+      ('Exercise','Exercise'),
+        ('General', 'General')
+    )
     question_code = models.AutoField(unique = True, primary_key = True)
     question = models.TextField()
     subject = models.ForeignKey(Subject, on_delete = models.CASCADE, default = 1)
@@ -60,7 +66,8 @@ class Question_Bank(models.Model):
     book = models.ForeignKey(Book, on_delete = models.CASCADE, default = 1)
     chapter = models.ForeignKey(Chapter, on_delete = models.CASCADE, default = 1)
     question_type = models.ForeignKey(Question_Type, on_delete = models.CASCADE, default = 1)
-    questions_from = models.ForeignKey(Question_Taken, on_delete = models.CASCADE, default = 1)
-    
+    questions_from = models.CharField(max_length=10, choices=QUESTION_CHOICES, default="none")
+    def	get_absolute_url(self):
+        return reverse('question_bank_detail',args=[self.question_code])
     def __str__(self):
         return self.question
