@@ -1,0 +1,32 @@
+{% extends 'MainPage.html' %}
+    {% block content %}
+
+    
+<div class="container">
+    <h2 class="text-center" style="font-family:sans-serif;">Books</h2><hr/>
+    <table class="table table-hover table-sm table-dark">
+      <caption>Books</caption>
+    <thead>
+    <tr>
+    <th>Book Code</th>
+    <th>Book Name</th>
+    <th>Classes</th>
+    <th>Subject</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in book %}
+    <tr>
+      <td>{{r.book_code}}</td>
+      <td>{{r.book_name}}</td>
+      <td>{{r.classes}}</td>
+      <td>{{r.subject}}</td>
+      <td><a href="{% url 'edit_book' book_code=r.book_code %}">Edit</a></td>
+      <td><a href="{% url 'delete_book' book_code=r.book_code %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+    </table>
+    <a href="{% url 'book_form' %}">Add</a>
+  </div>
+    {% endblock %}

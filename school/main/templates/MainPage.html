@@ -75,6 +75,22 @@
                         <a class="dropdown-item" href="{% url "class_subject_list" %}">Class_Subjects</a>
                         <a class="dropdown-item" href="{% url "fee_type_list" %}">Fee_Types</a>
                         <a class="dropdown-item" href="{% url "month_list" %}">Months</a>
+                        <a class="dropdown-item" href="{% url "city_list" %}">Cities</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                        Question Bank
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'book_list' %}">Books</a>
+                        <a class="dropdown-item" href="{% url 'publisher_list' %}">Publishers</a>
+                        <a class="dropdown-item" href="{% url 'chapter_list' %}">Chapters</a>
+                        <a class="dropdown-item" href="{% url 'question_type_list' %}">Question Types</a>
+                        <a class="dropdown-item" href="{% url 'question_bank_list' %}">Question Bank</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                       </div>
