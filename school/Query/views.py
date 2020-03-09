@@ -8,8 +8,6 @@ from authentication.user_handeling import unauthenticated_user, allowed_users, a
 def home(request):
     return render(request, 'query/entry_test.html')
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
 def form(request):
     if request.method == 'POST':
         user_form = Form(request.POST)

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import *
-from .forms import ExamForm, SemesterForm, SemesterbreakupForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 
@@ -159,3 +159,154 @@ def semesterB_delete(request, semesterbreakup_code):
         'Entry' : a
     }
     return render(request, 'semesterB/semesterB_list.html', context)
+#### QUATER MODEL
+def quaterform(request):
+    if request.method == 'POST':
+        quater_form = QuaterForm(request.POST)
+        if quater_form.is_valid():
+            form = quater_form.save()
+            context = {
+                'return': 'Has Been Added SuccessFully'
+            }
+            return render(request,'Exam/created.html',context)
+        else:
+            context = {
+                'return': 'Is Not Valid'
+            }
+            return render(request,'Exam/created.html',context)
+    else:
+        quater_form = QuaterForm()
+        return render(request,'quater/quater_form.html',{'quater_form':quater_form})
+
+
+def quater_list_view(request):
+    Entry_quater = Quater.objects.all()
+    context = {'Entry': Entry_quater}
+    return render (request,'quater/quater_list.html', context)
+
+def quater_detail(request,quater_code):
+    abc = get_object_or_404(Quater,quater_code = quater_code)
+    context = {
+        'Entry': abc,
+    }
+    return render(request, 'quater/quater_detail.html', context)
+
+def quater_edit(request,quater_code):
+    i = get_object_or_404(Quater, quater_code=quater_code)
+    if request.method == "POST":
+        quater_form = QuaterForm(request.POST, instance=i)
+        if quater_form.is_valid():
+            quater_form.save()
+            return redirect('quater_list_view')
+    else:
+        quater_form = QuaterForm(instance=i)
+        return render(request, 'quater/edit_quater.html', {'quater_form':quater_form})
+    
+def quater_delete(request, quater_code):
+    Quater.objects.filter(quater_code=quater_code).delete()
+    a = Quater.objects.all()
+    context = {
+        'Entry' : a
+    }
+    return render(request, 'quater/quater_list.html', context)
+####ASSESMENT MODEL
+def assesmentform(request):
+    if request.method == 'POST':
+        assesment_form = AssesmentForm(request.POST)
+        if assesment_form.is_valid():
+            form = assesment_form.save()
+            context = {
+                'return': 'Has Been Added SuccessFully'
+            }
+            return render(request,'Exam/created.html',context)
+        else:
+            context = {
+                'return': 'Is Not Valid'
+            }
+            return render(request,'Exam/created.html',context)
+    else:
+        assesment_form = AssesmentForm()
+        return render(request,'assesment/assesment_form.html',{'assesment_form':assesment_form})
+
+
+def assesment_list_view(request):
+    Entry_assesment = Assesment.objects.all()
+    context = {'Entry': Entry_assesment}
+    return render (request,'assesment/assesment_list.html', context)
+
+def assesment_detail(request,assesment_code):
+    abc = get_object_or_404(Assesment,assesment_code = assesment_code)
+    context = {
+        'Entry': abc,
+    }
+    return render(request, 'assesment/assesment_detail.html', context)
+
+def assesment_edit(request,assesment_code):
+    i = get_object_or_404(Assesment, assesment_code=assesment_code)
+    if request.method == "POST":
+        assesment_form = AssesmentForm(request.POST, instance=i)
+        if assesment_form.is_valid():
+            assesment_form.save()
+            return redirect('assesment_list_view')
+    else:
+        assesment_form = AssesmentForm(instance=i)
+        return render(request, 'assesment/edit_assesment.html', {'assesment_form':assesment_form})
+    
+def assesment_delete(request, assesment_code):
+    Assesment.objects.filter(assesment_code=assesment_code).delete()
+    a = Assesment.objects.all()
+    context = {
+        'Entry' : a
+    }
+    return render(request, 'assesment/assesment_list.html', context)
+
+####Mark MODEL
+def markform(request):
+    if request.method == 'POST':
+        mark_form = MarkForm(request.POST)
+        if mark_form.is_valid():
+            form = mark_form.save()
+            context = {
+                'return': 'Has Been Added SuccessFully'
+            }
+            return render(request,'Exam/created.html',context)
+        else:
+            context = {
+                'return': 'Is Not Valid'
+            }
+            return render(request,'Exam/created.html',context)
+    else:
+        mark_form = MarkForm()
+        return render(request,'mark/mark_form.html',{'mark_form':mark_form})
+
+
+def mark_list_view(request):
+    Entry_mark = Mark.objects.all()
+    context = {'Entry': Entry_mark}
+    return render (request,'mark/mark_list.html', context)
+
+def mark_detail(request,id):
+    abc = get_object_or_404(Mark, id = id)
+    context = {
+        'Entry': abc,
+    }
+    return render(request, 'mark/mark_detail.html', context)
+
+def mark_edit(request,id):
+    i = get_object_or_404(Mark, id = id)
+    if request.method == "POST":
+        mark_form = MarkForm(request.POST, instance=i)
+        if mark_form.is_valid():
+            mark_form.save()
+            return redirect('mark_list_view')
+    else:
+        mark_form = MarkForm(instance=i)
+        return render(request, 'mark/edit_mark.html', {'mark_form':mark_form})
+    
+def mark_delete(request, id):
+    Mark.objects.filter(id = id).delete()
+    a = Mark.objects.all()
+    context = {
+        'Entry' : a
+    }
+    return render(request, 'mark/mark_list.html', context)
