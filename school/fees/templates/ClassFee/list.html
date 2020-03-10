@@ -1,0 +1,28 @@
+{% extends "MainPage.html" %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center" style="font-family:sans-serif;">View All Class Fees</h2><hr/>
+        <a href="{% url "class_fee_create" %}">Add Another</a>
+        <table class="table table-hover table-sm table-dark">
+            <thead align="center">
+                <tr>
+                    <th>Fee Type</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            {% for fee in fee %}
+            <tbody align="center">
+                    <th>{{ fee.class_code }}</th>
+                    <th>{{ fee.fee_type_code }}</th>
+                    <th>{{ fee.fee_amount }}</th>
+                    <th>{{ fee.description }}</th>
+                    <th><a class="btn btn-primary" href="{% url 'class_fee_edit' fee.class_fee_code %}">Edit</a><a href="{% url 'class_fee_delete' fee.class_fee_code %}" class="btn btn-primary" href="">Delete</a></th>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    {% csrf_token %}
+</form>
+
+{% endblock %}
