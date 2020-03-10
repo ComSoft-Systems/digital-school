@@ -3,7 +3,7 @@ from dependencies.models import *
 
 # Create your models here.
 class home_work(models.Model):
-    homework_ID = models.IntegerField(auto_created = True, unique = True, primary_key = True)
+    homework_ID = models.AutoField(unique = True, primary_key = True)
     classes = models.ForeignKey(Class, on_delete = models.CASCADE, related_name= 'homework_class')
     sections = models.ForeignKey(Section, on_delete = models.CASCADE, related_name= 'homework_class')
     teacher = models.CharField(max_length = 30)
