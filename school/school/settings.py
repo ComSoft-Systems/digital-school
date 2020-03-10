@@ -46,13 +46,8 @@ INSTALLED_APPS = [
     'authentication',
     'fees',
     'Exam',
-
     'Question_Bank',
-    'django_filters',
-
-    'Question_Bank' 
-
-
+    'django_filters'
 ]
 
 MIDDLEWARE = [
