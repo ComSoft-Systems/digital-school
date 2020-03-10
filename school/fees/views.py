@@ -175,12 +175,15 @@ def ManageFeeRegisterCreateToAllView(CreateView):
                                         feetype = feerows.fee_type
                                         if str(gr_rows.current_class) == str(class_):
                                             if str(feerows.fee_type) == feetype:
-                                                formfill = FeeRegisterForm({'gr_number' : gr_rows.gr_number ,
-                                                    'fee_types' : feerows.fee_type_code ,
+                                                formfill = FeeRegisterForm({
+                                                    'gr_number' : gr_rows.gr_number ,
+                                                    'fee_types' : feerows.fee_type_code + 1  ,
                                                     'fee_amount' : int(fee_type_rows.fee_amount)-(int(fee_type_rows.fee_amount)*(st_fe_def_rows.concession_percent)/100) ,
                                                     'month' : startmonth ,
                                                     'due_date' : duedate ,
-                                                    'paid_amount' : '0' ,})
+                                                    'paid_amount' : '0' ,
+                                                    })
+                                                print(formfill)
                                                 formfill.save()
                                                 context = {'return' : 'Has Been Added SuccessFully'}
         return render(CreateView,'FeesRegister/Create/ToAll/created.html',context)
