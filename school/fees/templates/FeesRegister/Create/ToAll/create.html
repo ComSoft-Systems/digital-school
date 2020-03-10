@@ -1,6 +1,6 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<form method="POST">
+<form action="{% url "fee_reg_create_to_all" %}" method="POST">
     <div class="container">
         <h2 class="text-center" style="font-family:sans-serif;">Fees Register Add Form</h2><hr/>
         <table class="table table-hover table-sm table-dark">
@@ -13,19 +13,19 @@
             <tbody>
                 <tr>
                     <th>Class</th>
-                    <th>{{ a.class_code }}<a href"{% url "class_form" %}">+</a></th>
+                    <th>{{ a.class_code }}<a href="{% url "class_form" %}"> + </a></th>
                 </tr>
                 <tr>
                     <th>Fee Type</th>
-                    <th>{{ b.fee_type_code }}<a href"{% url "fee_type_form" %}">+</a></th>
+                    <th>{{ b.fee_type_code }}<a href="{% url "fee_type_form" %}"> + </a></th>
                 </tr>
                 <tr>
                     <th>Month</th>
                     <th>{{ c.month }}</th>
                 </tr>
                 <tr>
-                    <th>Due Date</th>
-                    <th><a><input name="date" type='date'></input></a></th>
+                    <th>due_date</th>
+                    <th><input type="date" name="date"></input></th>
                 </tr>
                 <tr>
                     <td>Submit</td>
@@ -35,6 +35,7 @@
         </table>
     </div>
     {% csrf_token %}
+
 </form>
 
 {% endblock %}
