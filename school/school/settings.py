@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'authentication',
     'fees',
     'Exam',
-    'Question_Bank' 
+    'Question_Bank' ,
+    'sms',
 
 ]
 
