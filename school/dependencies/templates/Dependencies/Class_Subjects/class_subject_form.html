@@ -3,7 +3,6 @@
 {% block content %}
 <h1>Add Class Subject</h1>
 <form action ="{% url 'class_subject_form' %}" method = "POST">
-<a>Class Subject Code= {{user_form.Class_code}}</a><br><br>
 <a>Classes= {{user_form.Class}}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
 <a>Subjects= {{user_form.class_subjects}}</a><a href="{% url 'subject_form' %}"> Add subject </a><br><br>
 {% csrf_token %}
