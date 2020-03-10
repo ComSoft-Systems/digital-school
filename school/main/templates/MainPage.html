@@ -106,7 +106,12 @@
                         Exam
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{% url "exam_form" %}">Exam</a>
+                        <a class="dropdown-item" href="{% url 'exam_list_view' %}">Exam list</a>
+                        <a class="dropdown-item" href="{% url 'semester_list_view' %}">Semester list</a>
+                        <a class="dropdown-item" href="{% url 'semesterB_list_view' %}">SemesterB list</a>
+                        <a class="dropdown-item" href="{% url 'quater_list_view' %}">Quater list</a>
+                        <a class="dropdown-item" href="{% url 'assesment_list_view' %}">Assesment</a>
+                        <a class="dropdown-item" href="{% url 'mark_list_view' %}">Mark</a>
                         <div class="dropdown-divider"></div>
                       </div>
                     </li>
