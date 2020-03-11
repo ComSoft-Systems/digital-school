@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'Exam',
     'sms',
     'Question_Bank',
-    
+    # 'django-filters',
+    #'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,7 @@ DATABASES = {
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
         'HOST': '192.168.1.100',
+        #'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
