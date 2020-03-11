@@ -3,7 +3,7 @@ from .models import Book, Publisher, Chapter, Question_Type, Question_Bank
 from .forms import book_form, publisher_form, chapter_form, question_type_form, question_bank_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
-from .filters import Question_Bank_filter
+# from .filters import Question_Bank_filter
 
 # Create your views here.
 @login_required(login_url='login_url')

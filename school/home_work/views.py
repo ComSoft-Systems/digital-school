@@ -10,36 +10,36 @@ def homeWork_listWise(request):
     log = {'Entry': homeWork_list}
     return render (request,'home_work/Create/list.html', log)
 
+#simple add function
+# def homeWork_add(request):
+#     form = home_work_form(request.POST or None)
+#     if form.is_valid():
+#         form.save()
 
-def homeWork_add(request):
-    form = home_work_form(request.POST or None)
-    if form.is_valid():
-        form.save()
+#     context = {
+#         'form': form
+#     } 
+#     return render(request,'home_work/Create/add.html', context)
 
-    context = {
-        'form': form
-    } 
-    return render(request,'home_work/Create/add.html',context)
-
-# def homeWork_add(CreateView):
-#     if CreateView.method == 'POST':
-#         user_form = home_work_form(CreateView.POST)
+def homeWork_add(CreateView):
+    if CreateView.method == 'POST':
+        user_form = home_work_form(CreateView.POST)
         
-#         if user_form.is_valid():
-#             form = user_form.save()
-#             context = {
-#                 'return': 'Has Been Added SuccessFully'
-#             }
-#             return render(CreateView,'home_work/Create/added.html',context)
-#         else:
-#             context = {
-#                 'return': 'Is Not Valid'
-#             } 
-#             return render(CreateView,'home_work/Create/added.html',context)
+        if user_form.is_valid():
+            form = user_form.save()
+            context = {
+                'return': 'Has Been Added SuccessFully'
+            }
+            return render(CreateView,'home_work/Create/added.html',context)
+        else:
+            context = {
+                'return': 'Is Not Valid'
+            } 
+            return render(CreateView,'home_work/Create/added.html',context)
 
-#     else:
-#         user_form = home_work_form()
-#         return render(CreateView,'home_work/Create/add.html',{'user_form':user_form})
+    else:
+        user_form = home_work_form()
+        return render(CreateView,'home_work/Create/add.html',{'form':user_form})
 
 
 def homeWork_update(request , homework_ID):

@@ -35,7 +35,7 @@ def ManageUserTypeListView(ListView):
     context = {
         'usertype':usertype
     }
-    return render (ListView,'User/UserType/List.html',context)
+    return render (ListView,'User/UserType/List.html', context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -47,18 +47,18 @@ def ManageUserTypeCreateView(CreateView):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(CreateView,'User/UserType/Created.html',context)
+            return render(CreateView,'User/UserType/Created.html', context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(CreateView,'User/UserType/Created.html',context)
+            return render(CreateView,'User/UserType/Created.html', context)
     else:
         user_form = UserTypeForm()
         context = {
                 'form' : user_form
             }
-        return render(CreateView,'User/UserType/Create.html',context)
+        return render(CreateView,'User/UserType/Create.html', context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
