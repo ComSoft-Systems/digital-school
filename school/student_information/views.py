@@ -26,7 +26,6 @@ def ManageGrDetailView(DetailView,gr_number):
 def ManageGrCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = EntryForm(CreateView.POST)
-        print(user_form)
         if user_form.is_valid():
             form = user_form.save()
             context = {
