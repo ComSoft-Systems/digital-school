@@ -24,7 +24,6 @@
       <caption>Questions</caption>
     <thead>
     <tr>
-    <th>Question Code</th>
     <th>Question</th>
     <th>Classes</th>
     <th>Subject</th>
@@ -33,7 +32,6 @@
   <tbody>
     {% for qb in question_bank %}
     <tr>
-      <td>{{qb.question_code}}</td>
       <td><a href="{{ qb.get_absolute_url }}">{{qb.question}}</a></td>
       <td>{{qb.classes}}</td>
       <td>{{qb.subject}}</td>
