@@ -29,7 +29,6 @@ class FeeRegisterForm(forms.ModelForm):
     class Meta:
         model = FeeRegister
         fields = [
-            'fee_reg_id',
             'gr_number',
             'fee_types',
             'fee_amount',

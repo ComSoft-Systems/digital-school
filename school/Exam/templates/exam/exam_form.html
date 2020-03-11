@@ -5,6 +5,6 @@
 <a>exam_code = {{user_form.exam_code }}</a><br><br>
 <a>exam_session = {{user_form.exam_session }}</a><a href="{% url 'session_form' %}"> Add Session </a><br><br>
 {% csrf_token %}
-<input type="submit" value="Add to Entry_data">
+<input type="submit" value="Add to Exam">
 </form>
 {% endblock %}

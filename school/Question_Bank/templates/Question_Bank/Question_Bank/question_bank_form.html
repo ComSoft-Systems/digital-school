@@ -10,7 +10,7 @@
 <a>Book = {{user_form.book}}</a><a href="{% url 'book_form' %}"> Add Book </a><br><br>
 <a>Chapter = {{user_form.chapter}}</a><a href="{% url 'chapter_form' %}"> Add Chapter </a><br><br>
 <a>Question Type = {{user_form.question_type}}</a><a href="{% url 'question_type_form' %}"> Add Question Type </a><br><br>
-<a>Question From = {{user_form.question_from}}</a><br><br>
+<a>Question From = {{user_form.questions_from}}</a><br><br>
 
 {% csrf_token %}
 <input type ="submit" value="Save">

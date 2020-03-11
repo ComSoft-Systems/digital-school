@@ -3,7 +3,6 @@
 {% block content %}
 <h1>Add City</h1>
 <form action ="{% url 'city_form' %}" method = "POST">
-<a>City Code = {{user_form.city_code}}</a><br><br>
 <a>City = {{user_form.cities}}</a><br><br>
 {% csrf_token %}
 <input type ="submit" value="Save">
