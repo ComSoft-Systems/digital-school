@@ -3,7 +3,10 @@ from .models import Book, Publisher, Chapter, Question_Type, Question_Bank
 from .forms import book_form, publisher_form, chapter_form, question_type_form, question_bank_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
-# from .filters import Question_Bank_filter
+from .filters import Question_Bank_filter
+import random 
+from dependencies.models import *
+# from dependencies.forms import *
 
 # Create your views here.
 @login_required(login_url='login_url')
@@ -232,15 +235,58 @@ def delete_question_type(request, Q_type_code):
     }
     return render(request, 'Question_Bank/Question_Type/list.html', context)
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def question_bank_list(request):
     quest = Question_Bank.objects.all()
-
-    myFilter = Question_Bank_filter(request.GET, queryset=quest)
-    quest = myFilter.qs
-    
-    context = {'question_bank': quest,'myFilter' : myFilter}
+    myFilter = question_bank_form()
+    context = {'question_bank': quest , 'myFilter' : myFilter}
     return render(request, 'Question_Bank/Question_Bank/list.html', context)
+
+def filtered_Questions(request):
+    if request.method == 'POST':
+        InSubject = request.POST.get('subject')
+        InClass = request.POST.get('classes')
+        InBook = request.POST.get('book')
+        InChapter = request.POST.get('chapter')
+        InQuestionType = request.POST.get('question_type')
+        # InQuestionFrom = request.POST.get('questions_from')
+        InQuantity = request.POST.get('qty')
+        pool= list(Question_Bank.objects.all())
+        # print(Class)
+        context = {'question_bank': 'No Matching Questions Found'}
+        Ques = []
+        for prows in pool:
+            p_rows = prows
+            for srows in Subject.objects.all():
+                s_rows = srows
+                for crows in Class.objects.all():
+                    c_rows = crows
+                    for brows in Book.objects.all():
+                        b_rows = brows
+                        for chrows in Chapter.objects.all():
+                            ch_rows = chrows
+                            for qtrows in Question_Type.objects.all():
+                                qt_rows = qtrows
+                                # for qfrows in Question_Bank.objects.all():
+                                #     qf_rows = qfrows
+                                if str(s_rows.subject_code) == str(InSubject):
+                                    if str(s_rows.subjects) == str(p_rows.subject):
+                                        if str(c_rows.class_code) == str(InClass):
+                                            if str(c_rows.class_name) == str(p_rows.classes):
+                                                if str(b_rows.book_code) == str(InBook):
+                                                    if str(b_rows.book_name) == str(p_rows.book):
+                                                        if str(ch_rows.chapter_code) == str(InChapter):
+                                                            if str(ch_rows.chapter_name) == str(p_rows.chapter):
+                                                                if str(qt_rows.Q_type_code) == str(InQuestionType):
+                                                                    if str(qt_rows.question_type) == str(p_rows.question_type):
+                                                                        # if str(qf_rows.question_code) == str(InQuestionFrom):
+                                                                        #     if str(qf_rows.questions_from) == str(p_rows.questions_from):
+                                                        
+                                                                        Ques.append(p_rows.question)
+                                                                        random.shuffle( Ques )
+                                                                        object_list = Ques[:int(InQuantity)]
+                                                                        context = {'question_bank': object_list}
+        return render(request, 'Question_Bank/Question_Bank/filter.html', context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -300,4 +346,82 @@ def delete_question_bank(request, question_code):
     }
     return render(request, 'Question_Bank/Question_Bank/list.html', context) 
 
+# def create_random(request):
+#     if request.method == 'POST':
+#         in_c = request.POST.get('classes')
+#         in_s = request.POST.get('subject')
+#         in_b = request.POST.get('book')
+#         in_ch = request.POST.get('chapter')
+#         in_qt = request.POST.get('question_type')
+#         in_qf = request.POST.get('questions_from')
+#         in_q = request.POST.get('quantity')
+#         print(in_c)
+#         print(in_s)
+#         print(in_b)
+#         print(in_ch)
+#         print(in_qt)
+#         print(in_qf)
+#         print(in_q)
+#         question = Question_Bank.objects.all()
+#         for qrows in question:
+#             q_rows = qrows
+#             if str(q_rows.classes) == str(in_c):
+#                 if str(q_rows.subject) == str(in_s):
+#                     if str(q_rows.book) == str(in_b):
+#                         if str(q_rows.chapter) == str(in_ch):
+#                             if str(q_rows.question_type) == str(in_qt):
+#                                 if str(q_rows.questions_from) == str(in_qf):
+#                                     print('abc')
+#         return render(request,'Question_Bank/Question_Bank/list.html')
+#     else:
+#         classes = class_form()
+#         subject = subject_form()
+#         book = book_form()
+#         chapter = chapter_form()
+#         questiontype = question_type_form()
+#         context = {
+#             'classes' : classes ,
+#             'subject' : subject ,
+#             'book' : book ,
+#             'chapter' : chapter ,
+#             'questiontype' : questiontype ,
+#             }
+#         return render(request,'Question_Bank/Question_Bank/random.html',context)
 
+
+
+
+
+
+
+
+# def ManageRandomView(RandomView):
+#     if RandomView.method == 'POST':
+#         Clas = RandomView.POST.get('clas')
+#         subject = RandomView.POST.get('subject')
+#         book = RandomView.POST.get('book')
+#         chapter = RandomView.POST.get('chapter')
+#         question_type = RandomView.POST.get('question_type')
+#         context = {
+#             'clas' : Clas,
+#             'subject' : subject,
+#             'book' : book,
+#             'chapter' : chapter,
+#             'question_type' : question_type,
+#         }
+#         pass
+
+#     else:
+#         klas = Class.objects.all()
+#         sub = Subject.objects.all()
+#         boo = Book.objects.all()
+#         chap = Chapter.objects.all()
+#         qut = Question_Type.objects.all()
+#         context = {
+#             'klas' : klas,
+#             'sub' : sub,
+#             'boo' : boo,
+#             'chap' : chap,
+#             'qut' : qut
+#         }
+#         return render(RandomView , 'Question_Bank/Question_Bank/random.html' , context)

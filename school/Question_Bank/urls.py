@@ -30,6 +30,7 @@ urlpatterns = [
 
 
     path('question_bank_list/',views.question_bank_list, name = 'question_bank_list'),
+    path('question_bank_filtered/',views.filtered_Questions, name = 'question_bank_filter'),
     path('question_bank_form/',views.question_banks, name = 'question_bank_form'),
     path('edit_question_bank/<question_code>+/', views.edit_question_bank, name = 'edit_question_bank'),
     path('question_bank_detail/<question_code>/', views.question_bank_detail, name = 'question_bank_detail'),
