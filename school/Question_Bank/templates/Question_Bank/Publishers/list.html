@@ -8,7 +8,6 @@
       <caption>Publishers</caption>
     <thead>
     <tr>
-    <th>Publisher Code</th>
     <th>Publisher Names</th>
     <th>Cities</th>
     </tr>
@@ -16,7 +15,6 @@
   <tbody>
     {% for re in publisher %}
     <tr>
-      <td>{{re.publisher_code}}</td>
       <td>{{re.publisher_name}}</td>
       <td>{{re.city}}</td>
       <td><a href="{% url 'edit_publisher' publisher_code=re.publisher_code %}">Edit</a></td>

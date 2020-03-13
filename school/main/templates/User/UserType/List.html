@@ -6,14 +6,12 @@
         <table class="table table-hover table-sm table-dark">
             <thead align="center">
                 <tr>
-                    <th>TypeCode</th>
                     <th>UserType</th>
                     <th>Action</th>
                 </tr>
             </thead>
             {% for a in usertype %}
             <tbody align="center">
-                    <th>{{ a.TypeCode }}</th>
                     <th>{{ a.Usertype }}</th>
                     <th><a class="btn btn-primary" href="{% url 'usertypeedit_url' a.TypeCode %}">Edit</a><a class="btn btn-primary" href="">Delete</a></th>
             </tbody>
