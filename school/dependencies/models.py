@@ -87,7 +87,7 @@ class Class_Subject(models.Model):
     def	get_absolute_url(self):
         return reverse('class_subject_detail',args=[self.Class_code])
     def __str__(self):
-        return self.class_subjects
+        return str(self.Class)
 
 
 class Fee_Type(models.Model):
