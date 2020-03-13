@@ -8,14 +8,12 @@
       <caption>Families</caption>
     <thead>
     <tr align="center">
-    <th>Family Code</th>
     <th>Surname</th>
     </tr>
   </thead>
   <tbody>
     {% for a in family %}
     <tr align="center">
-      <td>{{a.family_code}}</td>
       <td><a href="{{ a.get_absolute_url }}">{{a.surname}}</a></td>
       <td><a href="{% url 'edit_family' family_code=a.family_code %}">Edit</a></td>
       <td><a href="{% url 'delete_family' family_code=a.family_code %}">Delete</a></td>

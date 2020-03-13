@@ -9,7 +9,6 @@
       <caption>Books</caption>
     <thead>
     <tr>
-    <th>Book Code</th>
     <th>Book Name</th>
     <th>Classes</th>
     <th>Subject</th>
@@ -18,7 +17,6 @@
   <tbody>
     {% for r in book %}
     <tr>
-      <td>{{r.book_code}}</td>
       <td><a href="{{ r.get_absolute_url }}">{{r.book_name}}</a></td>
       <td>{{r.classes}}</td>
       <td>{{r.subject}}</td>
