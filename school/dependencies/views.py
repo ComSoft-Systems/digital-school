@@ -1,23 +1,25 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month, City
 from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def class_list(request):
     clas = Class.objects.all()
     context = {'Class': clas}
     return render(request, 'Dependencies/Classes/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def classes(request):
     if request.method == 'POST':
         user_form = class_form(request.POST)
         if user_form.is_valid():
             classes = user_form.save()
+
             context = {
                 'return': 'Has been added successfully'
             }
@@ -31,8 +33,23 @@ def classes(request):
         user_form = class_form()
         return render(request,'Dependencies/Classes/classes_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+# def save_classes(request):
+#     if request.method == 'POST':
+#         user_form = class_form(request.POST)
+#         if user_form.is_valid():
+#             classes = user_form.save()
+#             user_form = class_form()
+#             return render(request,'Dependencies/Classes/classes_form.html',{'user_form':user_form})
+#     else:
+#         context = {
+#             'return': 'Is not valid'
+#         }
+#         return render(request,'Dependencies/Classes/created_classes_form.html', context)
+    
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_class(request,class_code):
     clas = get_object_or_404(Class, class_code=class_code)
     if request.method == "POST":
@@ -45,8 +62,8 @@ def edit_class(request,class_code):
 
         return render(request, 'Dependencies/Classes/editclass.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_class(request, class_code):
     Class.objects.filter(class_code=class_code).delete()
     cla = Class.objects.all()

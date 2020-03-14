@@ -7,6 +7,7 @@ urlpatterns = [
    
     path('class_form/',views.classes, name = 'class_form'),
     path('class_list/',views.class_list, name = 'class_list'),
+    # path('class_save/',views.save_classes, name = 'class_save'),
     path('edit_class/<class_code>+/', views.edit_class, name = 'edit_class'),
     path('delete_class/<class_code>+/', views.delete_class, name = 'delete_class'),
     
