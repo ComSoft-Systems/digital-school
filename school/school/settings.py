@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'Exam',
     'sms',
     'Question_Bank',
-    # 'django-filters',
-    #'django_filters',
+    'django_filters',
+    'attendence'
 ]
 
 MIDDLEWARE = [

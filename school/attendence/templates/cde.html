@@ -1,0 +1,18 @@
+{% extends "MainPage.html" %}
+{% block content %}
+<form method='POST'>
+    {% csrf_token %}
+    <!-- <a>{{ i.gr_number}}</a>
+    <a>{{ i.name}}</a>
+    <a>{{ i.family_code}}</a>
+    <a>{{ i.current_class}}</a><br> -->
+    {% for i in all %}
+        {{ gr }}
+        {{ name }}
+        {{ family }}
+        {{ clas }}
+    {% endfor %}
+    <button class="login100-form-btn">Search</button>
+</form>
+{% endblock %}
+
