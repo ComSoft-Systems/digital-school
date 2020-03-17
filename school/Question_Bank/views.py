@@ -6,9 +6,12 @@ from .forms import book_form, publisher_form, chapter_form, question_type_form, 
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 from .filters import Question_Bank_filter
+<<<<<<< HEAD
+=======
 import random 
 from dependencies.models import *
 # from dependencies.forms import *
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 
 # Create your views here.
 # @login_required(login_url='login_url')
@@ -357,13 +360,19 @@ def delete_question_type(request, Q_type_code):
     }
     return render(request, 'Question_Bank/Question_Type/list.html', context)
 
+<<<<<<< HEAD
+
+=======
 # @login_required(login_url='login_url')
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def question_bank_list(request):
     quest = Question_Bank.objects.all()
     myFilter = question_bank_form()
     context = {'question_bank': quest , 'myFilter' : myFilter}
     return render(request, 'Question_Bank/Question_Bank/list.html', context)
 
+<<<<<<< HEAD
+=======
 def filtered_Questions(request):
     if request.method == 'POST':
         InSubject = request.POST.get('subject')
@@ -412,6 +421,7 @@ def filtered_Questions(request):
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def question_banks(request):
     if request.method == 'POST':
         user_form = question_bank_form(request.POST)

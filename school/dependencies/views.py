@@ -5,6 +5,9 @@ from .models import Class, School, Family, Fee_Concession, Section, Session, Rel
 from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
+import io, csv
+from django.contrib import messages
+
 
 
 # @login_required(login_url='login_url')
@@ -425,14 +428,21 @@ def delete_section(request, sect_code):
     return render(request, 'Dependencies/Sections/list.html', context)
             
 
+<<<<<<< HEAD
+=======
 # @login_required(login_url='login_url')
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def session_list(request):
     sess = Session.objects.all()
     context = {'session': sess}
     return render(request, 'Dependencies/Sessions/list.html', context)
 
+<<<<<<< HEAD
+
+=======
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def sessions(request):
     if request.method == 'POST':
         user_form = session_form(request.POST)
@@ -451,6 +461,8 @@ def sessions(request):
         user_form = session_form()
         return render(request,'Dependencies/Sessions/sessions_form.html',{'user_form':user_form})
 
+<<<<<<< HEAD
+=======
 def session_upload(request):
     template = "Dependencies/Sessions/session_upload.html"
 
@@ -479,6 +491,7 @@ def session_upload(request):
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def edit_session(request, session_code):
     sess = get_object_or_404(Session, session_code=session_code)
 
@@ -492,8 +505,11 @@ def edit_session(request, session_code):
 
         return render(request, 'Dependencies/Sessions/editsession.html', {'user_form': user_form})
 
+<<<<<<< HEAD
+=======
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def delete_session(request, session_code):
     Session.objects.filter(session_code=session_code).delete()
     sessi = Session.objects.all()
