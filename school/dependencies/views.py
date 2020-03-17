@@ -274,14 +274,12 @@ def delete_section(request, sect_code):
     return render(request, 'Dependencies/Sections/list.html', context)
             
 
-@login_required(login_url='login_url')
 def session_list(request):
     sess = Session.objects.all()
     context = {'session': sess}
     return render(request, 'Dependencies/Sessions/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
 def sessions(request):
     if request.method == 'POST':
         user_form = session_form(request.POST)
@@ -300,8 +298,6 @@ def sessions(request):
         user_form = session_form()
         return render(request,'Dependencies/Sessions/sessions_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_session(request, session_code):
     sess = get_object_or_404(Session, session_code=session_code)
 
@@ -315,8 +311,6 @@ def edit_session(request, session_code):
 
         return render(request, 'Dependencies/Sessions/editsession.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_session(request, session_code):
     Session.objects.filter(session_code=session_code).delete()
     sessi = Session.objects.all()

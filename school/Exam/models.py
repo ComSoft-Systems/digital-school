@@ -5,7 +5,7 @@ from student_information.models import *
 from django.urls import reverse
 
 class Exam(models.Model):
-    exam_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    exam_code = models.AutoField(primary_key=True, unique=True)
     exam_session = models.ForeignKey(Session, on_delete= models.CASCADE)
     def	get_absolute_url(self):
         return reverse('exam_detail',args=[self.exam_code])
@@ -15,7 +15,7 @@ class Exam(models.Model):
 
 class Semester(models.Model):
     exam_code = models.ForeignKey(Exam, on_delete= models.CASCADE)
-    semester_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    semester_code = models.AutoField(primary_key=True, unique=True)
     semester_name = models.CharField(max_length=30, verbose_name="semester")
     def __str__(self):
         return self.semester_name
@@ -25,7 +25,7 @@ class Semester(models.Model):
 class Semesterbreakup(models.Model):
     exam_code = models.ForeignKey(Exam, on_delete= models.CASCADE)
     semester_code = models.ForeignKey(Semester, on_delete= models.CASCADE)    
-    semesterbreakup_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    semesterbreakup_code = models.AutoField(primary_key=True, unique=True)
     semesterbreakup_name = models.CharField(max_length=30, verbose_name="semester-breakup")
     def __str__(self):
         return self.semesterbreakup_name
@@ -36,7 +36,7 @@ class Quater(models.Model):
     exam_code = models.ForeignKey(Exam, on_delete= models.CASCADE)
     semester_code = models.ForeignKey(Semester, on_delete= models.CASCADE)
     semesterbreakup_code = models.ForeignKey(Semesterbreakup, on_delete= models.CASCADE)    
-    quater_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    quater_code = models.AutoField(primary_key=True, unique=True)
     quater_name = models.CharField(max_length=30, verbose_name="Quater")
     def __str__(self):
         return self.quater_name
@@ -48,7 +48,7 @@ class Assesment(models.Model):
     semester_code = models.ForeignKey(Semester, on_delete= models.CASCADE)
     semesterbreakup_code = models.ForeignKey(Semesterbreakup, on_delete= models.CASCADE)
     quater_code = models.ForeignKey(Quater, on_delete= models.CASCADE)    
-    assesment_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    assesment_code = models.AutoField(primary_key=True, unique=True)
     assesment_name = models.CharField(max_length=30, verbose_name="Quater")
     def __str__(self):
         return self.assesment_name

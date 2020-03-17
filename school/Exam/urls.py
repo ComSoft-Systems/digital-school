@@ -34,11 +34,12 @@ urlpatterns = [
     path('assesment_detail/<assesment_code>/', views.assesment_detail, name = 'assesment_detail'),
     path('assesment_edit/<assesment_code>+/', views.assesment_edit, name='edit_assesment'),
     path('assesment_delete/<assesment_code>+/', views.assesment_delete, name='delete_assesment'),
-     ####Assesment
+     ####Mark
     path('mark_form/', views.markform , name = 'mark_form'),
     path('mark_list_view/', views.mark_list_view, name = 'mark_list_view'),
     path('mark_detail/<id>+/', views.mark_detail, name = 'mark_detail'),
     path('mark_edit/<id>+/', views.mark_edit, name='edit_mark'),
-    path('mark_delete/<id>+/', views.mark_delete, name='delete_mark')
+    path('mark_delete/<id>+/', views.mark_delete, name='delete_mark'),
+    path('mark_upload/', views.mark_upload , name = 'mark_upload'),
 ]
     

@@ -5,8 +5,7 @@
 <a>exam_code = {{quater_form.exam_code }}</a><a href="{% url 'exam_form' %}"> Add Exam </a><br><br>
 <a>semester_code = {{quater_form.semester_code }}</a><a href="{% url 'semester_form' %}"> Add Semester </a><br><br>
 <a>semesterB_code = {{quater_form.semesterbreakup_code }}</a><a href="{% url 'semesterB_form' %}"> Add Semester </a><br><br>
-<a>semesterB_name = {{quater_form.quater_code }}</a><a href="{% url 'quater_form' %}"> Add Semester </a><br><br>
-<a>semesterB_name = {{quater_form.quater_name }}</a><br><br>
+<a>Quater_name = {{quater_form.quater_name }}</a><br><br>
 {% csrf_token %}
 <input type="submit" value="Add to Quater">
 </form>

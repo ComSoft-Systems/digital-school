@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Entry_data
 from .forms import Form
+from .filters import Query_filter
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 
@@ -34,10 +35,11 @@ def detail(request,Query_code):
     }
     return render(request, 'query/query_detail.html', context)
 
-@login_required(login_url='login_url')
 def list_view(request):
     Entry_dataa = Entry_data.objects.all()
-    context = {'Entry': Entry_dataa}
+    myFilter = Query_filter(request.GET, queryset=Entry_dataa)
+    Entry_dataa = myFilter.qs
+    context = {'Entry': Entry_dataa, 'myFilter': myFilter}
     return render (request,'query/query_list.html', context)
 
 @login_required(login_url='login_url')
