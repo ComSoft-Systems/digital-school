@@ -1,3 +1,5 @@
+import csv, io
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Book, Publisher, Chapter, Question_Type, Question_Bank
 from .forms import book_form, publisher_form, chapter_form, question_type_form, question_bank_form
@@ -9,14 +11,14 @@ from dependencies.models import *
 # from dependencies.forms import *
 
 # Create your views here.
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def book_list(request):
     boo = Book.objects.all()
     context = {'book': boo}
     return render(request, 'Question_Bank/Books/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def books(request):
     if request.method == 'POST':
         user_form = book_form(request.POST)
@@ -36,8 +38,40 @@ def books(request):
         user_form = book_form()
         return render(request,'Question_Bank/Books/book_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+def book_upload(request):
+    template = "Question_Bank/Books/book_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be book_code, book_name, classes, subject, publisher, medium'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        # _, created = Book.objects.update_or_create(
+        created = book_form({
+            'book_code' : column[0],
+            'book_name' : column[1],
+            'classes' : column[2],
+            'subject' : column[3],
+            'publisher' : column[4],
+            'medium' : column[5],
+        })
+        created.save()
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_book(request,book_code):
     boo = get_object_or_404(Book, book_code=book_code)
     if request.method == "POST":
@@ -60,8 +94,8 @@ def book_detail(request,book_code):
     }
     return render(request, 'Question_Bank/Books/detail.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_book(request, book_code):
     Book.objects.filter(book_code=book_code).delete()
     bo = Book.objects.all()
@@ -71,14 +105,14 @@ def delete_book(request, book_code):
     }
     return render(request, 'Question_Bank/Books/list.html', context) 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def publisher_list(request):
     pub = Publisher.objects.all()
     context = {'publisher': pub}
     return render(request, 'Question_Bank/Publishers/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def publishers(request):
     if request.method == 'POST':
         user_form = publisher_form(request.POST)
@@ -97,8 +131,38 @@ def publishers(request):
         user_form = publisher_form()
         return render(request,'Question_Bank/Publishers/publisher_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def publisher_upload(request):
+    template = "Question_Bank/Publishers/publisher_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be publisher_code, publisher_name, city'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        # _, created = Book.objects.update_or_create(
+        created = publisher_form({
+            'publisher_code' : column[0],
+            'publisher_name' : column[1],
+            'city' : column[2],
+        })
+        created.save()
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_publisher(request,publisher_code):
     pub = get_object_or_404(Book, publisher_code=publisher_code)
     if request.method == "POST":
@@ -114,8 +178,8 @@ def edit_publisher(request,publisher_code):
 
         return render(request, 'Question_Bank/Publishers/editpublisher.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_publisher(request, publisher_code):
     Publisher.objects.filter(publisher_code=publisher_code).delete()
     publi = Publisher.objects.all()
@@ -125,14 +189,14 @@ def delete_publisher(request, publisher_code):
     }
     return render(request, 'Question_Bank/Publishers/list.html', context) 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def chapter_list(request):
     chap = Chapter.objects.all()
     context = {'chapter': chap}
     return render(request, 'Question_Bank/Chapters/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def chapters(request):
     if request.method == 'POST':
         user_form = chapter_form(request.POST)
@@ -152,8 +216,37 @@ def chapters(request):
         user_form = chapter_form()
         return render(request,'Question_Bank/Chapters/chapter_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+def chapter_upload(request):
+    template = "Question_Bank/Chapters/chapter_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be chapter_code, chapter_name, books'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        # _, created = Book.objects.update_or_create(
+        created = chapter_form({
+            'chapter_code' : column[0],
+            'chapter_name' : column[1],
+            'books' : column[2],
+        })
+        created.save()
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_chapter(request,chapter_code):
     chap = get_object_or_404(Chapter, chapter_code=chapter_code)
     if request.method == "POST":
@@ -169,8 +262,8 @@ def edit_chapter(request,chapter_code):
 
         return render(request, 'Question_Bank/Chapters/editchapter.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_chapter(request, chapter_code):
     Chapter.objects.filter(chapter_code=chapter_code).delete()
     chapt = Chapter.objects.all()
@@ -180,14 +273,14 @@ def delete_chapter(request, chapter_code):
     }
     return render(request, 'Question_Bank/Chapters/list.html', context)
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def question_type_list(request):
     QT = Question_Type.objects.all()
     context = {'question_type': QT}
     return render(request, 'Question_Bank/Question_Type/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def questions_types(request):
     if request.method == 'POST':
         user_form = question_type_form(request.POST)
@@ -207,8 +300,37 @@ def questions_types(request):
         user_form = question_type_form()
         return render(request,'Question_Bank/Question_Type/question_type_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def question_type_upload(request):
+    template = "Question_Bank/Question_Type/question_type_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be Q_type_code, question_type'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        # _, created = Book.objects.update_or_create(
+        created = question_type_form({
+            'Q_type_code' : column[0],
+            'question_type' : column[1],
+        })
+        created.save()
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_question_type(request,Q_type_code):
     QT = get_object_or_404(Question_Type, Q_type_code=Q_type_code)
     if request.method == "POST":
@@ -224,8 +346,8 @@ def edit_question_type(request,Q_type_code):
 
         return render(request, 'Question_Bank/Question_Type/editquestiontype.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_question_type(request, Q_type_code):
     Question_Type.objects.filter(Q_type_code=Q_type_code).delete()
     quesT = Question_Type.objects.all()
@@ -288,8 +410,8 @@ def filtered_Questions(request):
                                                                         context = {'question_bank': object_list}
         return render(request, 'Question_Bank/Question_Bank/filter.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def question_banks(request):
     if request.method == 'POST':
         user_form = question_bank_form(request.POST)
@@ -310,8 +432,43 @@ def question_banks(request):
         user_form = question_bank_form()
         return render(request,'Question_Bank/Question_Bank/question_bank_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+def question_bank_upload(request):
+    template = "Question_Bank/Question_Bank/question_bank_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be question_code, question, subject, classes, publisher, chapter, question_type, question_from'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        # _, created = Book.objects.update_or_create(
+        created = question_bank_form({
+            'question_code' : column[0],
+            'question' : column[1],
+            'subject' : column[2],
+            'classes' : column[3],
+            'publisher' : column[4],
+            'chapter' : column[5],
+            'question_type' :column[6],
+            'question_from' : column[7]
+        })
+        created.save()
+    context = {}
+    return render(request, template, context)
+
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_question_bank(request,question_code):
     quest = get_object_or_404(Question_Bank, question_code=question_code)
     if request.method == "POST":
@@ -335,8 +492,8 @@ def question_bank_detail(request,question_code):
     }
     return render(request, 'Question_Bank/Question_Bank/detail.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_question_bank(request, question_code):
     Question_Bank.objects.filter(question_code=question_code).delete()
     QB = Question_Bank.objects.all()
