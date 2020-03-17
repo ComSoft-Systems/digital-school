@@ -8,14 +8,12 @@
       <caption>Subjects</caption>
     <thead>
     <tr align="center">
-    <th>Subject Code</th>
     <th>Subjects</th>
     </tr>
   </thead>
   <tbody>
     {% for w in subject %}
     <tr align="center">
-      <td>{{w.subject_code}}</td>
       <td>{{w.subjects}}</td>
       <td><a href="{% url 'edit_subject' subject_code=w.subject_code %}">Edit</a></td>
       <td><a href="{% url 'delete_subject' subject_code=w.subject_code %}">Delete</a></td>

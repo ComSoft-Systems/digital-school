@@ -8,7 +8,6 @@
       <caption>Classes</caption>
     <thead>
     <tr>
-    <th>Class Code</th>
     <th>Class Name</th>
     <th>Remarks</th>
     </tr>
@@ -16,7 +15,6 @@
   <tbody>
     {% for i in Class %}
     <tr>
-      <td>{{i.class_code}}</td>
       <td>{{i.class_name}}</td>
       <td>{{i.remarks}}</td>
       <td><a href="{% url 'edit_class' class_code=i.class_code %}">Edit</a></td>

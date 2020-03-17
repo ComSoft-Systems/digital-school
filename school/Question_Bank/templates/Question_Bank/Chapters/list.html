@@ -8,7 +8,6 @@
       <caption>Chapters</caption>
     <thead>
     <tr>
-    <th>Chapter Code</th>
     <th>Chapter Names</th>
     <th>Books</th>
     </tr>
@@ -16,7 +15,6 @@
   <tbody>
     {% for t in chapter %}
     <tr>
-      <td>{{t.chapter_code}}</td>
       <td>{{t.chapter_name}}</td>
       <td>{{t.books}}</td>
       <td><a href="{% url 'edit_chapter' chapter_code=t.chapter_code %}">Edit</a></td>

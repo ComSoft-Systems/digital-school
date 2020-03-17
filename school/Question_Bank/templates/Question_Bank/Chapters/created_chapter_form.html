@@ -2,4 +2,6 @@
     {% block content %}
     <br><br>
 <h3> Chapter {{return}} </h3>
+<button > <a href="{% url 'chapter_list' %}">Back</a></button>
+<button > <a href="{% url 'chapter_form' %}">Add Another</a></button>
 {% endblock %}

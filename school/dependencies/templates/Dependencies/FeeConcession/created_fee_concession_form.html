@@ -2,4 +2,6 @@
     {% block content %}
     <br><br>
 <h3> Fee Concession {{return}} </h3>
+<button > <a href="{% url 'fee_concession_list' %}">Back</a></button>
+<button > <a href="{% url 'fee_concession_form' %}">Add Another</a></button>
 {% endblock %}
