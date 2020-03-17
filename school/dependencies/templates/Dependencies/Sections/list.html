@@ -8,7 +8,6 @@
       <caption>Sections</caption>
     <thead>
     <tr align="center">
-    <th>Section Code</th>
     <th>Section Name</th>
     <th>Remarks</th>
     </tr>
@@ -16,7 +15,6 @@
   <tbody>
     {% for g in section %}
     <tr align="center">
-      <td>{{g.sect_code}}</td>
       <td>{{g.sect_name}}</td>
       <td>{{g.remarks}}</td>
       <td><a href="{% url 'edit_section' sect_code=g.sect_code %}">Edit</a></td>

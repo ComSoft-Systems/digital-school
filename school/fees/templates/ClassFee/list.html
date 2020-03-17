@@ -7,13 +7,13 @@
             <thead align="center">
                 <tr>
                     <th>Fee Type</th>
+                    <th>Fee Amount</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
             </thead>
             {% for fee in fee %}
             <tbody align="center">
-                    <th>{{ fee.class_code }}</th>
                     <th>{{ fee.fee_type_code }}</th>
                     <th>{{ fee.fee_amount }}</th>
                     <th>{{ fee.description }}</th>

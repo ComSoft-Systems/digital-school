@@ -8,7 +8,6 @@
       <caption>Fee Types</caption>
     <thead>
     <tr align="center">
-    <th>Fee Type Code</th>
     <th>Fee Type</th>
     <th>Description</th>
     </tr>
@@ -16,7 +15,6 @@
   <tbody>
     {% for h in fee_type %}
     <tr align="center">
-      <td>{{h.fee_type_code}}</td>
       <td>{{h.fee_type}}</td>
       <td>{{h.description}}</td>
       <td><a href="{% url 'edit_fee_type' fee_type_code=h.fee_type_code %}">Edit</a></td>
