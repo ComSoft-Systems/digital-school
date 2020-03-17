@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% extends "MainPage.html" %}
+{% block content %}
+
+<div class="container">
+
+    <!--Main Heading-->
+    <div class="section-title">
+        <h2>Attendence <span class="light-text">DIGITAL SCHOOL</span></h2>
+        <div class="title-border-container">
+            <div class="title-border"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+
+                <form method="get">
+
+                    {{form}}<br><br>
+                    <input type="date" name="date">
+
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <form action="{% url 'attendence_list_template' %}" method="POST">
+        <table class="table table-hover table-sm table-dark">
+            <thead>
+                <tr>
+                    <th>Gr Number</th>
+                    <th>Student</th>
+                    <th>Father</th>
+                    <th>Classes</th>
+                    <th>Sections</th>
+                    <th>Present</th>
+                    <th>Abesent</th>
+                    <th>Leave</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+
+            {% for i in attend %}
+
+                <tbody>
+                    <tr>
+                        <td>{{i.gr_number}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.family_code}}</td>
+                        <td>{{i.current_class}}</td>
+                        <td>{{i.sections}}</td>
+                        <td><input type="radio" id="id_attendence_checkBox" name="{{i.gr_number}}" value="present"></td>
+                        <td><input type="radio" id="id_attendence_checkBox" name="{{i.gr_number}}" value="abesent"></td>
+                        <td><input type="radio" id="id_attendence_checkBox" name="{{i.gr_number}}" value="leave"></td>
+                        <td>{{i.attendence_date}}</td>
+                        {% csrf_token %}
+                    </tr>
+                </tbody>
+
+            {% endfor %}
+
+        </table>
+        <button type="submit" class="btn btn-primary" name="button">Save</button>
+    </form>
+</div>
+
+{% endblock %}
