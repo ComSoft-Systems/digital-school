@@ -30,17 +30,17 @@ from .forms import *
 
 def attendance_add(CreateView):
     if CreateView.method == "POST":
-        abc = []
+        blank_list = []
         clas = CreateView.POST.get('clas')
-        all = Gr.objects.all()
-        for grows in all:
-            if str(grows.current_class) == str(clas):
-                abc.append(str(grows.gr_number,grows.name))
+        gr_fields = Gr.objects.all()
+        for gr_rows in gr_fields:
+            if str(gr_rows.current_class) == str(clas):
+                blank_list.append(str(gr_rows.gr_number,gr_rows.name))
                 # gr = (grows.gr_number)
                 # name = (grows.name)
                 # family = (grows.family_code)
                 # clas = (grows.current_class)
-        log = {'data' : abc , 'all' : all}
+        log = {'blank_list': blank_list, 'gr_fields': gr_fields}
         return render(CreateView, 'cde.html', log)
     else:
         clas = Gr.objects.all()
