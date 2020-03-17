@@ -48,7 +48,12 @@ INSTALLED_APPS = [
     'Exam',
     'sms',
     'Question_Bank',
+<<<<<<< HEAD
     'django_filters'
+=======
+    'django_filters',
+    'attendence'
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 ]
 
 MIDDLEWARE = [
@@ -91,8 +96,18 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
+<<<<<<< HEAD
         # 'HOST': '192.168.1.100',
         'HOST': '127.0.0.1',
+=======
+
+        # 'HOST': '192.168.1.102',
+        'HOST': '127.0.0.1',
+
+        #'HOST': '192.168.1.100',
+#         'HOST': '127.0.0.1',
+#         'HOST': '192.168.1.100',
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
         'PORT': '5432',
     }
 }

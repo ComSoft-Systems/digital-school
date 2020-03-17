@@ -2,4 +2,6 @@
     {% block content %}
     <br><br>
 <h3> Class Subject {{return}} </h3>
+<button > <a href="{% url 'class_subject_list' %}">Back</a></button>
+<button > <a href="{% url 'class_subject_form' %}">Add Another</a></button>
 {% endblock %}

@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+import csv, io
+from django.contrib import messages
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month, City
 from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
 from django.contrib.auth.decorators import login_required
@@ -8,19 +10,21 @@ from django.contrib import messages
 
 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def class_list(request):
     clas = Class.objects.all()
     context = {'Class': clas}
     return render(request, 'Dependencies/Classes/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def classes(request):
     if request.method == 'POST':
         user_form = class_form(request.POST)
         if user_form.is_valid():
             classes = user_form.save()
+
             context = {
                 'return': 'Has been added successfully'
             }
@@ -34,8 +38,37 @@ def classes(request):
         user_form = class_form()
         return render(request,'Dependencies/Classes/classes_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def class_upload(request):
+    template = "Dependencies/Classes/class_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be class_code, class_name, remarks'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Class.objects.update_or_create(
+            class_code=column[0],
+            class_name=column[1],
+            remarks=column[2]
+        )
+    context = {}
+    return render(request, template, context)
+    
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_class(request,class_code):
     clas = get_object_or_404(Class, class_code=class_code)
     if request.method == "POST":
@@ -48,8 +81,8 @@ def edit_class(request,class_code):
 
         return render(request, 'Dependencies/Classes/editclass.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_class(request, class_code):
     Class.objects.filter(class_code=class_code).delete()
     cla = Class.objects.all()
@@ -59,14 +92,14 @@ def delete_class(request, class_code):
     }
     return render(request, 'Dependencies/Classes/list.html', context) 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def school_list(request):
     schol = School.objects.all()
     context = {'school': schol}
     return render(request, 'Dependencies/Schools/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def schools(request):
     if request.method == 'POST':
         user_form = school_form(request.POST)
@@ -85,8 +118,38 @@ def schools(request):
         user_form = school_form()
         return render(request,'Dependencies/Schools/schools_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def school_upload(request):
+    template = "Dependencies/Schools/school_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be school_code, school_name, school_area, remarks'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = School.objects.update_or_create(
+            school_code=column[0],
+            school_name=column[1],
+            school_area=column[2],
+            remarks=column[3]
+        )
+    context = {}
+    return render(request, template, context)
+
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_school(request, school_code):
     schol = get_object_or_404(School, school_code=school_code)
 
@@ -100,8 +163,8 @@ def edit_school(request, school_code):
 
         return render(request, 'Dependencies/Schools/editschool.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_school(request, school_code):
     School.objects.filter(school_code=school_code).delete()
     sch = School.objects.all()
@@ -111,14 +174,14 @@ def delete_school(request, school_code):
     }
     return render(request, 'Dependencies/Schools/list.html', context) 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def family_list(request):
     fami = Family.objects.all()
     context = {'family': fami}
     return render(request, 'Dependencies/Family/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def families(request):
     if request.method == 'POST':
         user_form = family_form(request.POST)
@@ -137,8 +200,41 @@ def families(request):
         user_form = family_form()
         return render(request,'Dependencies/Family/families_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def family_upload(request):
+    template = "Dependencies/Family/family_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be family_code, surname, father_name, ph_no_father, mother_name, ph_no_mother, address'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Family.objects.update_or_create(
+            family_code=column[0],
+            surname=column[1],
+            father_name=column[2],
+            ph_no_father=column[3],
+            mother_name=column[4],
+            ph_no_mother=column[5],
+            address=column[6]
+        )
+    context = {}
+    return render(request, template, context)
+
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_family(request, family_code):
     fami = get_object_or_404(Family, family_code=family_code)
 
@@ -152,8 +248,8 @@ def edit_family(request, family_code):
 
         return render(request, 'Dependencies/Family/editfamily.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def family_detail(request,family_code):
     fmil = get_object_or_404(Family,family_code = family_code)
     context = {
@@ -161,8 +257,8 @@ def family_detail(request,family_code):
     }
     return render(request, 'Dependencies/Family/detail.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_family(request, family_code):
     Family.objects.filter(family_code=family_code).delete()
     famil = Family.objects.all()
@@ -172,14 +268,14 @@ def delete_family(request, family_code):
     }
     return render(request, 'Dependencies/Family/list.html', context) 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def fee_concession_list(request):
     fee = Fee_Concession.objects.all()
     context = {'fees': fee}
     return render(request, 'Dependencies/FeeConcession/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def fee_concession(request):
     if request.method == 'POST':
         user_form = fee_concession_form(request.POST)
@@ -198,8 +294,36 @@ def fee_concession(request):
         user_form = fee_concession_form()
         return render(request,'Dependencies/FeeConcession/fee_concession_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+def fee_concession_upload(request):
+    template = "Dependencies/FeeConcession/fee_concession_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be fee_concession_code, fee_concession_name, concession_percent, description'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Fee_Concession.objects.update_or_create(
+            fee_concession_code=column[0],
+            fee_concession_name=column[1],
+            concession_percent=column[2],
+            description=column[3]
+        )
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_fee_concession(request, fee_concession_code):
     fee = get_object_or_404(Fee_Concession, fee_concession_code=fee_concession_code)
 
@@ -213,8 +337,8 @@ def edit_fee_concession(request, fee_concession_code):
 
         return render(request, 'Dependencies/FeeConcession/editfee.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_fee_concession(request, fee_concession_code):
     Fee_Concession.objects.filter(fee_concession_code=fee_concession_code).delete()
     fC = Fee_Concession.objects.all()
@@ -224,14 +348,14 @@ def delete_fee_concession(request, fee_concession_code):
     }
     return render(request, 'Dependencies/FeeConcession/list.html', context) 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def section_list(request):
     sec = Section.objects.all()
     context = {'section': sec}
     return render(request, 'Dependencies/Sections/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def sections(request):
     if request.method == 'POST':
         user_form = section_form(request.POST)
@@ -250,8 +374,35 @@ def sections(request):
         user_form = section_form()
         return render(request,'Dependencies/Sections/sections_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+def section_upload(request):
+    template = "Dependencies/Sections/section_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be sect_code, sect_name, remarks'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Section.objects.update_or_create(
+            sect_code=column[0],
+            sect_name=column[1],
+            remarks=column[2]          
+        )
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_section(request, sect_code):
     sec = get_object_or_404(Section, sect_code=sect_code)
 
@@ -265,8 +416,8 @@ def edit_section(request, sect_code):
 
         return render(request, 'Dependencies/Sections/editsection.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_section(request, sect_code):
     Section.objects.filter(sect_code=sect_code).delete()
     sect = Section.objects.all()
@@ -277,12 +428,21 @@ def delete_section(request, sect_code):
     return render(request, 'Dependencies/Sections/list.html', context)
             
 
+<<<<<<< HEAD
+=======
+# @login_required(login_url='login_url')
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def session_list(request):
     sess = Session.objects.all()
     context = {'session': sess}
     return render(request, 'Dependencies/Sessions/list.html', context)
 
+<<<<<<< HEAD
 
+=======
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def sessions(request):
     if request.method == 'POST':
         user_form = session_form(request.POST)
@@ -301,6 +461,37 @@ def sessions(request):
         user_form = session_form()
         return render(request,'Dependencies/Sessions/sessions_form.html',{'user_form':user_form})
 
+<<<<<<< HEAD
+=======
+def session_upload(request):
+    template = "Dependencies/Sessions/session_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be session_code, session_name'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Session.objects.update_or_create(
+            session_code=column[0],
+            session_name=column[1]         
+        )
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def edit_session(request, session_code):
     sess = get_object_or_404(Session, session_code=session_code)
 
@@ -314,6 +505,11 @@ def edit_session(request, session_code):
 
         return render(request, 'Dependencies/Sessions/editsession.html', {'user_form': user_form})
 
+<<<<<<< HEAD
+=======
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
+>>>>>>> b2b80333f0ee749cdf593a41793c9b50e7002428
 def delete_session(request, session_code):
     Session.objects.filter(session_code=session_code).delete()
     sessi = Session.objects.all()
@@ -323,14 +519,14 @@ def delete_session(request, session_code):
     }
     return render(request, 'Dependencies/Sessions/list.html', context)
 
-@login_required(login_url='login_url')  
+# @login_required(login_url='login_url')  
 def religion_list(request):
     reli = Religion.objects.all()
     context = {'religion': reli}
     return render(request, 'Dependencies/Religions/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def religions(request):
     if request.method == 'POST':
         user_form = religion_form(request.POST)
@@ -349,8 +545,35 @@ def religions(request):
         user_form = religion_form()
         return render(request,'Dependencies/Religions/religions_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+def religion_upload(request):
+    template = "Dependencies/Religions/religion_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be religion_code, religion'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Religion.objects.update_or_create(
+            religion_code=column[0],
+            religion=column[1]         
+        )
+    context = {}
+    return render(request, template, context)
+
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_religion(request, religion_code):
     reli = get_object_or_404(Religion, religion_code=religion_code)
 
@@ -364,8 +587,8 @@ def edit_religion(request, religion_code):
 
         return render(request, 'Dependencies/Religions/editreligion.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_religion(request, religion_code):
     Religion.objects.filter(religion_code=religion_code).delete()
     relig = Religion.objects.all()
@@ -375,14 +598,14 @@ def delete_religion(request, religion_code):
     }
     return render(request, 'Dependencies/Religions/list.html', context)
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def subject_list(request):
     sub = Subject.objects.all()
     context = {'subject': sub}
     return render(request, 'Dependencies/Subjects/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def subjects(request):
     if request.method == 'POST':
         user_form = subject_form(request.POST)
@@ -401,8 +624,35 @@ def subjects(request):
         user_form = subject_form()
         return render(request,'Dependencies/Subjects/subjects_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def subject_upload(request):
+    template = "Dependencies/Subjects/subject_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be subject_code, subjects'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Subject.objects.update_or_create(
+            subject_code=column[0],
+            subjects=column[1]         
+        )
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_subject(request, subject_code):
     sub = get_object_or_404(Class_Subject, subject_code=subject_code)
 
@@ -416,8 +666,8 @@ def edit_subject(request, subject_code):
 
         return render(request, 'Dependencies/Subjects/editsubject.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_subject(request, subject_code):
 
     Subject.objects.filter(subject_code=subject_code).delete()
@@ -428,14 +678,14 @@ def delete_subject(request, subject_code):
     }
     return render(request, 'Dependencies/Subjects/list.html', context)
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def class_subject_list(request):
     cla_sub = Class_Subject.objects.all()
     context = {'class_subject': cla_sub}
     return render(request, 'Dependencies/Class_Subjects/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def class_subjects(request):
     if request.method == 'POST':
         user_form = classes_subject_form(request.POST)
@@ -454,8 +704,8 @@ def class_subjects(request):
         user_form = classes_subject_form()
         return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_class_subject(request, Class_code):
     cla_sub = get_object_or_404(Class_Subject, Class_code=Class_code)
 
@@ -469,7 +719,7 @@ def edit_class_subject(request, Class_code):
 
         return render(request, 'Dependencies/Class_Subjects/editclasssubject.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def class_subject_detail(request,Class_code):
     kla = get_object_or_404(Class_Subject,Class_code = Class_code)
     context = {
@@ -477,8 +727,8 @@ def class_subject_detail(request,Class_code):
     }
     return render(request, 'Dependencies/Class_Subjects/detail.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_class_subject(request, Class_code):
     
     Class_Subject.objects.filter(Class_code=Class_code).delete()
@@ -489,14 +739,14 @@ def delete_class_subject(request, Class_code):
     }
     return render(request, 'Dependencies/Class_Subjects/list.html', context)
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def fee_type_list(request):
     feT = Fee_Type.objects.all()
     context = {'fee_type': feT}
     return render(request, 'Dependencies/FeeType/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def fee_type(request):
     if request.method == 'POST':
         user_form = fee_type_form(request.POST)
@@ -515,8 +765,36 @@ def fee_type(request):
         user_form = fee_type_form()
         return render(request,'Dependencies/FeeType/fee_type_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+def fee_type_upload(request):
+    template = "Dependencies/FeeType/fee_type_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be fee_type_code, fee_type, description'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Fee_Type.objects.update_or_create(
+            fee_type_code=column[0],
+            fee_type=column[1],
+            description=column[2]         
+        )
+    context = {}
+    return render(request, template, context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_fee_type(request, fee_type_code):
     feT = get_object_or_404(Fee_Type, fee_type_code=fee_type_code)
 
@@ -530,8 +808,8 @@ def edit_fee_type(request, fee_type_code):
 
         return render(request, 'Dependencies/FeeType/editfeetype.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_fee_type(request, fee_type_code):
     
     Fee_Type.objects.filter(fee_type_code=fee_type_code).delete()
@@ -543,14 +821,14 @@ def delete_fee_type(request, fee_type_code):
     return render(request, 'Dependencies/FeeType/list.html', context)
 
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def month_list(request):
     mon = Month.objects.all()
     context = {'month': mon}
     return render(request, 'Dependencies/Months/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def months(request):
     if request.method == 'POST':
         user_form = month_form(request.POST)
@@ -569,14 +847,14 @@ def months(request):
         user_form = month_form()
         return render(request,'Dependencies/Months/month_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def city_list(request):
     cit = City.objects.all()
     context = {'city': cit}
     return render(request, 'Dependencies/Cities/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def cities(request):
     if request.method == 'POST':
         user_form = city_form(request.POST)
@@ -594,3 +872,30 @@ def cities(request):
     else:
         user_form = city_form()
         return render(request,'Dependencies/Cities/city_form.html',{'user_form':user_form})
+
+
+def city_upload(request):
+    template = "Dependencies/Cities/city_upload.html"
+
+    prompt = {
+        'order': 'Order of the CSV should be city_code, cities'
+    }
+
+    if request.method == "GET":
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = City.objects.update_or_create(
+            city_code=column[0],
+            cities=column[1]        
+        )
+    context = {}
+    return render(request, template, context)

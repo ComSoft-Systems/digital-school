@@ -6,14 +6,12 @@
         <table class="table table-hover table-sm table-dark">
             <thead align="center">
                 <tr>
-                    <th>User Code</th>
                     <th>User Type</th>
                     <th>Name</th>
                 </tr>
             </thead>
             {% for a in userprofile %}
             <tbody align="center">
-                    <th>{{ a.UserCode }}</th>
                     <th>{{ a.Usertype }}</th>
                     <th><a href="{{ a.get_absolute_url }}">{{ a.Name }}</a></th>
                     <th><a class="btn btn-primary" href="{% url 'userprofileedit_url' a.UserCode %}">Edit</a><a class="btn btn-primary" href="">Delete</a></th>
