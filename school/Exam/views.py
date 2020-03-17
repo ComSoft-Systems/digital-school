@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib import messages
 from .models import *
 from .forms import *
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 from .filters import Mark_filter, Exam_filter, Semesterbreakup_filter,Semester_filter,Quater_filter,Assesment_filter
 
@@ -330,34 +330,55 @@ def mark_upload(request):
     template = "mark/mark_upload.html"
 
     prompt = {
-        'order': 'Order of the CSV should be id, exam_Gr_no, class_code, subject_code, exam_code, semester_code, semesterbreakup_code,quater_code, assesment_code,total_marks,obtained_marks'
+        'order': 'Order by same sequence of mark'
     }
-
     if request.method == "GET":
-        return render(request, template,prompt)
-
+        return render(request,"mark/mark_upload.html",prompt)
     csv_file = request.FILES['file']
-
+    
     if not csv_file.name.endswith('.csv'):
-        message.error(request, 'This is not a csv file')
-
+        messages.error(request, 'This is not a csv file')
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        _, created = Mark.objects.update_or_create(
-            id=column[0],
-            exam_Gr_no=column[1], 
-            class_code=column[2],
-            subject_code=column[3], 
-            exam_code=column[4], 
-            semester_code=column[5], 
-            semesterbreakup_code=column[6],
-            quater_code=column[7], 
-            assesment_code=column[8],
-            total_marks=column[9],
-            obtained_marks=column[10]
-        )
-        
-    context = {}
-    return render(request, template, context)
+        created = MarkForm({
+            'exam_Gr_no':column[0], 
+            'class_code':column[1],
+            'subject_code' :column[2], 
+            'exam_code':column[3], 
+            'semester_code':column[4], 
+            'semesterbreakup_code':column[5],
+            'quater_code':column[6], 
+            'assesment_code':column[7],
+            'total_marks':column[8],
+            'obtained_marks':column[9]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "mark/mark_upload.html", context)
+
+def exam_upload(request):
+    template = "exam/exam_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of mark'
+    }
+    if request.method == "GET":
+        return render(request,"exam/exam_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = ExamForm({ 
+            'exam_session':column[0],
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "exam/exam_upload.html", context)

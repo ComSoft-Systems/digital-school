@@ -21,7 +21,6 @@
       <table class="table table-hover table-sm table-dark">
         <thead>
           <tr>
-          <th>Query_code</th>
           <th>Name</th>
           <th>Father</th>
           <th>Address</th>
@@ -32,7 +31,6 @@
         {% for i in Entry %}
         <tbody>
           <tr>
-            <td>{{i.Query_code}}</td> 
             <td><a href="{{ i.get_absolute_url }}">{{i.Name}}</a></td>
             <td>{{i.father_name}}</td>
             <td>{{i.Address}}</td>
@@ -44,7 +42,9 @@
           </tr>
         </tbody>
         
+        
         {% endfor %}
+        <button class="text-center"><a href="{% url 'query_upload' %}">Add File</a></button>
       </table>
     </div>
 {% endblock %}
