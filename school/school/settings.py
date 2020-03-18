@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'Exam',
     'sms',
     'Question_Bank',
-    'django_filters'
     'django_filters',
     'attendence'
 ]
@@ -93,6 +92,8 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
+
+        # 'HOST': '192.168.1.100',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
