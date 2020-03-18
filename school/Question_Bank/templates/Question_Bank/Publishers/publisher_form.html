@@ -8,5 +8,7 @@
 {% csrf_token %}
 <input type ="submit" value="Save">
 <button > <a href="{% url 'publisher_list' %}">Back</a></button>
+<button > <a href="{% url 'publisher_upload' %}">Add CSV file</a></button>
+
 </form>
 {% endblock %}

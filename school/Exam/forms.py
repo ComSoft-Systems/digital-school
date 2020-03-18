@@ -6,7 +6,6 @@ class ExamForm(forms.ModelForm):
     class Meta:
         model = Exam
         fields = {
-            'exam_code',
             'exam_session'
         }
         

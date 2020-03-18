@@ -6,7 +6,6 @@ class Form(forms.ModelForm):
     class Meta:
         model = Entry_data
         fields = {
-            'Query_code',
             'Name',
             'father_name',
             'Address',
