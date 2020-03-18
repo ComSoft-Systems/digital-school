@@ -16,12 +16,32 @@
         <div class="col">
             <div class="card card-body">
 
-                <form method="get">
-
-                    {{form}}<br><br>
-                    <input type="date" name="date">
-
-                    <button class="btn btn-primary" type="submit">Search</button>
+                <form action="{% url 'attendence_list_template' %}" method="POST">
+                    
+                    <label>Select Class</label>
+                    <select name="class">
+                        <option value="">---------</option>
+                        {% for rows in class %}
+                                <option value="{{ rows.class_name }}">{{ rows.class_name }}
+                                </option>
+                        {% endfor %}
+                    </select>
+                    
+                    <label for="fname">Select Section</label>
+                    <select name="section" >
+                        <option value="">---------</option>
+                        {% for rows in section %}
+                                <option value="{{ rows.sect_name }}">{{ rows.sect_name }}
+                                </option>
+                        {% endfor %}
+                    </select>
+                    
+                    <label for="fname">Select Date</label>
+                    <input id = 'datepicker' name = "date" value=""/><br><br>
+                    <!-- {{myFilter}} -->
+                    {% csrf_token %}
+                    
+                    <input class="btn btn-primary" type="submit" value="Search"/>
                 </form>
 
             </div>
@@ -29,18 +49,15 @@
     </div>
 
     <br>
-    <form action="{% url 'attendence_list_template' %}" method="POST">
+    <form action="{% url 'attendence_save_template' %}" method="POST">
         <table class="table table-hover table-sm table-dark">
             <thead>
                 <tr>
                     <th>Gr Number</th>
                     <th>Student</th>
-                    <th>Father</th>
                     <th>Classes</th>
                     <th>Sections</th>
                     <th>Present</th>
-                    <th>Abesent</th>
-                    <th>Leave</th>
                     <th>Date</th>
                 </tr>
             </thead>
@@ -51,22 +68,27 @@
                     <tr>
                         <td>{{i.gr_number}}</td>
                         <td>{{i.name}}</td>
-                        <td>{{i.family_code}}</td>
                         <td>{{i.current_class}}</td>
                         <td>{{i.sections}}</td>
-                        <td><input type="radio" id="id_attendence_checkBox" name="{{i.gr_number}}" value="present"></td>
-                        <td><input type="radio" id="id_attendence_checkBox" name="{{i.gr_number}}" value="abesent"></td>
-                        <td><input type="radio" id="id_attendence_checkBox" name="{{i.gr_number}}" value="leave"></td>
-                        <td>{{i.attendence_date}}</td>
+                        <td><select name="attend" >
+                            <option value="">---------</option>
+                            <option value="present">present</option>
+                            <option value="absent">absent</option>
+                            <option value="leave">leave</option>
+                        </select></td>
+                        <td>{{date}}</td>
                         {% csrf_token %}
                     </tr>
                 </tbody>
-
-            {% endfor %}
-
-        </table>
-        <button type="submit" class="btn btn-primary" name="button">Save</button>
-    </form>
-</div>
-
-{% endblock %}
+                
+                {% endfor %}
+                
+            </table>
+            <button type="submit" class="btn btn-primary" name="button">Save</button>
+        </form>
+    </div>
+    
+    {% endblock %}
+    <td><input type="radio" id="id_attendence_checkBox" name="present" value="present"></td>
+    <td><input type="radio" id="id_attendence_checkBox" name="present" value="abesent"></td>
+    <td><input type="radio" id="id_attendence_checkBox" name="present" value="leave"></td>
