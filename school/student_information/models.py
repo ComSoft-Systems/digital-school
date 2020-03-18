@@ -10,6 +10,7 @@ class Gr(models.Model):
     name = models.CharField(max_length = 200)
     picture = models.ImageField(upload_to='images/%Y/%m/%d',blank=True)
     family_code = models.ForeignKey(Family , on_delete= models.CASCADE)
+    section = models.ForeignKey(Section , on_delete= models.CASCADE)
     fee_concession_code = models.ForeignKey(Fee_Concession , on_delete= models.CASCADE)
     class_of_admission = models.ForeignKey(Class , on_delete= models.CASCADE , related_name= 'admission_class')
     session_of_admission = models.ForeignKey(Session , on_delete= models.CASCADE , related_name= 'session_of_admission')
@@ -19,6 +20,7 @@ class Gr(models.Model):
     last_school = models.ForeignKey(School , on_delete = models.CASCADE)
     religion = models.ForeignKey(Religion,on_delete = models.CASCADE)
     date_of_birth = models.DateField()
+    active = models.BooleanField()
     def get_absolute_url(self):
         return reverse('gr_detail',args=[self.gr_number])
     def __str__(self):

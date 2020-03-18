@@ -85,15 +85,18 @@ def ManageGrUploadView(CreateView):
             'name' : column[2] ,
             'picture' : column[3] ,
             'family_code' : column[4] ,
-            'fee_concession_code' : column[5] ,
-            'class_of_admission' : column[6] ,
-            'session_of_admission' : column[7] ,
-            'current_class' : column[8] ,
-            'current_session' : column[9] ,
-            'admission_date' : column[10] ,
-            'last_school' : column[11] ,
-            'religion' : column[12] ,
-            'date_of_birth' : column[13] })
+            'section' : column[5] ,
+            'fee_concession_code' : column[6] ,
+            'class_of_admission' : column[7] ,
+            'session_of_admission' : column[8] ,
+            'current_class' : column[9] ,
+            'current_session' : column[10] ,
+            'admission_date' : column[11] ,
+            'last_school' : column[12] ,
+            'religion' : column[13] ,
+            'date_of_birth' : column[14],
+            'active' : column[15],
+            })
         created.save()
     context = {}
     return render(CreateView,"Student/Create/ViaFile/create.html", context)
