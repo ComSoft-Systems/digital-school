@@ -359,14 +359,14 @@ def mark_upload(request):
     context = {'abc' : 'Added Successfully'}
     return render(request, "mark/mark_upload.html", context)
 
-def exam_upload(request):
-    template = "exam/exam_upload.html"
+def semester_upload(request):
+    template = "semester/semester_upload.html"
 
     prompt = {
         'order': 'Order by same sequence of mark'
     }
     if request.method == "GET":
-        return render(request,"exam/exam_upload.html",prompt)
+        return render(request,"semester/semester_upload.html",prompt)
     csv_file = request.FILES['file']
     
     if not csv_file.name.endswith('.csv'):
@@ -375,10 +375,95 @@ def exam_upload(request):
     io_string = io.StringIO(data_set)
     next(io_string)
     for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-        created = ExamForm({ 
-            'exam_session':column[0],
+        created = SemesterForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semester_name':column[2],
         })
         print(created)
         created.save()
     context = {'abc' : 'Added Successfully'}
-    return render(request, "exam/exam_upload.html", context)
+    return render(request, "semester/semester_upload.html", context)
+
+def assesment_upload(request):
+    template = "assesment/assesment_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of assesment'
+    }
+    if request.method == "GET":
+        return render(request,"assesment/assesment_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = AssesmentForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semesterbreakup_code':column[2],
+            'quater_code':column[3],
+            'assesment_name':column[4]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "assesment/assesment_upload.html", context)
+
+def quater_upload(request):
+    template = "quater/quater_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of assesment'
+    }
+    if request.method == "GET":
+        return render(request,"quater/quater_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = QuaterForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semesterbreakup_code':column[2],
+            'quater_code':column[3],
+            'quater_name':column[4]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "quater/quater_upload.html", context)
+
+def semesterB_upload(request):
+    template = "semesterB/semesterB_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of assesment'
+    }
+    if request.method == "GET":
+        return render(request,"semesterB/semesterB_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = QuaterForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semesterbreakup_code':column[2],
+            'semesterbreakup_name':column[3]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "semesterB/semesterB_upload.html", context)

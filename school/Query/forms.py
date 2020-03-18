@@ -3,6 +3,11 @@ from django.forms import ModelForm
 from .models import Entry_data
 
 class Form(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(Form, self).__init__(*args, **kwargs)
+        self.fields['date_of_test'].widget.attrs.update({
+            'id': 'datepicker',
+        })
     class Meta:
         model = Entry_data
         fields = {
