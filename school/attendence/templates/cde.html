@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 {% extends "MainPage.html" %}
 {% block content %}
 <form method='POST'>
@@ -6,7 +7,7 @@
     <a>{{ i.name}}</a>
     <a>{{ i.family_code}}</a>
     <a>{{ i.current_class}}</a><br> -->
-    {% for i in all %}
+    {% for i in gr_fields %}
         {{ gr }}
         {{ name }}
         {{ family }}
