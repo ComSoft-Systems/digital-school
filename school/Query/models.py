@@ -8,7 +8,6 @@ class Entry_data(models.Model):
         ('M', 'Male'),
         ('FM', 'Female'),
     )
-    Query_code = models.AutoField(primary_key=True)
     Query_code = models.AutoField(primary_key=True, unique=True)
     Name = models.CharField(max_length=30, verbose_name="Name")
     father_name = models.CharField(max_length=30, verbose_name="Father")
