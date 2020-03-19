@@ -1,20 +1,4 @@
 {% extends "MainPage.html" %}
-{% comment %} {% block content %}
-<form method='POST'>
-    {% csrf_token %}
-    
-    
-    
-    
-    <input class="input100" type="com" name="com" placeholder="Com Port"><br><br>
-    <input class="input100" type="text" name="sms" placeholder="Type Message"><br><br>
-    <div class="container-login100-form-btn">
-    <button class="login100-form-btn">Login</button>
-</form>
-{% endblock %} {% endcomment %}
-
-
-{% comment %} {% extends "MainPage.html" %} {% endcomment %}
 {% block content %}
 <form method="POST">
     <div class="container">
@@ -38,7 +22,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Query</td>
+                    <td>Class</td>
                     <td>
                         <select name="clas">
                         <option value="">---------</option>
@@ -50,15 +34,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Name</td>
+                    <td>ComPort</td>
                     <td><input class="input100" type="com" name="com" placeholder="Com Port"></td>
                 </tr>
                 <tr>
-                    <td>Picture</td>
+                    <td>Sms</td>
                     <td><input class="input100" type="text" name="sms" placeholder="Type Message"></td>
                 </tr>
                 <tr>
-                    <td>Submit</td>
+                    <td>Send</td>
                     <td><input class="btn btn-primary" type="submit" value="Send"></td>
                 </tr>
             </tbody>

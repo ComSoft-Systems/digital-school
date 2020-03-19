@@ -11,6 +11,7 @@ class EntryForm(forms.ModelForm):
             'name',
             'picture',
             'family_code',
+            'section',
             'fee_concession_code',
             'class_of_admission',
             'session_of_admission',
@@ -20,6 +21,7 @@ class EntryForm(forms.ModelForm):
             'last_school',
             'religion',
             'date_of_birth',
+            'active',
         ]
 
 

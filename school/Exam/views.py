@@ -1,8 +1,11 @@
+import csv, io
 from django.shortcuts import render,redirect, get_object_or_404
+from django.contrib import messages
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
+from .filters import Mark_filter, Exam_filter, Semesterbreakup_filter,Semester_filter,Quater_filter,Assesment_filter
 
 def hello(request):
     return render(request, 'exam/home_page.html')
@@ -34,10 +37,12 @@ def detail(request,exam_code):
     }
     return render(request, 'exam/exam_detail.html', context)
 
-@login_required(login_url='login_url')
+
 def list_view(request):
     Entry_Exam = Exam.objects.all()
-    context = {'Entry': Entry_Exam}
+    myFilter = Exam_filter(request.GET, queryset=Entry_Exam)
+    Entry_Exam = myFilter.qs
+    context = {'Entry': Entry_Exam, 'myFilter':myFilter}
     return render (request,'exam/exam_list.html', context)
 
 def edit(request,exam_code):
@@ -69,19 +74,21 @@ def semester_form(request):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'exam/created.html',context)
+            return render(request,'semester/semester_created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(request,'exam/created.html',context)
+            return render(request,'semester/semester_created.html',context)
     else:
         semester_form = SemesterForm()
         return render(request,'semester/semester_form.html',{'semester_form':semester_form})
 
 def semester_list_view(request):
     Entry_Semester = Semester.objects.all()
-    context = {'Entry': Entry_Semester}
+    myFilter = Semester_filter(request.GET, queryset=Entry_Semester)
+    Entry_Semester = myFilter.qs
+    context = {'Entry': Entry_Semester,'myFilter':myFilter}
     return render (request,'semester/semester_list.html', context)
 
 def semester_edit(request,semester_code):
@@ -118,12 +125,12 @@ def semesterBform(request):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'semesterB/semesterB_created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'semesterB/semesterB_created.html',context)
     else:
         semesterB_form = SemesterbreakupForm()
         return render(request,'semesterB/semesterB_form.html',{'semesterB_form':semesterB_form})
@@ -131,7 +138,9 @@ def semesterBform(request):
 
 def semesterB_list_view(request):
     Entry_SemesterB = Semesterbreakup.objects.all()
-    context = {'Entry': Entry_SemesterB}
+    myFilter = Semesterbreakup_filter(request.GET, queryset=Entry_SemesterB)
+    Entry_SemesterB = myFilter.qs
+    context = {'Entry': Entry_SemesterB,'myFilter':myFilter}
     return render (request,'semesterB/semesterB_list.html', context)
 
 def semesterB_detail(request,semesterbreakup_code):
@@ -168,12 +177,12 @@ def quaterform(request):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'quater/quater_created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'quater/quater_created.html',context)
     else:
         quater_form = QuaterForm()
         return render(request,'quater/quater_form.html',{'quater_form':quater_form})
@@ -181,7 +190,9 @@ def quaterform(request):
 
 def quater_list_view(request):
     Entry_quater = Quater.objects.all()
-    context = {'Entry': Entry_quater}
+    myFilter = Quater_filter(request.GET, queryset=Entry_quater)
+    Entry_quater = myFilter.qs
+    context = {'Entry': Entry_quater,'myFilter':myFilter}
     return render (request,'quater/quater_list.html', context)
 
 def quater_detail(request,quater_code):
@@ -218,12 +229,12 @@ def assesmentform(request):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'assesment/assesment_created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'assesment/assesment_created.html',context)
     else:
         assesment_form = AssesmentForm()
         return render(request,'assesment/assesment_form.html',{'assesment_form':assesment_form})
@@ -231,7 +242,9 @@ def assesmentform(request):
 
 def assesment_list_view(request):
     Entry_assesment = Assesment.objects.all()
-    context = {'Entry': Entry_assesment}
+    myFilter = Assesment_filter(request.GET, queryset=Entry_assesment)
+    Entry_assesment = myFilter.qs
+    context = {'Entry': Entry_assesment,'myFilter':myFilter}
     return render (request,'assesment/assesment_list.html', context)
 
 def assesment_detail(request,assesment_code):
@@ -269,12 +282,12 @@ def markform(request):
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'mark/mark_created.html',context)
         else:
             context = {
                 'return': 'Is Not Valid'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'mark/mark_created.html',context)
     else:
         mark_form = MarkForm()
         return render(request,'mark/mark_form.html',{'mark_form':mark_form})
@@ -282,7 +295,9 @@ def markform(request):
 
 def mark_list_view(request):
     Entry_mark = Mark.objects.all()
-    context = {'Entry': Entry_mark}
+    myFilter = Mark_filter(request.GET, queryset=Entry_mark)
+    Entry_mark = myFilter.qs
+    context = {'Entry': Entry_mark, 'myFilter' : myFilter}
     return render (request,'mark/mark_list.html', context)
 
 def mark_detail(request,id):
@@ -310,3 +325,145 @@ def mark_delete(request, id):
         'Entry' : a
     }
     return render(request, 'mark/mark_list.html', context)
+
+def mark_upload(request):
+    template = "mark/mark_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of mark'
+    }
+    if request.method == "GET":
+        return render(request,"mark/mark_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = MarkForm({
+            'exam_Gr_no':column[0], 
+            'class_code':column[1],
+            'subject_code' :column[2], 
+            'exam_code':column[3], 
+            'semester_code':column[4], 
+            'semesterbreakup_code':column[5],
+            'quater_code':column[6], 
+            'assesment_code':column[7],
+            'total_marks':column[8],
+            'obtained_marks':column[9]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "mark/mark_upload.html", context)
+
+def semester_upload(request):
+    template = "semester/semester_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of mark'
+    }
+    if request.method == "GET":
+        return render(request,"semester/semester_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = SemesterForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semester_name':column[2],
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "semester/semester_upload.html", context)
+
+def assesment_upload(request):
+    template = "assesment/assesment_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of assesment'
+    }
+    if request.method == "GET":
+        return render(request,"assesment/assesment_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = AssesmentForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semesterbreakup_code':column[2],
+            'quater_code':column[3],
+            'assesment_name':column[4]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "assesment/assesment_upload.html", context)
+
+def quater_upload(request):
+    template = "quater/quater_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of assesment'
+    }
+    if request.method == "GET":
+        return render(request,"quater/quater_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = QuaterForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semesterbreakup_code':column[2],
+            'quater_code':column[3],
+            'quater_name':column[4]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "quater/quater_upload.html", context)
+
+def semesterB_upload(request):
+    template = "semesterB/semesterB_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of assesment'
+    }
+    if request.method == "GET":
+        return render(request,"semesterB/semesterB_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = QuaterForm({ 
+            'exam_code':column[0],
+            'semester_code':column[1],
+            'semesterbreakup_code':column[2],
+            'semesterbreakup_name':column[3]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "semesterB/semesterB_upload.html", context)

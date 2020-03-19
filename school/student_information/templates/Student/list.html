@@ -17,11 +17,13 @@
             </thead>
             {% for gr in GrNumber %}
             <tbody align="center">
+                <tr>
                     <th>{{ gr.gr_number }}</th>
                     <th><a href="{{ gr.get_absolute_url }}">{{gr.name}}</a></th>
                     <th>{{gr.family_code}}</th>
                     <th>{{gr.current_class}}</th>
                     <th><a class="btn btn-primary" href="{% url 'gr_edit' gr.gr_number %}">Edit</a><a href="{% url 'gr_delete' gr.gr_number %}" class="btn btn-primary" href="">Delete</a></th>
+                    </tr>
             </tbody>
             {% endfor %}
         </table>
