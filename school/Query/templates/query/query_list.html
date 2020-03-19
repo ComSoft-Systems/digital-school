@@ -1,5 +1,20 @@
 {% extends "MainPage.html" %}
 {% block content %}
+<br>
+<div class = "col">
+  <div class = "card card-body">
+    
+    <form method = "get">
+      
+        {{myFilter.form}}
+        <br>
+    <button class="btn btn-primary" type = "submit">
+        Search
+    </button>
+    </form>
+  </div>
+</div>
+<br>
 <div class="container">
       <h2 class="text-center" style="font-family:sans-serif;">List</h2>
       <h1>Queries</h1>
@@ -27,7 +42,9 @@
           </tr>
         </tbody>
         
+        
         {% endfor %}
+        <button class="text-center"><a href="{% url 'query_upload' %}">Add File</a></button>
       </table>
     </div>
 {% endblock %}

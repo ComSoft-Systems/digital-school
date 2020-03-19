@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from dependencies.models import Fee_Concession , Class , School , Section , Family
 from django.urls import reverse
 
@@ -8,7 +7,7 @@ class Entry_data(models.Model):
         ('M', 'Male'),
         ('FM', 'Female'),
     )
-    Query_code = models.IntegerField(primary_key=True, auto_created=True, unique=True)
+    Query_code = models.AutoField(primary_key=True, unique=True)
     Name = models.CharField(max_length=30, verbose_name="Name")
     father_name = models.CharField(max_length=30, verbose_name="Father")
     Address = models.CharField(max_length=30)
