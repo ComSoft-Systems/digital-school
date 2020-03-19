@@ -91,7 +91,8 @@ DATABASES = {
         'NAME': 'digi_school',
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
-        'HOST': '192.168.1.102',
+        'HOST' : '127.0.0.1',
+        #'HOST': '192.168.1.102',
         'PORT': '5432',
     }
 }
