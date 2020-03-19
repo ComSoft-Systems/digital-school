@@ -273,7 +273,7 @@ def delete_chapter(request, chapter_code):
     }
     return render(request, 'Question_Bank/Chapters/list.html', context)
 
-# @login_required(login_url='login_url')
+# @login_required(login_url='login_url') 
 def question_type_list(request):
     QT = Question_Type.objects.all()
     context = {'question_type': QT}
