@@ -12,3 +12,5 @@ class SaveAttendence(models.Model):
     sections = models.ForeignKey(Section, on_delete = models.CASCADE)
     attendence = models.CharField(max_length = 20)
     date = models.DateField()
+    # def __str__(self):
+    #     return str(self.gr) , self.attendence
