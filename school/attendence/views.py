@@ -32,21 +32,22 @@ def attendance_save(CreateView):
         InName = rawdata.getlist('name' , default='1')
         InClass = rawdata.getlist('class' , default='1')
         InSection = rawdata.getlist('section' , default='1')
-        InAttended = rawdata.getlist('attended' , default='1')
         InDate = rawdata.getlist('date' , default='1')
         count = '0'
         for i in InGr:
             count = int(count)+1
             In_f_Gr = get_object_or_404(Gr ,gr_number = InGr[count - 1])
+            InAttended = rawdata.get(str(In_f_Gr.gr_number))
             In_f_Family = get_object_or_404(Family ,surname = In_f_Gr.family_code)
             In_f_Class = get_object_or_404(Class ,class_name = InClass[count - 1])
             In_f_Section = get_object_or_404(Section ,sect_name = InSection[count - 1])
+            InAttended = rawdata.get(str(In_f_Gr.gr_number))
             form = Attendence_Form({
                 'gr' : (In_f_Gr.gr_number) ,
                 'family' : (In_f_Family.family_code) ,
                 'classes' : (In_f_Class.class_code) ,
                 'sections' : (In_f_Section.sect_code) ,
-                'attendence' : (InAttended[count - 1]) ,
+                'attendence' : (InAttended) ,
                 'date' : (InDate[count - 1]) ,
             })
             if form.is_valid:
