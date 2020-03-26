@@ -39,7 +39,7 @@ def loginPage(request):
 
 def logoutUser(request):
 	logout(request)
-	return redirect('MainScreen_url')
+	return redirect('login_url')
 
 # @admin_only
 # @login_required(login_url='login')
