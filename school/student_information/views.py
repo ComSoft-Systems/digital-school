@@ -205,5 +205,3 @@ def ManageGrPrintPdfView(PrintView,clas,sect):
         }
         pdf = PdfMaker('Student/Print/print.html', context)
         return HttpResponse(pdf, content_type='application/pdf')
-    else:
-        print('def')
