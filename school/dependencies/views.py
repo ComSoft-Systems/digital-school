@@ -104,6 +104,9 @@ def delete_class(request, class_code):
     }
     return render(request, 'Dependencies/Classes/list.html', context) 
 
+
+
+
 # @login_required(login_url='login_url')
 def school_list(request):
     schol = School.objects.all()
@@ -767,21 +770,34 @@ def class_subject_list(request):
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def class_subjects(request):
     if request.method == 'POST':
-        user_form = classes_subject_form(request.POST)
-        if user_form.is_valid():
-            class_subjects = user_form.save()
-            context = {
-                'return': 'Has been added successfully'
-            }
-            return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
-        else:
-            context = {
-                'return': 'Is not valid'
-            }
-            return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
+        rawdata = request.POST
+        class_ = rawdata.get('Class')
+        subject = rawdata.getlist('subject' , default=1)
+        class__ = get_object_or_404(Class , class_code = class_ )
+        for i in subject:
+            subject_ = get_object_or_404(Subject , subject_code = i )
+            print(class__)
+            print(subject_)
+            user_form = classes_subject_form({
+                'Class' : class__ ,
+                'class_subjects' : subject_ ,
+            })
+        # user_form = classes_subject_form(request.POST)
+            if user_form.is_valid():
+                user_form.save()
+                context = {
+                    'return': 'Has been added successfully'
+                }
+        return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html' , context)
+        # else:
+        #     context = {
+        #         'return': 'Is not valid'
+        #     }
+        #     return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
     else:
+        sub = Subject.objects.all()
         user_form = classes_subject_form()
-        return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form})
+        return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form,'subject':sub})
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])

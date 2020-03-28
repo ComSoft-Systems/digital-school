@@ -14,6 +14,7 @@
     <input type="file" name="file">
     <p>Only accepts CSV files</p>
     <button type="submit">Upload</button>
+    <a href="{% url 'gr_bulk_download' %}" class="btn btn-primary">Download File</a>
 </form>
 {% endif %}
 {% endblock %}
