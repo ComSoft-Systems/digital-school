@@ -69,21 +69,9 @@ class Subject(models.Model):
         return self.subjects
 
 class Class_Subject(models.Model):
-    SUBJECT_CHOICES = (
-        ('English','English'),
-        ('Urdu', 'Urdu'),
-        ('Math', 'Math'),
-        ('Computer', 'Computer'),
-        ('Sindhi', 'Sindhi'),
-        ('Science', 'Science'),
-        ('Social Studies', 'Social Studies'),
-        ('Early Childhood Education','Early Childhood Education'),
-        ('Islamiat','Islamiat'),
-        ('Drawing', 'Drawing'),
-    )
     Class_code = models.AutoField(primary_key= True, unique= True)
     Class = models.ForeignKey(Class, on_delete= models.CASCADE, default=1)
-    class_subjects = MultiSelectField(default = 1, choices = SUBJECT_CHOICES)
+    class_subjects = models.ForeignKey(Subject, on_delete = models.CASCADE)
     def	get_absolute_url(self):
         return reverse('class_subject_detail',args=[self.Class_code])
     def __str__(self):

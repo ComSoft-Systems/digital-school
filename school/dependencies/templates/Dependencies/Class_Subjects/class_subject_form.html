@@ -3,10 +3,13 @@
 {% block content %}
 <h1>Add Class Subject</h1>
 <form action ="{% url 'class_subject_form' %}" method = "POST">
-<a>Classes= {{user_form.Class}}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
-<a>Subjects= {{user_form.class_subjects}}</a><a href="{% url 'subject_form' %}"> Add subject </a><br><br>
-{% csrf_token %}
+    {% csrf_token %}
+    <a>Classes= {{user_form.Class}}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
+<!-- <a>Subjects= {{user_form.class_subjects}}</a><a href="{% url 'subject_form' %}"> Add subject </a><br><br> -->
+    {% for i in subject %}
+        <a><input type="checkbox" name="subject" value="{{ i.subject_code }}" >{{ i.subjects }}</input></a><br><br>
+    {% endfor %}
 <input type ="submit" value="Save">
-<button > <a href="{% url 'class_subject_list' %}">Back</a></button>
+<button ><a href="{% url 'class_subject_list' %}">Back</a></button>
 </form>
 {% endblock %}
