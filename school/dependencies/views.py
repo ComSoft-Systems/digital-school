@@ -1,6 +1,6 @@
 import csv, io
 from django.contrib import messages
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, get_list_or_404
 from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month, City
 from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
 from django.contrib.auth.decorators import login_required
@@ -306,6 +306,19 @@ def delete_family(request, family_code):
         'family' : famil
     }
     return render(request, 'Dependencies/Family/list.html', context) 
+
+def ManageFamilyPrintPdfView(PrintView,clas,sect):
+    if PrintView.method == 'POST':
+        Class_ = get_object_or_404(Class , class_name = clas)
+        Sect = get_object_or_404(Section , sect_name = sect)
+        fami = get_list_or_404(Family , current_class = Class_.class_code , section = Sect.sect_code)
+        context = {
+            'abc' : fami ,
+            'one' : clas ,
+            'two' : sect ,
+        }
+        pdf = PdfMaker('Dependencies/Familyt/print.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 # @login_required(login_url='login_url')
 def fee_concession_list(request):

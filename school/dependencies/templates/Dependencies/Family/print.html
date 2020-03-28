@@ -1,0 +1,29 @@
+<html>
+<body>
+<div class="container">
+        <h2 align="center">View All Families</h2><hr/>
+        <h3>Parents Of {{ one }} Class And {{ two }} Section</h3>
+        <table class="table table-hover table-sm table-dark">
+            <thead align="center">
+                <tr>
+                    <th></th>
+                    <th>Surname</th>
+                    <th>Father Name</th>
+                    <th>Contact No</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            {% for i in abc %}
+            <tbody align="center">
+                <tr>
+                    <td>{{ i.surname }}</td>
+                    <td>{{ i.father_name }}</td>
+                    <td>{{ i.ph_no_father }}</td>
+                    <td>{{ i.address }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

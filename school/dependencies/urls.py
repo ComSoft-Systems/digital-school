@@ -27,6 +27,8 @@ urlpatterns = [
     path('edit_family/<family_code>+/', views.edit_family, name = 'edit_family'),
     path('family_detail/<family_code>/', views.family_detail, name = 'family_detail'),
     path('delete_family/<family_code>+/', views.delete_family, name = 'delete_family'),
+    path('print/<clas>/<sect>/',views.ManageFamilyPrintPdfView, name="family_print"),
+
 
     
     path('fee_concession_form/',views.fee_concession, name = 'fee_concession_form'),
