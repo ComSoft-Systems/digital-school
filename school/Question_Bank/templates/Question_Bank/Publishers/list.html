@@ -23,6 +23,7 @@
     {% endfor %}
   </tbody>
     </table>
-    <a href="{% url 'publisher_form' %}">Add</a>
+    <button><a href="{% url 'publisher_form' %}">Add</a></button>
+    <a class="btn btn-primary" href="{% url 'publisher_print' %}" value="Print">Print</a>
   </div>
     {% endblock %}

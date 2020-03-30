@@ -10,6 +10,8 @@ urlpatterns = [
     path('edit_book/<book_code>+/', views.edit_book, name = 'edit_book'),
     path('book_detail/<book_code>/', views.book_detail, name = 'book_detail'),
     path('delete_book/<book_code>+/', views.delete_book, name = 'delete_book'),
+    path('print/<clas>/<subj>/<publ>/',views.ManageBookPrintPdfView, name="book_print"),
+
 
 
     path('publisher_list/',views.publisher_list, name = 'publisher_list'),
@@ -17,6 +19,7 @@ urlpatterns = [
     path('publisher_upload/',views.publisher_upload, name = 'publisher_upload'),
     path('edit_publisher/<publisher_code>+/', views.edit_publisher, name = 'edit_publisher'),
     path('delete_publisher/<publisher_code>+/', views.delete_publisher, name = 'delete_publisher'),
+    path('publisher_print/',views.ManagePublisherPrintPdfView, name="publisher_print"),
 
 
     path('chapter_list/',views.chapter_list, name = 'chapter_list'),
@@ -24,6 +27,7 @@ urlpatterns = [
     path('chapter_upload/',views.chapter_upload, name = 'chapter_upload'),
     path('edit_chapter/<chapter_code>+/', views.edit_chapter, name = 'edit_chapter'),
     path('delete_chapter/<chapter_code>+/', views.delete_chapter, name = 'delete_chapter'),
+    path('chapter_print/',views.ManageChapterPrintPdfView, name="chapter_print"),
 
 
     path('question_type_list/',views.question_type_list, name = 'question_type_list'),
@@ -40,5 +44,6 @@ urlpatterns = [
     path('edit_question_bank/<question_code>+/', views.edit_question_bank, name = 'edit_question_bank'),
     path('question_bank_detail/<question_code>/', views.question_bank_detail, name = 'question_bank_detail'),
     path('delete_question_bank/<question_code>+/', views.delete_question_bank, name = 'delete_question_bank'),
+    path('question_print/',views.ManageQuestionPrintPdfView, name="question_print"),
 
 ]
