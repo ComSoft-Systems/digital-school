@@ -1,5 +1,5 @@
 import csv, io
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404,HttpResponse
 from django.contrib import messages
 from .models import *
 from .forms import *
@@ -467,3 +467,13 @@ def semesterB_upload(request):
         created.save()
     context = {'abc' : 'Added Successfully'}
     return render(request, "semesterB/semesterB_upload.html", context)
+
+def mark_download(request):
+    items = Mark.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="mark.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['exam_Gr_no','class_code','subject_code','exam_code','semester_code','semesterbreakup_code','quater_code','assesment_code','total_marks','obtained_marks'])
+    for obj in items:
+        writer.writerow([obj.exam_Gr_no, obj.class_code, obj.subject_code, obj.exam_code, obj.semester_code, obj.semesterbreakup_code, obj.quater_code, obj.assesment_code, obj.total_marks, obj.obtained_marks])
+    return response

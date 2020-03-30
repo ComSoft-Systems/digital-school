@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'sms',
     'Question_Bank',
     'django_filters',
-    'attendence'
+    'attendence',
+    'xhtml2pdf',
 ]
 
 MIDDLEWARE = [

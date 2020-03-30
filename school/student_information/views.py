@@ -22,8 +22,6 @@ def ManageGrDetailView(DetailView,gr_number):
     }
     return render (DetailView, 'Student/detail.html',context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = EntryForm(CreateView.POST)
