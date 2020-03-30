@@ -33,6 +33,10 @@
                     <td>{{user_form.family_code }}<a href="{% url "family_form" %}"> + </a></td>
                 </tr>
                 <tr>
+                    <td>Section</td>
+                    <td>{{user_form.section }}<a href="{% url "section_form" %}"> + </a></td>
+                </tr>
+                <tr>
                     <td>Fee</td>
                     <td>{{user_form.fee_concession_code }}<a href="{% url "fee_concession_form" %}"> + </a></td>
                 </tr>
@@ -67,6 +71,10 @@
                 <tr>
                     <td>Date Of Birth</td>
                     <td>{{user_form.date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <td>Active</td>
+                    <td>{{user_form.active }}</td>
                 </tr>
                 <tr>
                     <td>Submit</td>
