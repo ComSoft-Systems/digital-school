@@ -75,6 +75,17 @@ def book_upload(request):
     context = {}
     return render(request, template, context)
 
+def book_download(request):
+
+    items = Book.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="books.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['book_code', 'book_name', 'classes', 'subject', 'publisher', 'medium'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_book(request,book_code):
@@ -184,6 +195,17 @@ def publisher_upload(request):
     context = {}
     return render(request, template, context)
 
+def publisher_download(request):
+
+    items = Publisher.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="publishers.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['publisher_code', 'publisher_name', 'city'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_publisher(request,publisher_code):
@@ -276,6 +298,17 @@ def chapter_upload(request):
     context = {}
     return render(request, template, context)
 
+def chapter_download(request):
+
+    items = Chapter.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="chapters.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['chapter_code', 'chapter_name', 'books'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_chapter(request,chapter_code):
@@ -367,6 +400,17 @@ def question_type_upload(request):
         created.save()
     context = {}
     return render(request, template, context)
+
+def Q_type_download(request):
+
+    items = Question_Type.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Question_type.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['Q_type_code', 'question_type'])
+
+    return response
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -505,6 +549,17 @@ def question_bank_upload(request):
         created.save()
     context = {}
     return render(request, template, context)
+
+def Q_bank_download(request):
+
+    items = Question_Bank.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Question_bank.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['question_code', 'question','subject', 'classes', 'publisher', 'chapter', 'question_type', 'question_from'])
+
+    return response
 
 
 # @login_required(login_url='login_url')
