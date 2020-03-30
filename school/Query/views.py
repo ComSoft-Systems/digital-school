@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404, HttpResponse
 from .models import Entry_data
 from .forms import Form
 from .filters import Query_filter
@@ -102,3 +102,13 @@ def query_upload(request):
         created.save()
     context = {'abc' : 'Added Successfully'}
     return render(request, "query_upload.html", context)
+
+def query_download(request):
+    items = Entry_data.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="query.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['Name','father_name','Address','gender','last','Previous_school','Addmission_required','Test_performed','Suggested_class','test_teacher','date_of_test','Fee_type','Contact'])
+    for obj in items:
+        writer.writerow([obj.Name, obj.father_name, obj.Address, obj.gender, obj.last, obj.Previous_school, obj.Addmission_required, obj.Test_performed, obj.Suggested_class, obj.test_teacher, obj.date_of_test, obj.Fee_type, obj.Contact])
+    return response
