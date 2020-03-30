@@ -54,6 +54,6 @@
     </table>
     <button ><a href="{% url 'family_form' %}">Add</a></button>    
     <button ><a href="{% url 'family_download' %}">Download CSV Format</a></button>
-    <input class="btn btn-primary" type="submit" value="Print"/>
+    <a class="btn btn-primary" href="{% url 'family_print' %}" value="Print">Print</a>
   </div>
     {% endblock %}

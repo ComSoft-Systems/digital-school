@@ -59,8 +59,8 @@ def ManageGrDetailView(DetailView,gr_number):
     }
     return render (DetailView, 'Student/detail.html',context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrDataDownloadView(DownloadView):
     abc = HttpResponse(content_type = 'csv')
     filename = 'attachment; filename="{0}"'.format('Student Information.csv')
@@ -88,8 +88,8 @@ def ManageGrDataDownloadView(DownloadView):
         writer.writerow(i)
     return abc
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = EntryForm(CreateView.POST)
@@ -108,8 +108,8 @@ def ManageGrCreateView(CreateView):
         user_form = EntryForm()
         return render(CreateView,'Student/Create/create.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrEditView(request, gr_number):
     data = get_object_or_404(Gr, gr_number = gr_number)
     if request.method == "POST":
@@ -121,15 +121,15 @@ def ManageGrEditView(request, gr_number):
         user_form = EntryForm(instance=data)
         return render(request, 'Student/Edit/edit.html',{'GrNumber':user_form,'data':data}) 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrDeleteView(request, gr_number):
     Gr.objects.filter(gr_number=gr_number).delete()
     a = Gr.objects.all()
     return render(request, 'Student/Delete/delete.html')
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrBulkSampleDownloadView(DownloadView):
     abc = HttpResponse(content_type = 'csv')
     filename = 'attachment; filename="{0}"'.format('Gr Model Format.csv')
@@ -157,8 +157,8 @@ def ManageGrBulkSampleDownloadView(DownloadView):
     #     writer.writerow(i)
     return abc
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrUploadView(CreateView):
     if CreateView.method == "GET":
         return render(CreateView,"Student/Create/ViaFile/create.html")
@@ -191,8 +191,8 @@ def ManageGrUploadView(CreateView):
     context = {}
     return render(CreateView,"Student/Create/ViaFile/create.html", context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrPrintPdfView(PrintView,clas,sect):
     if PrintView.method == 'POST':
         Class_ = get_object_or_404(Class , class_name = clas)

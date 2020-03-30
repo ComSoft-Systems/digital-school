@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import io, csv
 from django.contrib import messages
+from .renderer import PdfMaker
 
 
 
@@ -307,18 +308,14 @@ def delete_family(request, family_code):
     }
     return render(request, 'Dependencies/Family/list.html', context) 
 
-def ManageFamilyPrintPdfView(PrintView,clas,sect):
-    if PrintView.method == 'POST':
-        Class_ = get_object_or_404(Class , class_name = clas)
-        Sect = get_object_or_404(Section , sect_name = sect)
-        fami = get_list_or_404(Family , current_class = Class_.class_code , section = Sect.sect_code)
-        context = {
-            'abc' : fami ,
-            'one' : clas ,
-            'two' : sect ,
-        }
-        pdf = PdfMaker('Dependencies/Familyt/print.html', context)
-        return HttpResponse(pdf, content_type='application/pdf')
+def ManageFamilyPrintPdfView(PrintView):
+    fami = Family.objects.all()
+    context = {
+        'abc' : fami ,
+    }
+    pdf = PdfMaker('Dependencies/Family/print.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
+    # return render(PrintView,'Dependencies/Family/print.html',context)
 
 # @login_required(login_url='login_url')
 def fee_concession_list(request):
