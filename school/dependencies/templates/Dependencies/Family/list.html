@@ -1,6 +1,30 @@
 {% extends 'MainPage.html' %}
     {% block content %}
+    <div class="row">
+      <div class="col">
+          <div class="card card-body">
+              <form action="{% url 'family_list' %}" method="POST">
+                  <label>Select Class</label>
+                  <select name="class">
+                      <option value="">---------</option>
+                      {% for rows in class %}
+                              <option value="{{ rows.class_code }}">{{ rows.class_name }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="fname">Select Section</label>
+                  <select name="section" >
+                      <option value="">---------</option>
+                      {% for rows in section %}
+                              <option value="{{ rows.sect_code }}">{{ rows.sect_name }}</option>
+                      {% endfor %}
+                  </select>
+                  {% csrf_token %}
+                  <input class="btn btn-primary" type="submit" value="Search"/>
+              </form>
 
+          </div>
+      </div>
+  </div>
     
 <div class="container">
     <h2 class="text-center" style="font-family:sans-serif;">Families</h2><hr/>
@@ -9,12 +33,18 @@
     <thead>
     <tr align="center">
     <th>Surname</th>
+    <th>Father Name</th>
+    <th>Contact No</th>
+    <th>Address</th>
     </tr>
   </thead>
   <tbody>
     {% for a in family %}
     <tr align="center">
       <td><a href="{{ a.get_absolute_url }}">{{a.surname}}</a></td>
+      <td>{{a.father_name}}</td>
+      <td>{{a.ph_no_father}}</td>
+      <td>{{a.address}}</td>
       <td><a href="{% url 'edit_family' family_code=a.family_code %}">Edit</a></td>
       <td><a href="{% url 'delete_family' family_code=a.family_code %}">Delete</a></td>
 
@@ -22,6 +52,8 @@
     {% endfor %}
   </tbody>
     </table>
-    <a href="{% url 'family_form' %}">Add</a>
+    <button ><a href="{% url 'family_form' %}">Add</a></button>    
+    <button ><a href="{% url 'family_download' %}">Download CSV Format</a></button>
+    <a class="btn btn-primary" href="{% url 'family_print' %}" value="Print">Print</a>
   </div>
     {% endblock %}

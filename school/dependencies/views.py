@@ -1,12 +1,13 @@
 import csv, io
 from django.contrib import messages
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, get_list_or_404
 from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month, City
 from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import io, csv
 from django.contrib import messages
+from .renderer import PdfMaker
 
 
 
@@ -65,6 +66,18 @@ def class_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+
+def class_download(request):
+
+    items = Class.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="classes.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['class_code', 'class_name', 'remarks'])
+
+    return response
     
 
 # @login_required(login_url='login_url')
@@ -91,6 +104,9 @@ def delete_class(request, class_code):
         'Class' : cla
     }
     return render(request, 'Dependencies/Classes/list.html', context) 
+
+
+
 
 # @login_required(login_url='login_url')
 def school_list(request):
@@ -146,6 +162,18 @@ def school_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+
+def school_download(request):
+
+    items = School.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="school.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['school_code', 'school_name', 'school_area', 'remarks'])
+
+    return response
 
 
 # @login_required(login_url='login_url')
@@ -233,6 +261,18 @@ def family_upload(request):
     return render(request, template, context)
 
 
+def family_download(request):
+
+    items = Family.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="families.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['family_code', 'surname', 'father_name', 'ph_no_father', 'mother_name', 'ph_no_mother', 'address'])
+
+    return response
+
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_family(request, family_code):
@@ -267,6 +307,15 @@ def delete_family(request, family_code):
         'family' : famil
     }
     return render(request, 'Dependencies/Family/list.html', context) 
+
+def ManageFamilyPrintPdfView(PrintView):
+    fami = Family.objects.all()
+    context = {
+        'abc' : fami ,
+    }
+    pdf = PdfMaker('Dependencies/Family/print.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
+    # return render(PrintView,'Dependencies/Family/print.html',context)
 
 # @login_required(login_url='login_url')
 def fee_concession_list(request):
@@ -321,6 +370,18 @@ def fee_concession_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+
+def fee_concession_download(request):
+
+    items = Fee_Concession.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Fee_Concession.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['fee_concession_code', 'fee_concession_name', 'concession_percent', 'description'])
+
+    return response
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -401,6 +462,17 @@ def section_upload(request):
     context = {}
     return render(request, template, context)
 
+def section_download(request):
+
+    items = Section.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Section.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['section_code', 'section_name', 'remarks'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_section(request, sect_code):
@@ -480,6 +552,17 @@ def session_upload(request):
     context = {}
     return render(request, template, context)
 
+def session_download(request):
+
+    items = Session.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Session.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['session_code', 'session_name'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_session(request, session_code):
@@ -557,6 +640,17 @@ def religion_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+def religion_download(request):
+
+    items = Religion.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Religion.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['religion_code', 'religion'])
+
+    return response
 
 
 # @login_required(login_url='login_url')
@@ -638,6 +732,17 @@ def subject_upload(request):
     context = {}
     return render(request, template, context)
 
+def subject_download(request):
+
+    items = Subject.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Subject.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['subject_code', 'subjects'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_subject(request, subject_code):
@@ -675,21 +780,34 @@ def class_subject_list(request):
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def class_subjects(request):
     if request.method == 'POST':
-        user_form = classes_subject_form(request.POST)
-        if user_form.is_valid():
-            class_subjects = user_form.save()
-            context = {
-                'return': 'Has been added successfully'
-            }
-            return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
-        else:
-            context = {
-                'return': 'Is not valid'
-            }
-            return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
+        rawdata = request.POST
+        class_ = rawdata.get('Class')
+        subject = rawdata.getlist('subject' , default=1)
+        class__ = get_object_or_404(Class , class_code = class_ )
+        for i in subject:
+            subject_ = get_object_or_404(Subject , subject_code = i )
+            print(class__)
+            print(subject_)
+            user_form = classes_subject_form({
+                'Class' : class__ ,
+                'class_subjects' : subject_ ,
+            })
+        # user_form = classes_subject_form(request.POST)
+            if user_form.is_valid():
+                user_form.save()
+                context = {
+                    'return': 'Has been added successfully'
+                }
+        return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html' , context)
+        # else:
+        #     context = {
+        #         'return': 'Is not valid'
+        #     }
+        #     return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html', context)
     else:
+        sub = Subject.objects.all()
         user_form = classes_subject_form()
-        return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form})
+        return render(request,'Dependencies/Class_Subjects/class_subject_form.html',{'user_form':user_form,'subject':sub})
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -779,6 +897,17 @@ def fee_type_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+def fee_type_download(request):
+
+    items = Fee_Type.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Fee_Type.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['fee_type_code', 'fee_type', 'description'])
+
+    return response
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -886,3 +1015,14 @@ def city_upload(request):
         )
     context = {}
     return render(request, template, context)
+
+def city_download(request):
+
+    items = City.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="City.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['city_code', 'cities'])
+
+    return response

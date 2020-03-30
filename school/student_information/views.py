@@ -6,14 +6,51 @@ from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import csv, io
 from django.contrib import messages
+from .renderer import PdfMaker
+from django.http import HttpResponse
+
 
 
 def ManageGrListView(ListView):
-    GrNumber = Gr.objects.all()
-    context = {
-        'GrNumber':GrNumber
-    }
-    return render (ListView,'Student/list.html',context)
+    if ListView.method == 'POST':
+        InClasses = ListView.POST.get('class')
+        InSection = ListView.POST.get('section')
+        section = Section.objects.all()
+        classes = Class.objects.all()
+        if InClasses == '' and InSection == '':
+            lis = Gr.objects.all()
+        elif InSection == '':
+            lis = get_list_or_404(Gr , current_class = InClasses)
+            in_ = get_object_or_404(Class, class_code = InClasses)
+            InSection = 'All'
+            InClasses = in_
+        elif InClasses == '':
+            lis = get_list_or_404(Gr , section = InSection)
+            in_ = get_object_or_404(Section, sect_code = InSection)
+            InClasses = 'All'
+            InSection = in_
+        else:
+            lis = get_list_or_404(Gr , section = InSection , current_class = InClasses)
+        context = {
+            'one' : InClasses,
+            'two' : InSection ,
+            'GrNumber' : lis,
+            'class' : classes,
+            'section' : section,
+            }
+        return render (ListView,'Student/list.html',context)
+    else:
+        section = Section.objects.all()
+        classes = Class.objects.all()
+        GrNumber = Gr.objects.all()
+        context = {
+            'GrNumber':GrNumber,
+            'class' : classes,
+            'section' : section,
+            'one' : 'All',
+            'two' : 'All',
+        }
+        return render (ListView,'Student/list.html',context)
 
 def ManageGrDetailView(DetailView,gr_number):
     GrNumber = get_object_or_404(Gr,gr_number = gr_number)
@@ -21,7 +58,38 @@ def ManageGrDetailView(DetailView,gr_number):
         'GrNumber' : GrNumber,
     }
     return render (DetailView, 'Student/detail.html',context)
+  
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
+def ManageGrDataDownloadView(DownloadView):
+    abc = HttpResponse(content_type = 'csv')
+    filename = 'attachment; filename="{0}"'.format('Student Information.csv')
+    abc['Content-Disposition'] = filename
+    fields = (
+        'gr_number' ,
+        'name' ,
+        'family_code' ,
+        'section' ,
+        'fee_concession_code' ,
+        'class_of_admission' ,
+        'session_of_admission' ,
+        'current_class' ,
+        'current_session' ,
+        'admission_date' ,
+        'last_school' ,
+        'religion' ,
+        'date_of_birth' ,
+        'active' ,
+    )
+    data = Gr.objects.values(*fields)
+    writer = csv.DictWriter(abc , fieldnames = fields)
+    writer.writeheader()
+    for i in data:
+        writer.writerow(i)
+    return abc
 
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = EntryForm(CreateView.POST)
@@ -40,7 +108,8 @@ def ManageGrCreateView(CreateView):
         user_form = EntryForm()
         return render(CreateView,'Student/Create/create.html',{'user_form':user_form})
 
-
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrEditView(request, gr_number):
     data = get_object_or_404(Gr, gr_number = gr_number)
     if request.method == "POST":
@@ -52,18 +121,47 @@ def ManageGrEditView(request, gr_number):
         user_form = EntryForm(instance=data)
         return render(request, 'Student/Edit/edit.html',{'GrNumber':user_form,'data':data}) 
 
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrDeleteView(request, gr_number):
     Gr.objects.filter(gr_number=gr_number).delete()
     a = Gr.objects.all()
     return render(request, 'Student/Delete/delete.html')
 
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
+def ManageGrBulkSampleDownloadView(DownloadView):
+    abc = HttpResponse(content_type = 'csv')
+    filename = 'attachment; filename="{0}"'.format('Gr Model Format.csv')
+    abc['Content-Disposition'] = filename
+    fields = (
+        'gr_number' ,
+        'name' ,
+        'family_code' ,
+        'section' ,
+        'fee_concession_code' ,
+        'class_of_admission' ,
+        'session_of_admission' ,
+        'current_class' ,
+        'current_session' ,
+        'admission_date' ,
+        'last_school' ,
+        'religion' ,
+        'date_of_birth' ,
+        'active' ,
+    )
+    # data = Gr.objects.values(*fields)
+    writer = csv.DictWriter(abc , fieldnames = fields)
+    writer.writeheader()
+    # for i in data:
+    #     writer.writerow(i)
+    return abc
 
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageGrUploadView(CreateView):
-    format = {
-        'order': 'Order of the CSV should be gr_number,query_code,name,picture,family_code,fee_concession_code,class_of_admission,session_of_admission,current_class,current_session,admission_date,last_school,religion,date_of_birth'
-    }
     if CreateView.method == "GET":
-        return render(CreateView,"Student/Create/ViaFile/create.html", format)
+        return render(CreateView,"Student/Create/ViaFile/create.html")
     InFile = CreateView.FILES['file']
     if not InFile.name.endswith('.csv'):
         messages.error(CreateView, 'This is not a csv file')
@@ -92,3 +190,18 @@ def ManageGrUploadView(CreateView):
         created.save()
     context = {}
     return render(CreateView,"Student/Create/ViaFile/create.html", context)
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
+def ManageGrPrintPdfView(PrintView,clas,sect):
+    if PrintView.method == 'POST':
+        Class_ = get_object_or_404(Class , class_name = clas)
+        Sect = get_object_or_404(Section , sect_name = sect)
+        lis = get_list_or_404(Gr , current_class = Class_.class_code , section = Sect.sect_code)
+        context = {
+            'abc' : lis ,
+            'one' : clas ,
+            'two' : sect ,
+        }
+        pdf = PdfMaker('Student/Print/print.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')

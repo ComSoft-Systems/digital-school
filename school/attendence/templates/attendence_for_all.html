@@ -15,27 +15,23 @@
     <div class="row">
         <div class="col">
             <div class="card card-body">
-
                 <form action="{% url 'attendence_list_template' %}" method="POST">
-                    
                     <label>Select Class</label>
                     <select name="class">
                         <option value="">---------</option>
                         {% for rows in class %}
-                                <option value="{{ rows.class_name }}">{{ rows.class_name }}
+                                <option value="{{ rows.class_code }}">{{ rows.class_name }}
                                 </option>
                         {% endfor %}
                     </select>
-                    
                     <label for="fname">Select Section</label>
                     <select name="section" >
                         <option value="">---------</option>
                         {% for rows in section %}
-                                <option value="{{ rows.sect_name }}">{{ rows.sect_name }}
+                                <option value="{{ rows.sect_code }}">{{ rows.sect_name }}
                                 </option>
                         {% endfor %}
                     </select>
-                    
                     <label for="fname">Select Date</label>
                     <input id = 'datepicker' name = "date" value=""/><br><br>
                     <!-- {{myFilter}} -->
@@ -53,40 +49,130 @@
         <table class="table table-hover table-sm table-dark">
             <thead>
                 <tr>
-                    <th>Gr Number</th>
-                    <th>Student</th>
-                    <th>Classes</th>
-                    <th>Sections</th>
-                    <th>Present</th>
-                    <th>Date</th>
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Gr Number</th>
+                    
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Student</th>
+                    
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Classes</th>
+                    
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Sections</th>
+                    
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Present</th>
+
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Abesent</th>
+
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Leave</th>
+                    
+                    <th style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;">Date</th>
                 </tr>
             </thead>
 
-            {% for i in attend %}
-
                 <tbody>
                     <tr>
+<<<<<<< HEAD
+                        {% for i in attend %}
+                        <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;"
+                        type="text" name="gr" value="{{ i.gr_number }}" readonly></td>
+                        
+                        <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;"
+                        type="text" name="name" value="{{ i.name }}" readonly></td>
+                        
+                        <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;"
+                        type="text" name="class" value="{{ i.current_class }}" readonly></td>
+                        
+                        <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;"
+                        type="text" name="section" value="{{ i.section }}" readonly></td>
+                        
+                        <!--<td><select>
+=======
                         <td>{{i.gr_number}}</td>
                         <td>{{i.name}}</td>
                         <td>{{i.current_class}}</td>
-                        <td>{{i.sections}}</td>
+                        <td>{{i.section}}</td>
                         <td><select name="attend" >
+>>>>>>> 2f879a4cd7cd6a7477c353556f2e1ed98154b3a2
                             <option value="">---------</option>
                             <option value="present">present</option>
                             <option value="absent">absent</option>
                             <option value="leave">leave</option>
-                        </select></td>
-                        <td>{{date}}</td>
+                        </select></td>-->
+
+                        <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="present"></td>
+                        <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="absent"></td>
+                        <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="leave"></td>
+                        
+                        {% if date == '' %}
+                            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;"
+                        type="text" name="date" value="{{ tdate }}" readonly></td>
+                        {% else %}
+                            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;"
+                        type="text" name="date" value="{{date}}" readonly></td>
+                        {% endif %}
                         {% csrf_token %}
                     </tr>
-                </tbody>
-                
-                {% endfor %}
-                
-            </table>
-            <button type="submit" class="btn btn-primary" name="button">Save</button>
-        </form>
-    </div>
+                    {% endfor %}
+                </tbody>            
+        </table>
+        <button type="submit" class="btn btn-primary" name="button">Save</button>
+    </form>
+        
+</div>
     
     {% endblock %}
     <td><input type="radio" id="id_attendence_checkBox" name="present" value="present"></td>

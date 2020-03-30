@@ -1,6 +1,6 @@
 import csv, io
 from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponse ,get_object_or_404, get_list_or_404
 from .models import Book, Publisher, Chapter, Question_Type, Question_Bank
 from .forms import book_form, publisher_form, chapter_form, question_type_form, question_bank_form
 from django.contrib.auth.decorators import login_required
@@ -8,13 +8,18 @@ from authentication.user_handeling import unauthenticated_user, allowed_users, a
 from .filters import Question_Bank_filter
 import random 
 from dependencies.models import *
+from .renderer import PdfMaker
+
 # from dependencies.forms import *
 
 # Create your views here.
 # @login_required(login_url='login_url')
 def book_list(request):
     boo = Book.objects.all()
-    context = {'book': boo}
+    clas = Class.objects.all()
+    sub = Subject.objects.all()
+    publ = Publisher.objects.all()
+    context = {'book': boo, 'class': clas, 'subject': sub, 'publisher': publ }
     return render(request, 'Question_Bank/Books/list.html', context)
 
 # @login_required(login_url='login_url')
@@ -70,6 +75,17 @@ def book_upload(request):
     context = {}
     return render(request, template, context)
 
+def book_download(request):
+
+    items = Book.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="books.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['book_code', 'book_name', 'classes', 'subject', 'publisher', 'medium'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_book(request,book_code):
@@ -105,11 +121,29 @@ def delete_book(request, book_code):
     }
     return render(request, 'Question_Bank/Books/list.html', context) 
 
+def ManageBookPrintPdfView(PrintView,clas,subj,publ):
+    if PrintView.method == 'POST':
+        Class_ = get_object_or_404(Class , class_name = clas)
+        Sub = get_object_or_404(Subject , subjects = subj)
+        publi = get_object_or_404(Publisher , publisher_name = publ)
+        lis = get_list_or_404(Book , classes = Class_.class_code , subject = Sub.subject_code, publisher = publi.publisher_code)
+        context = {
+            'abc' : lis ,
+            'one' : clas ,
+            'two' : subj ,
+            'three' : publ ,
+        }
+        pdf = PdfMaker('Question_Bank/Books/print.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
 # @login_required(login_url='login_url')
 def publisher_list(request):
     pub = Publisher.objects.all()
     context = {'publisher': pub}
     return render(request, 'Question_Bank/Publishers/list.html', context)
+
+
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -161,6 +195,17 @@ def publisher_upload(request):
     context = {}
     return render(request, template, context)
 
+def publisher_download(request):
+
+    items = Publisher.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="publishers.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['publisher_code', 'publisher_name', 'city'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_publisher(request,publisher_code):
@@ -187,7 +232,15 @@ def delete_publisher(request, publisher_code):
     context = {
         'publisher' : publi
     }
-    return render(request, 'Question_Bank/Publishers/list.html', context) 
+    return render(request, 'Question_Bank/Publishers/list.html', context)
+
+def ManagePublisherPrintPdfView(PrintView):
+    publi = Publisher.objects.all()
+    context = {
+        'abc' : publi ,
+    }
+    pdf = PdfMaker('Question_Bank/Publishers/print.html', context)
+    return HttpResponse(pdf, content_type='application/pdf') 
 
 # @login_required(login_url='login_url')
 def chapter_list(request):
@@ -245,6 +298,17 @@ def chapter_upload(request):
     context = {}
     return render(request, template, context)
 
+def chapter_download(request):
+
+    items = Chapter.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="chapters.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['chapter_code', 'chapter_name', 'books'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_chapter(request,chapter_code):
@@ -273,7 +337,15 @@ def delete_chapter(request, chapter_code):
     }
     return render(request, 'Question_Bank/Chapters/list.html', context)
 
-# @login_required(login_url='login_url')
+def ManageChapterPrintPdfView(PrintView):
+    chp = Chapter.objects.all()
+    context = {
+        'abc' : chp ,
+    }
+    pdf = PdfMaker('Question_Bank/Chapters/print.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
+
+# @login_required(login_url='login_url') 
 def question_type_list(request):
     QT = Question_Type.objects.all()
     context = {'question_type': QT}
@@ -329,6 +401,17 @@ def question_type_upload(request):
     context = {}
     return render(request, template, context)
 
+def Q_type_download(request):
+
+    items = Question_Type.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Question_type.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['Q_type_code', 'question_type'])
+
+    return response
+
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_question_type(request,Q_type_code):
@@ -356,6 +439,7 @@ def delete_question_type(request, Q_type_code):
         'question_type' : quesT
     }
     return render(request, 'Question_Bank/Question_Type/list.html', context)
+
 
 # @login_required(login_url='login_url')
 def question_bank_list(request):
@@ -466,6 +550,17 @@ def question_bank_upload(request):
     context = {}
     return render(request, template, context)
 
+def Q_bank_download(request):
+
+    items = Question_Bank.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="Question_bank.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['question_code', 'question','subject', 'classes', 'publisher', 'chapter', 'question_type', 'question_from'])
+
+    return response
+
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -502,6 +597,15 @@ def delete_question_bank(request, question_code):
         'question_bank' : QB
     }
     return render(request, 'Question_Bank/Question_Bank/list.html', context) 
+
+
+def ManageQuestionPrintPdfView(PrintView):
+    Quest = Question_Bank.objects.all()
+    context = {
+        'abc' : Quest ,
+    }
+    pdf = PdfMaker('Question_Bank/Question_Bank/print.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
 
 # def create_random(request):
 #     if request.method == 'POST':
