@@ -61,6 +61,7 @@
   <input class="btn btn-primary" type="submit" value="Print"/>  
     </form>
     </table>
-    <a href="{% url 'book_form' %}">Add</a>
+    <button><a href="{% url 'book_form' %}">Add</a></button>
+    <button><a href="{% url 'book_download' %}">Download CSV Format</a></button>
   </div>
     {% endblock %}
