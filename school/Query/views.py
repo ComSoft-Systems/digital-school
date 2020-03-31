@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404, HttpResponse , get_list_or_404
 from .models import Entry_data
 from .forms import Form
 from .filters import Query_filter
@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import csv, io
 from django.contrib import messages
+from static.renderer import PdfMaker
 
 
 
@@ -30,7 +31,6 @@ def form(request):
         user_form = Form()
         return render(request,'query/query_form.html',{'user_form':user_form})
 
-
 def detail(request,Query_code):
     abc = get_object_or_404(Entry_data,Query_code = Query_code)
     context = {
@@ -43,7 +43,7 @@ def list_view(request):
     myFilter = Query_filter(request.GET, queryset=Entry_dataa)
     Entry_dataa = myFilter.qs
     context = {'Entry': Entry_dataa, 'myFilter': myFilter}
-    return render (request,'query/query_list.html', context)
+    return render(request,'query/query_list.html', context)
 
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
@@ -57,7 +57,7 @@ def edit(request,Query_code):
     else:
         user_form = Form(instance=i)
         return render(request, 'query/edit_query.html', {'user_form':user_form})
-    
+
 def delete(request, Query_code):
     Entry_data.objects.filter(Query_code=Query_code).delete()
     a = Entry_data.objects.all()
@@ -102,3 +102,26 @@ def query_upload(request):
         created.save()
     context = {'abc' : 'Added Successfully'}
     return render(request, "query_upload.html", context)
+
+def query_download(request):
+    items = Entry_data.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="query.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['Name','father_name','Address','gender','last','Previous_school','Addmission_required','Test_performed','Suggested_class','test_teacher','date_of_test','Fee_type','Contact'])
+    for obj in items:
+        writer.writerow([obj.Name, obj.father_name, obj.Address, obj.gender, obj.last, obj.Previous_school, obj.Addmission_required, obj.Test_performed, obj.Suggested_class, obj.test_teacher, obj.date_of_test, obj.Fee_type, obj.Contact])
+    return response
+
+def query_print(request):
+    data = []
+    if request.method == 'POST':
+        rawdata = request.POST
+        Code_ = rawdata.getlist('Code' , default='1')
+        for i in Code_:
+            data.append(get_object_or_404(Entry_data , Query_code = i))
+    context = {
+        'data' : data ,
+    }
+    pdf = PdfMaker("query/query_print.html",context)
+    return HttpResponse(pdf , content_type='application/pdf')
