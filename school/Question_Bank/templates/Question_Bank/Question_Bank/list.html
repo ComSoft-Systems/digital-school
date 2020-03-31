@@ -1,5 +1,52 @@
 {% extends 'MainPage.html' %}
     {% block content %}
+  
+    <div class="row">
+      <div class="col">
+          <div class="card card-body">
+              <form action="{% url 'question_bank_list' %}" method="POST">
+                  <label>Select Class</label>
+                  <select name="class_">
+                      <option value="">---------</option>
+                      {% for rows in class %}
+                              <option value="{{ rows.class_code }}">{{ rows.class_name }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="fname">Select Subject</label>
+                  <select name="subject_" >
+                      <option value="">---------</option>
+                      {% for rows in subject %}
+                              <option value="{{ rows.subject_code }}">{{ rows.subjects }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="fname">Select Book</label>
+                  <select name="book_" >
+                      <option value="">---------</option>
+                      {% for rows in book %}
+                              <option value="{{ rows.book_code }}">{{ rows.book_name }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="fname">Select Chapter</label>
+                  <select name="chapter_" >
+                      <option value="">---------</option>
+                      {% for rows in chapter %}
+                              <option value="{{ rows.chapter_code }}">{{ rows.chapter_name }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="fname">Select Question Type</label>
+                  <select name="quest_type_" >
+                      <option value="">---------</option>
+                      {% for rows in quest_type %}
+                              <option value="{{ rows.Q_type_code }}">{{ rows.question_type }}</option>
+                      {% endfor %}
+                  </select>
+                  {% csrf_token %}
+                  <input class="btn btn-primary" type="submit" value="Search"/>
+              </form>
+
+          </div>
+      </div>
+  </div> 
 
 <div class="container">
     <h2 class="text-center" style="font-family:sans-serif;">Questions</h2><hr/>
@@ -13,7 +60,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for qb in question_bank %}
+        {% for qb in q_bank %}
           <tr>
             <td><a href="{{ qb.get_absolute_url }}">{{qb.question}}</a></td>
             <td>{{qb.classes}}</td>
@@ -25,7 +72,7 @@
         {% endfor %}
       </tbody>
     </table>
-    <button></button><a href="{% url 'question_bank_form' %}">Add</a></button>
+    <button><a href="{% url 'question_bank_form' %}">Add</a></button>
     <button><a href="{% url 'book_download' %}">Download CSV Format</a></button>
 
   </div>
