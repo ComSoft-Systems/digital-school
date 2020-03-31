@@ -11,6 +11,16 @@ from dependencies.models import *
 from static.renderer import PdfMaker
 
 
+# Create your views here.
+# @login_required(login_url='login_url')
+# def book_list(request):
+#     boo = Book.objects.all()
+#     clas = Class.objects.all()
+#     sub = Subject.objects.all()
+#     publ = Publisher.objects.all()
+#     context = {'book': boo, 'class': clas, 'subject': sub, 'publisher': publ }
+#     return render(request, 'Question_Bank/Books/list.html', context)
+
 @login_required(login_url='login_url')
 @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_list(request):
@@ -677,3 +687,61 @@ def ManageQuestionPrintPdfView(PrintView):
 #             'qut' : qut
 #         }
 #         return render(RandomView , 'Question_Bank/Question_Bank/random.html' , context)
+def CLASS():
+    Cla = Class.objects.all()
+    return Cla
+
+
+def SUBJ():
+    Sub = Subject.objects.all()
+    return Sub
+
+
+def PUBLI():
+    pub = Publisher.objects.all()
+    return pub
+
+def BOOK():
+    bo = Book.objects.all()
+    return bo
+
+def book_list(request):
+    if request.method == 'POST':
+        InClass = request.POST.get('class')
+        InSubject = request.POST.get('subject')
+        InPublisher = request.POST.get('publisher')
+        classes = CLASS()
+        subjects = SUBJ()
+        publishers = PUBLI()
+        if InClass == '' and InSubject == '':
+            lis = Book.objects.all()
+        elif InSubject == '':
+            lis = get_list_or_404(Book, classes = InClass)
+        elif InClass == '':
+            lis = get_list_or_404(Book, subject = InSubject)
+        elif InPublisher == '':
+            lis = get_list_or_404(Book, publisher = InPublisher)
+        else:
+            lis = get_list_or_404(Book, classes = InClass, subject = InSubject, publisher = InPublisher)
+        data = {
+            'book': lis,
+            'class': classes,
+            'subject': subjects,
+            'publisher': publishers,
+        }
+        return render(request, 'Question_Bank/Books/list.html', data)
+    else:
+        classes = CLASS()
+        subjects = SUBJ()
+        publishers = PUBLI()
+        boo = BOOK()
+        data = {
+            'book' : boo,
+            'class': classes,
+            'subject': subjects,
+            'publisher': publishers,
+            }
+        return render(request, 'Question_Bank/Books/list.html', data)
+
+
+
