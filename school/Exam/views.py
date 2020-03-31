@@ -6,11 +6,12 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 from .filters import Mark_filter, Exam_filter, Semesterbreakup_filter,Semester_filter,Quater_filter,Assesment_filter
+from static.renderer import PdfMaker
 
 def hello(request):
     return render(request, 'exam/home_page.html')
 
-##### EXAM MODEL ....
+
 def form(request):
     if request.method == 'POST':
         user_form = ExamForm(request.POST)
@@ -187,7 +188,6 @@ def quaterform(request):
         quater_form = QuaterForm()
         return render(request,'quater/quater_form.html',{'quater_form':quater_form})
 
-
 def quater_list_view(request):
     Entry_quater = Quater.objects.all()
     myFilter = Quater_filter(request.GET, queryset=Entry_quater)
@@ -292,7 +292,6 @@ def markform(request):
         mark_form = MarkForm()
         return render(request,'mark/mark_form.html',{'mark_form':mark_form})
 
-
 def mark_list_view(request):
     Entry_mark = Mark.objects.all()
     myFilter = Mark_filter(request.GET, queryset=Entry_mark)
@@ -358,6 +357,38 @@ def mark_upload(request):
         created.save()
     context = {'abc' : 'Added Successfully'}
     return render(request, "mark/mark_upload.html", context)
+
+def markprint(request):
+    data = []
+    if request.method == 'POST':
+        rawdata = request.POST
+        gr_ = rawdata.getlist('gr' , default='1')
+        class_ = rawdata.getlist('class' , default='1')
+        subject_ = rawdata.getlist('subject' , default='1')
+        exam_ = rawdata.getlist('exam' , default='1')
+        semister_ = rawdata.getlist('semister' , default='1')
+        breakup_ = rawdata.getlist('breakup' , default='1')
+        quarter_ = rawdata.getlist('quarter' , default='1')
+        assesment_ = rawdata.getlist('assesment' , default='1')
+        count = '0'
+        for i in gr_:
+            count = int(count) + 1
+            gr__ = gr_[int(count)-1]
+            class__ = class_[int(count)-1]
+            subject__ = subject_[int(count)-1]
+            exam__ = exam_[int(count)-1]
+            semister__ = semister_[int(count)-1]
+            breakup__ = breakup_[int(count)-1]
+            quarter__ = quarter_[int(count)-1]
+            assesment__ = assesment_[int(count)-1]
+            abc = (gr__ , class__ , subject__ , exam__ , semister__ , breakup__ , quarter__ , assesment__ )
+            data.append(abc)
+    context = {
+        'data' : data ,
+    }
+    pdf = PdfMaker("mark/mark_print.html",context)
+    return HttpResponse(pdf , content_type='application/pdf')
+    # return render(request , 'mark/mark_print.html',context)
 
 def semester_upload(request):
     template = "semester/semester_upload.html"

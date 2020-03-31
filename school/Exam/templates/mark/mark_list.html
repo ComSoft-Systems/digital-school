@@ -30,23 +30,58 @@
           </tr>
         </thead>
         {% for i in Entry %}
+        <form action="{% url 'mark_print' %}" method="POST">
         <tbody>
           <tr>
-            <th><a href="{{ i.get_absolute_url }}">{{i.exam_Gr_no}}</a></th> 
-            <td>{{i.class_code}}</td>
-            <td>{{i.subject_code}}</td>
-            <td>{{i.exam_code}}</td>
-            <td>{{i.semester_code}}</td> 
-            <td>{{i.semesterbreakup_code}}</td>
-            <td>{{i.quater_code}}</td>
-            <td>{{i.assesment_code}}</td>            
+            <td><a href="{{ i.get_absolute_url }}"><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="gr" value="{{i.exam_Gr_no}}" readonly></td></a></td> 
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="class" value="{{i.class_code}}" readonly></td>
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="subject" value="{{i.subject_code}}" readonly></td>
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="exam" value="{{i.exam_code}}" readonly></td>
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="semister" value="{{i.semester_code}}" readonly></td> 
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="breakup" value="{{i.semesterbreakup_code}}" readonly></td>
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="quarter" value="{{i.quater_code}}" readonly></td>
+            <td><input style="border-radius: 20px;
+                        background-color: #343a40;
+                        color: white;
+                        text-align: center;
+                        border: 1px solid #ff818140;" type="text" name="assesment" value="{{i.assesment_code}}" readonly></td>            
             
             <td><a href="{% url 'edit_mark' i.id %}">Edit</a></td>
             <td><a href="{% url 'delete_mark' i.id %}">Delete</a></td>
           </tr>
         </tbody>
-        
         {% endfor %}
+        {% csrf_token %}
+        <input type="submit" value="Print"/>
+        </form>
       </table>
       <button class="text-center"><a href="{% url 'mark_form' %}">Add</a></button>
       <button class="text-center"><a href="{% url 'mark_upload' %}">Add File</a></button>
