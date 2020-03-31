@@ -1025,3 +1025,6 @@ def city_download(request):
     writer.writerow(['city_code', 'cities'])
 
     return response
+
+
+
