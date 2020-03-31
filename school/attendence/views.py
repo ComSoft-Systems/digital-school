@@ -1,29 +1,51 @@
-from django.shortcuts import render , get_list_or_404 , get_object_or_404
+from django.shortcuts import render , get_list_or_404 , get_object_or_404 , HttpResponse
 from .models import *
 from student_information.models import *
 from dependencies.models import *
 import datetime
 from .forms import *
+from static.renderer import PdfMaker
 
 
 def CLA():
     Cla = Class.objects.all()
     return Cla
 
-
 def SEC():
     Sec = Section.objects.all()
     return Sec
-
 
 def GR():
     gr = Gr.objects.all()
     return gr
 
+def attendance_ask_print(request):
+    classes = CLA()
+    section = SEC()
+    tdate = datetime.date.today()
+    log = {
+        'class' : classes,
+        'section' : section,
+        }
+    return render(request, 'attendence_ask_print.html', log)
 
-def Filter(InClasses,InSection):
-    pass
-    
+def attendance_print(request):
+    if request.method == 'POST':
+        rawdata = request.POST
+        InClass = rawdata.get('class')
+        OutClass = get_object_or_404(Class , class_code = InClass )
+        InSection = rawdata.get('section')
+        OutSection = get_object_or_404(Section , sect_code = InSection )
+        InDate = rawdata.get('date')
+        lis = get_list_or_404(SaveAttendence , classes = InClass , sections = InSection , date = InDate)
+        context = {
+            'InClass' : OutClass ,
+            'InSection' : OutSection ,
+            'InDate' : InDate ,
+            'abc' : lis ,
+        }
+        pdf = PdfMaker('attendence_print.html', context)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 def attendance_save(CreateView):
     if CreateView.method == "POST":
@@ -52,7 +74,7 @@ def attendance_save(CreateView):
             })
             if form.is_valid:
                 form.save()
-    return render(CreateView, 'attendence_for_all.html')
+    return render(CreateView, 'attendence_saved.html')
 
 def attendance_add(CreateView):
     if CreateView.method == 'POST':

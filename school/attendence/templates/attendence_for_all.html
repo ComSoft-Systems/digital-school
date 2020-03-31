@@ -33,8 +33,7 @@
                         {% endfor %}
                     </select>
                     <label for="fname">Select Date</label>
-                    <input id = 'datepicker' name = "date" value=""/><br><br>
-                    <!-- {{myFilter}} -->
+                    <input type='date' name = "date" value=""/><br><br>
                     {% csrf_token %}
                     
                     <input class="btn btn-primary" type="submit" value="Search"/>
@@ -101,7 +100,6 @@
 
                 <tbody>
                     <tr>
-<<<<<<< HEAD
                         {% for i in attend %}
                         <td><input style="border-radius: 20px;
                         background-color: #343a40;
@@ -131,19 +129,6 @@
                         border: 1px solid #ff818140;"
                         type="text" name="section" value="{{ i.section }}" readonly></td>
                         
-                        <!--<td><select>
-=======
-                        <td>{{i.gr_number}}</td>
-                        <td>{{i.name}}</td>
-                        <td>{{i.current_class}}</td>
-                        <td>{{i.section}}</td>
-                        <td><select name="attend" >
->>>>>>> 2f879a4cd7cd6a7477c353556f2e1ed98154b3a2
-                            <option value="">---------</option>
-                            <option value="present">present</option>
-                            <option value="absent">absent</option>
-                            <option value="leave">leave</option>
-                        </select></td>-->
 
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="present"></td>
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="absent"></td>
