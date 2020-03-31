@@ -362,6 +362,7 @@ def markprint(request):
     data = []
     if request.method == 'POST':
         rawdata = request.POST
+        print(rawdata)
         gr_ = rawdata.getlist('gr' , default='1')
         class_ = rawdata.getlist('class' , default='1')
         subject_ = rawdata.getlist('subject' , default='1')
