@@ -100,6 +100,18 @@
 
                 <tbody>
                     <tr>
+
+                        <td>{{i.gr_number}}</td>
+                        <td>{{i.name}}</td>
+                        <td>{{i.current_class}}</td>
+                        <td>{{i.section}}</td>
+                        <td><select name="attend" >
+                            <option value="">---------</option>
+                            <option value="present">present</option>
+                            <option value="absent">absent</option>
+                            <option value="leave">leave</option>
+                        </select></td>-->
+
                         {% for i in attend %}
                         <td><input style="border-radius: 20px;
                         background-color: #343a40;
@@ -129,6 +141,7 @@
                         border: 1px solid #ff818140;"
                         type="text" name="section" value="{{ i.section }}" readonly></td>
                         
+
 
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="present"></td>
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="absent"></td>
