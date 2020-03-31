@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import io, csv
 from django.contrib import messages
-from .renderer import PdfMaker
+from static.renderer import PdfMaker
 
 
 
@@ -25,7 +25,6 @@ def classes(request):
         user_form = class_form(request.POST)
         if user_form.is_valid():
             classes = user_form.save()
-
             context = {
                 'return': 'Has been added successfully'
             }
