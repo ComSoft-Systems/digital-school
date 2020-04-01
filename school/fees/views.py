@@ -1,4 +1,6 @@
+
 from django.shortcuts import render , redirect , get_object_or_404, get_list_or_404
+from django.shortcuts import render , redirect , get_object_or_404 , get_list_or_404 , HttpResponse
 from .forms import *
 from .models import *
 from dependencies.forms import *
@@ -6,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import datetime
 from student_information.models import *
+from static.renderer import PdfMaker
 
 
 # @login_required(login_url='login_url')
@@ -147,32 +150,30 @@ def ManageFeeRegisterCreateToAllView(CreateView):
         duedate = CreateView.POST.get('date')
         for gr_row in Gr.objects.all():
             gr_rows = gr_row
-            for std_fee_rows in StFeeDefine.objects.all():
-                st_fe_def_rows = std_fee_rows
-                for feerows in ClassFee.objects.all():
-                    fee_type_rows = feerows
-                    for cla_rows in Class.objects.all():
-                        class_rows = cla_rows
-                        for feetyperows in Fee_Type.objects.all():
-                            feerows = feetyperows
-                            if str(gr_rows.name) == str(st_fe_def_rows.gr_number):
-                                if str(class_rows.class_code) == clas:
-                                    class_ = class_rows.class_name
-                                    if str(feerows.fee_type_code) == fee_type:
-                                        feetype = feerows.fee_type
-                                        if str(gr_rows.current_class) == str(class_):
-                                            if str(feerows.fee_type) == feetype:
-                                                formfill = FeeRegisterForm({
-                                                    'gr_number' : gr_rows.gr_number ,
-                                                    'fee_types' : feerows.fee_type_code + 1  ,
-                                                    'fee_amount' : int(fee_type_rows.fee_amount)-(int(fee_type_rows.fee_amount)*(st_fe_def_rows.concession_percent)/100) ,
-                                                    'month' : startmonth ,
-                                                    'due_date' : duedate ,
-                                                    'paid_amount' : '0' ,
-                                                    })
-                                                print(formfill)
-                                                formfill.save()
-                                                context = {'return' : 'Has Been Added SuccessFully'}
+            fees = get_object_or_404(Fee_Concession, fee_concession_name = gr_rows.fee_concession_code)
+            for feerows in ClassFee.objects.all():
+                fee_type_rows = feerows
+                for cla_rows in Class.objects.all():
+                    class_rows = cla_rows
+                    for feetyperows in Fee_Type.objects.all():
+                        feerows = feetyperows
+                        if str(class_rows.class_code) == clas:
+                            class_ = class_rows.class_name
+                            if str(feerows.fee_type_code) == fee_type:
+                                feetype = feerows.fee_type
+                                if str(gr_rows.current_class) == str(class_):
+                                    if str(feerows.fee_type) == feetype:
+                                        formfill = FeeRegisterForm({
+                                            'gr_number' : (gr_rows.gr_number ) ,
+                                            'fee_types' : (feerows.fee_type_code + 1  ) ,
+                                            'fee_amount' : int(int(fee_type_rows.fee_amount)-(int(fee_type_rows.fee_amount)*(fees.concession_percent)/100) ) ,
+                                            'month' : (startmonth ) ,
+                                            'due_date' : (duedate ) ,
+                                            'paid_amount' : '0' ,
+                                            })
+                                        print(formfill)
+                                        formfill.save()
+                                        context = {'return' : 'Has Been Added SuccessFully',}
         return render(CreateView,'FeesRegister/Create/ToAll/created.html',context)
     else:
         class_ = ClassFeeForm()
@@ -239,3 +240,29 @@ def ManageFeeTypeListView(ListView):
 
         
 
+
+@login_required(login_url='login_url')
+def ManageFeeRegisterPrintView(PrintView):
+    Voucher = []
+    if PrintView.method == 'POST':
+        InComing = PrintView.POST
+        Clas = InComing.get('class')
+        Sect = InComing.get('sect')
+        Month = InComing.get('month')
+        gr = get_list_or_404(Gr,section = Sect , current_class = Clas)
+        for i in gr:
+            Voucher.append(get_list_or_404(FeeRegister , gr_number = i.gr_number , month = Month ))
+        context = {
+            'voucher' : Voucher ,
+        }
+        pdf = PdfMaker('FeesRegister/Print/print.html',context)
+        return HttpResponse(pdf,content_type='application/pdf')
+        # return render(PrintView,'FeesRegister/Print/print.html',context)
+    else:
+        classes = Class.objects.all()
+        sec = Section.objects.all()
+        context = {
+            'class' : classes ,
+            'section' : sec ,
+        }
+        return render(PrintView , 'FeesRegister/Print/ask.html' , context)

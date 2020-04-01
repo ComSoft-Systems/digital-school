@@ -13,6 +13,7 @@ urlpatterns = [
     path('def/delete/<fee_def_code>/', views.ManageFeeDefDeleteView, name = 'fee_def_delete'),
 
     path('reg/',views.ManageFeeRegisterListView, name="fee_reg_list"),
+    path('reg/print',views.ManageFeeRegisterPrintView, name="fee_reg_print"),
     path('reg/create/',views.ManageFeeRegisterCreateView, name="fee_reg_create"),
     path('reg/create/all/',views.ManageFeeRegisterCreateToAllView, name="fee_reg_create_to_all"),
     path('reg/detail/<fee_reg_id>/',views.ManageFeeRegisterDetailView, name="fee_reg_detail"),
