@@ -1,23 +1,15 @@
-from django.shortcuts import render , redirect , get_object_or_404
+from django.shortcuts import render , redirect , get_object_or_404, get_list_or_404
 from .forms import *
 from .models import *
 from dependencies.forms import *
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import datetime
+from student_information.models import *
 
 
-
-@login_required(login_url='login_url')
-def ManageFeeTypeListView(ListView):
-    fee = ClassFee.objects.all()
-    context = {
-        'fee':fee
-    }
-    return render (ListView,'ClassFee/list.html',context)
-
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeTypeCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = ClassFeeForm(CreateView.POST)
@@ -36,8 +28,8 @@ def ManageFeeTypeCreateView(CreateView):
         user_form = ClassFeeForm()
         return render(CreateView,'ClassFee/Create/create.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeTypeEditView(request, fee_type_code):
     data = get_object_or_404(ClassFee, fee_type_code = fee_type_code)
     if request.method == "POST":
@@ -49,8 +41,8 @@ def ManageFeeTypeEditView(request, fee_type_code):
         user_form = ClassFeeForm(instance=data)
         return render(request, 'ClassFee/Edit/edit.html',{'user_form':user_form,'data':data}) 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeTypeDeleteView(request, fee_type_code):
     ClassFee.objects.filter(fee_type_code=fee_type_code).delete()
     a = ClassFee.objects.all()
@@ -58,9 +50,7 @@ def ManageFeeTypeDeleteView(request, fee_type_code):
 
 
 
-
-
-@login_required(login_url='login_url')
+# @login_required(login_url='login_url')
 def ManageFeeDefListView(ListView):
     fee = StFeeDefine.objects.all()
     context = {
@@ -68,8 +58,8 @@ def ManageFeeDefListView(ListView):
     }
     return render (ListView,'FeesDefine/list.html',context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeDefCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = FeeDefineForm(CreateView.POST)
@@ -88,8 +78,8 @@ def ManageFeeDefCreateView(CreateView):
         user_form = FeeDefineForm()
         return render(CreateView,'FeesDefine/Create/create.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeDefEditView(request, fee_def_code):
     data = get_object_or_404(StFeeDefine, fee_def_code = fee_def_code)
     if request.method == "POST":
@@ -101,19 +91,16 @@ def ManageFeeDefEditView(request, fee_def_code):
         user_form = FeeDefineForm(instance=data)
         return render(request, 'FeesDefine/Edit/edit.html',{'user_form':user_form,'data':data}) 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeDefDeleteView(request, fee_def_code):
     StFeeDefine.objects.filter(fee_def_code=fee_def_code).delete()
     a = StFeeDefine.objects.all()
     return render(request, 'FeesDefine/Delete/delete.html')
 
 
-
-
-
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterListView(ListView):
     fee = FeeRegister.objects.all()
     context = {
@@ -121,8 +108,8 @@ def ManageFeeRegisterListView(ListView):
     }
     return render (ListView,'FeesRegister/list.html',context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterDetailView(DetailView,fee_reg_id):
     fee = get_object_or_404(FeeRegister,fee_reg_id = fee_reg_id)
     context = {
@@ -130,8 +117,8 @@ def ManageFeeRegisterDetailView(DetailView,fee_reg_id):
     }
     return render (DetailView, 'FeesRegister/detail.html',context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterCreateView(CreateView):
     if CreateView.method == 'POST':
         user_form = FeeRegisterForm(CreateView.POST)
@@ -150,8 +137,8 @@ def ManageFeeRegisterCreateView(CreateView):
         user_form = FeeRegisterForm()
         return render(CreateView,'FeesRegister/Create/create.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterCreateToAllView(CreateView):
     if CreateView.method == 'POST':
         clas = CreateView.POST.get('class_code')
@@ -200,8 +187,8 @@ def ManageFeeRegisterCreateToAllView(CreateView):
         }
         return render(CreateView,'FeesRegister/Create/ToAll/create.html',context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterEditView(request, fee_reg_id):
     data = get_object_or_404(FeeRegister, fee_reg_id = fee_reg_id)
     if request.method == "POST":
@@ -213,11 +200,42 @@ def ManageFeeRegisterEditView(request, fee_reg_id):
         user_form = FeeRegisterForm(instance=data)
         return render(request, 'FeesRegister/Edit/edit.html',{'user_form':user_form,'data':data}) 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageFeeRegisterDeleteView(request, fee_reg_id):
     FeeRegister.objects.filter(fee_reg_id=fee_reg_id).delete()
     a = FeeRegister.objects.all()
     return render(request, 'FeesRegister/Delete/delete.html')
 
+def GR():
+    gr = Gr.objects.all()
+    return gr
+
+def FEE():
+    fe = FeeRegister.objects.all()
+    return fe
+
+def ManageFeeTypeListView(ListView):
+    if ListView.method == 'POST':
+        InGr = ListView.POST.get('gr')
+        grs = GR()
+        if InGr == '':
+            lis = FeeRegister.objects.all()
+        else:
+            lis = get_list_or_404(FeeRegister, gr_number = InGr)
+        data = {
+            'fee' : lis,
+            'gr' : grs,
+        }
+        return render(ListView, 'ClassFee/list.html', data)
+    else:
+        grs = GR()
+        fee = FEE()
+        data = {
+            'fees': fee,
+            'gr': grs,
+        }
+        return render(ListView, 'ClassFee/list.html', data)
+
+        
 
