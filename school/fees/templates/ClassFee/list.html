@@ -1,5 +1,25 @@
 {% extends "MainPage.html" %}
 {% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+            <form action="{% url 'class_fee_list' %}" method="POST">
+                <label>Select Gr</label>
+                <select name="gr">
+                    <option value="">---------</option>
+                    {% for rows in gr %}
+                            <option value="{{ rows.gr_number }}">{{ rows.name }}</option>
+                    {% endfor %}
+                </select>
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" value="Search"/>
+            </form>
+
+        </div>
+    </div>
+</div>
+
     <div class="container">
         <h2 class="text-center" style="font-family:sans-serif;">View All Class Fees</h2><hr/>
         <a href="{% url "class_fee_create" %}">Add Another</a>
@@ -12,7 +32,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            {% for fee in fee %}
+            {% for fee in fees %}
             <tbody align="center">
                     <th>{{ fee.fee_type_code }}</th>
                     <th>{{ fee.fee_amount }}</th>
