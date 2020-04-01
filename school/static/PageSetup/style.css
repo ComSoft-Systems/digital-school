@@ -1,6 +1,6 @@
 .container{
-	width: 80%;
-	margin: auto;
+	width: 100%;
+	margin: 0;
 }
 .section-title {
     margin: 15px 0px;
@@ -48,7 +48,22 @@
     }
 }
 
-
+.editable{
+    border-radius: 20px;
+    background-color: #343a40;
+    color : white;
+    text-align : center;
+    border : 1px solid #ff818140;
+}
+.outdata{
+    margin-left: 0px;
+    padding: 5px;
+    width: 100%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 71%;
+    overflow: auto;
+}
 
 
 
