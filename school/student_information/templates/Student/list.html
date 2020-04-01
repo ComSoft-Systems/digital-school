@@ -45,27 +45,11 @@
             <form action="{% url 'gr_print' gr.current_class gr.section %}" method="POST">
             <tbody align="center">
                 <tr>
-                    <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="gr" value="{{ gr.gr_number }}" readonly></td>
-                    <td><a href="{{ gr.get_absolute_url }}"><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="name" value="{{ gr.name }}" readonly></a></td>
-                    <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="family" value="{{ gr.family_code }}" readonly></td>
-                    <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="class" value="{{ gr.current_class }}" readonly></td>
-                    <th><a class="btn btn-primary" href="{% url 'gr_edit' gr.gr_number %}">Edit</a><a href="{% url 'gr_delete' gr.gr_number %}" class="btn btn-primary" href="">Delete</a></th>
+                    <td><input class="editable" type="text" name="gr" value="{{ gr.gr_number }}" readonly></td>
+                    <td><a href="{{ gr.get_absolute_url }}"><input class="editable" type="text" name="name" value="{{ gr.name }}" readonly></a></td>
+                    <td><input class="editable" type="text" name="family" value="{{ gr.family_code }}" readonly></td>
+                    <td><input class="editable" type="text" name="class" value="{{ gr.current_class }}" readonly></td>
+                    <th><a href="{% url 'gr_edit' gr.gr_number %}">Edit </a><span> | </span><a href="{% url 'gr_delete' gr.gr_number %}" href=""> Delete</a></th>
                 </tr>
             </tbody>
             {% endfor %}
