@@ -11,8 +11,10 @@ from dependencies.models import *
 from static.renderer import PdfMaker
 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# Create your views here.
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_list(request):
     boo = Book.objects.all()
     clas = Class.objects.all()
@@ -21,8 +23,9 @@ def book_list(request):
     context = {'book': boo, 'class': clas, 'subject': sub, 'publisher': publ }
     return render(request, 'Question_Bank/Books/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def books(request):
     if request.method == 'POST':
         user_form = book_form(request.POST)
@@ -42,8 +45,8 @@ def books(request):
         user_form = book_form()
         return render(request,'Question_Bank/Books/book_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_upload(request):
     template = "Question_Bank/Books/book_upload.html"
 
@@ -76,8 +79,8 @@ def book_upload(request):
     context = {}
     return render(request, template, context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_download(request):
     items = Book.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -86,8 +89,8 @@ def book_download(request):
     writer.writerow(['book_code', 'book_name', 'classes', 'subject', 'publisher', 'medium'])
     return response
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_book(request,book_code):
     boo = get_object_or_404(Book, book_code=book_code)
     if request.method == "POST":
@@ -103,8 +106,8 @@ def edit_book(request,book_code):
 
         return render(request, 'Question_Bank/Books/editbook.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_detail(request,book_code):
     bk = get_object_or_404(Book,book_code = book_code)
     context = {
@@ -112,8 +115,8 @@ def book_detail(request,book_code):
     }
     return render(request, 'Question_Bank/Books/detail.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_book(request, book_code):
     Book.objects.filter(book_code=book_code).delete()
     bo = Book.objects.all()
@@ -122,8 +125,8 @@ def delete_book(request, book_code):
     }
     return render(request, 'Question_Bank/Books/list.html', context) 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageBookPrintPdfView(PrintView,clas,subj,publ):
     if PrintView.method == 'POST':
         Class_ = get_object_or_404(Class , class_name = clas)
@@ -139,15 +142,15 @@ def ManageBookPrintPdfView(PrintView,clas,subj,publ):
         pdf = PdfMaker('Question_Bank/Books/print.html', context)
         return HttpResponse(pdf, content_type='application/pdf')
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def publisher_list(request):
     pub = Publisher.objects.all()
     context = {'publisher': pub}
     return render(request, 'Question_Bank/Publishers/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def publishers(request):
     if request.method == 'POST':
         user_form = publisher_form(request.POST)
@@ -166,8 +169,8 @@ def publishers(request):
         user_form = publisher_form()
         return render(request,'Question_Bank/Publishers/publisher_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def publisher_upload(request):
     template = "Question_Bank/Publishers/publisher_upload.html"
 
@@ -197,8 +200,8 @@ def publisher_upload(request):
     context = {}
     return render(request, template, context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def publisher_download(request):
     items = Publisher.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -207,8 +210,8 @@ def publisher_download(request):
     writer.writerow(['publisher_code', 'publisher_name', 'city'])
     return response
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_publisher(request,publisher_code):
     pub = get_object_or_404(Book, publisher_code=publisher_code)
     if request.method == "POST":
@@ -224,8 +227,8 @@ def edit_publisher(request,publisher_code):
 
         return render(request, 'Question_Bank/Publishers/editpublisher.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_publisher(request, publisher_code):
     Publisher.objects.filter(publisher_code=publisher_code).delete()
     publi = Publisher.objects.all()
@@ -235,8 +238,8 @@ def delete_publisher(request, publisher_code):
     }
     return render(request, 'Question_Bank/Publishers/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManagePublisherPrintPdfView(PrintView):
     publi = Publisher.objects.all()
     context = {
@@ -245,15 +248,15 @@ def ManagePublisherPrintPdfView(PrintView):
     pdf = PdfMaker('Question_Bank/Publishers/print.html', context)
     return HttpResponse(pdf, content_type='application/pdf') 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def chapter_list(request):
     chap = Chapter.objects.all()
     context = {'chapter': chap}
     return render(request, 'Question_Bank/Chapters/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def chapters(request):
     if request.method == 'POST':
         user_form = chapter_form(request.POST)
@@ -272,8 +275,8 @@ def chapters(request):
         user_form = chapter_form()
         return render(request,'Question_Bank/Chapters/chapter_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def chapter_upload(request):
     template = "Question_Bank/Chapters/chapter_upload.html"
     prompt = {
@@ -298,8 +301,8 @@ def chapter_upload(request):
     context = {}
     return render(request, template, context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def chapter_download(request):
     items = Chapter.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -308,8 +311,8 @@ def chapter_download(request):
     writer.writerow(['chapter_code', 'chapter_name', 'books'])
     return response
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_chapter(request,chapter_code):
     chap = get_object_or_404(Chapter, chapter_code=chapter_code)
     if request.method == "POST":
@@ -324,8 +327,8 @@ def edit_chapter(request,chapter_code):
         user_form = chapter_form(instance=chap)
         return render(request, 'Question_Bank/Chapters/editchapter.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_chapter(request, chapter_code):
     Chapter.objects.filter(chapter_code=chapter_code).delete()
     chapt = Chapter.objects.all()
@@ -334,8 +337,8 @@ def delete_chapter(request, chapter_code):
     }
     return render(request, 'Question_Bank/Chapters/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageChapterPrintPdfView(PrintView):
     chp = Chapter.objects.all()
     context = {
@@ -344,15 +347,15 @@ def ManageChapterPrintPdfView(PrintView):
     pdf = PdfMaker('Question_Bank/Chapters/print.html', context)
     return HttpResponse(pdf, content_type='application/pdf')
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def question_type_list(request):
     QT = Question_Type.objects.all()
     context = {'question_type': QT}
     return render(request, 'Question_Bank/Question_Type/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def questions_types(request):
     if request.method == 'POST':
         user_form = question_type_form(request.POST)
@@ -372,8 +375,8 @@ def questions_types(request):
         user_form = question_type_form()
         return render(request,'Question_Bank/Question_Type/question_type_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def question_type_upload(request):
     template = "Question_Bank/Question_Type/question_type_upload.html"
     prompt = {
@@ -397,8 +400,8 @@ def question_type_upload(request):
     context = {}
     return render(request, template, context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def Q_type_download(request):
     items = Question_Type.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -409,8 +412,8 @@ def Q_type_download(request):
 
     return response
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_question_type(request,Q_type_code):
     QT = get_object_or_404(Question_Type, Q_type_code=Q_type_code)
     if request.method == "POST":
@@ -425,8 +428,8 @@ def edit_question_type(request,Q_type_code):
         user_form = question_type_form(instance=QT)
         return render(request, 'Question_Bank/Question_Type/editquestiontype.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_question_type(request, Q_type_code):
     Question_Type.objects.filter(Q_type_code=Q_type_code).delete()
     quesT = Question_Type.objects.all()
@@ -435,16 +438,9 @@ def delete_question_type(request, Q_type_code):
     }
     return render(request, 'Question_Bank/Question_Type/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
-def question_bank_list(request):
-    quest = Question_Bank.objects.all()
-    myFilter = question_bank_form()
-    context = {'question_bank': quest , 'myFilter' : myFilter}
-    return render(request, 'Question_Bank/Question_Bank/list.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def filtered_Questions(request):
     if request.method == 'POST':
         InSubject = request.POST.get('subject')
@@ -491,8 +487,8 @@ def filtered_Questions(request):
                                                                         context = {'question_bank': object_list}
         return render(request, 'Question_Bank/Question_Bank/filter.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def question_banks(request):
     if request.method == 'POST':
         user_form = question_bank_form(request.POST)
@@ -511,8 +507,8 @@ def question_banks(request):
         user_form = question_bank_form()
         return render(request,'Question_Bank/Question_Bank/question_bank_form.html',{'user_form':user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def question_bank_upload(request):
     template = "Question_Bank/Question_Bank/question_bank_upload.html"
     prompt = {
@@ -542,8 +538,8 @@ def question_bank_upload(request):
     context = {}
     return render(request, template, context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def Q_bank_download(request):
     items = Question_Bank.objects.all()
     response = HttpResponse(content_type='text/csv')
@@ -552,8 +548,8 @@ def Q_bank_download(request):
     writer.writerow(['question_code', 'question','subject', 'classes', 'publisher', 'chapter', 'question_type', 'question_from'])
     return response
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def edit_question_bank(request,question_code):
     quest = get_object_or_404(Question_Bank, question_code=question_code)
     if request.method == "POST":
@@ -568,8 +564,8 @@ def edit_question_bank(request,question_code):
         user_form = question_bank_form(instance=quest)
         return render(request, 'Question_Bank/Question_Bank/editquestionbank.html', {'user_form': user_form})
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def question_bank_detail(request,question_code):
     queb = get_object_or_404(Question_Bank,question_code = question_code)
     context = {
@@ -577,8 +573,8 @@ def question_bank_detail(request,question_code):
     }
     return render(request, 'Question_Bank/Question_Bank/detail.html', context)
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def delete_question_bank(request, question_code):
     Question_Bank.objects.filter(question_code=question_code).delete()
     QB = Question_Bank.objects.all()
@@ -588,8 +584,8 @@ def delete_question_bank(request, question_code):
     }
     return render(request, 'Question_Bank/Question_Bank/list.html', context) 
 
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
+# @login_required(login_url='login_url')
+# @allowed_users(allowed_roles=['Admin','Accountant'])
 def ManageQuestionPrintPdfView(PrintView):
     Quest = Question_Bank.objects.all()
     context = {
@@ -598,82 +594,136 @@ def ManageQuestionPrintPdfView(PrintView):
     pdf = PdfMaker('Question_Bank/Question_Bank/print.html', context)
     return HttpResponse(pdf, content_type='application/pdf')
 
-# def create_random(request):
-#     if request.method == 'POST':
-#         in_c = request.POST.get('classes')
-#         in_s = request.POST.get('subject')
-#         in_b = request.POST.get('book')
-#         in_ch = request.POST.get('chapter')
-#         in_qt = request.POST.get('question_type')
-#         in_qf = request.POST.get('questions_from')
-#         in_q = request.POST.get('quantity')
-#         print(in_c)
-#         print(in_s)
-#         print(in_b)
-#         print(in_ch)
-#         print(in_qt)
-#         print(in_qf)
-#         print(in_q)
-#         question = Question_Bank.objects.all()
-#         for qrows in question:
-#             q_rows = qrows
-#             if str(q_rows.classes) == str(in_c):
-#                 if str(q_rows.subject) == str(in_s):
-#                     if str(q_rows.book) == str(in_b):
-#                         if str(q_rows.chapter) == str(in_ch):
-#                             if str(q_rows.question_type) == str(in_qt):
-#                                 if str(q_rows.questions_from) == str(in_qf):
-#                                     print('abc')
-#         return render(request,'Question_Bank/Question_Bank/list.html')
-#     else:
-#         classes = class_form()
-#         subject = subject_form()
-#         book = book_form()
-#         chapter = chapter_form()
-#         questiontype = question_type_form()
-#         context = {
-#             'classes' : classes ,
-#             'subject' : subject ,
-#             'book' : book ,
-#             'chapter' : chapter ,
-#             'questiontype' : questiontype ,
-#             }
-#         return render(request,'Question_Bank/Question_Bank/random.html',context)
+
+def CLASS():
+    Cla = Class.objects.all()
+    return Cla
 
 
+def SUBJ():
+    Sub = Subject.objects.all()
+    return Sub
 
 
+def PUBLI():
+    pub = Publisher.objects.all()
+    return pub
+
+def BOOK():
+    bo = Book.objects.all()
+    return bo
+
+def CHAP():
+    cha = Chapter.objects.all()
+    return cha
+
+def QTYPE():
+    q_type = Question_Type.objects.all()
+    return q_type
+
+def Q_BANK():
+    q_bank = Question_Bank.objects.all()
+    return q_bank
+
+def book_list(request):
+    if request.method == 'POST':
+        InClass = request.POST.get('class')
+        InSubject = request.POST.get('subject')
+        InPublisher = request.POST.get('publisher')
+        classes = CLASS()
+        subjects = SUBJ()
+        publishers = PUBLI()
+        if InClass == '' and InSubject == '':
+            lis = Book.objects.all()
+        elif InSubject == '':
+            lis = get_list_or_404(Book, classes = InClass)
+        elif InClass == '':
+            lis = get_list_or_404(Book, subject = InSubject)
+        elif InPublisher == '':
+            lis = get_list_or_404(Book, publisher = InPublisher)
+        else:
+            lis = get_list_or_404(Book, classes = InClass, subject = InSubject, publisher = InPublisher)
+        data = {
+            'book': lis,
+            'class': classes,
+            'subject': subjects,
+            'publisher': publishers,
+        }
+        return render(request, 'Question_Bank/Books/list.html', data)
+    else:
+        classes = CLASS()
+        subjects = SUBJ()
+        publishers = PUBLI()
+        boo = BOOK()
+        data = {
+            'book' : boo,
+            'class': classes,
+            'subject': subjects,
+            'publisher': publishers,
+            }
+        return render(request, 'Question_Bank/Books/list.html', data)
 
 
-
-
-# def ManageRandomView(RandomView):
-#     if RandomView.method == 'POST':
-#         Clas = RandomView.POST.get('clas')
-#         subject = RandomView.POST.get('subject')
-#         book = RandomView.POST.get('book')
-#         chapter = RandomView.POST.get('chapter')
-#         question_type = RandomView.POST.get('question_type')
-#         context = {
-#             'clas' : Clas,
-#             'subject' : subject,
-#             'book' : book,
-#             'chapter' : chapter,
-#             'question_type' : question_type,
-#         }
-#         pass
-
-#     else:
-#         klas = Class.objects.all()
-#         sub = Subject.objects.all()
-#         boo = Book.objects.all()
-#         chap = Chapter.objects.all()
-#         qut = Question_Type.objects.all()
-#         context = {
-#             'klas' : klas,
-#             'sub' : sub,
-#             'boo' : boo,
-#             'chap' : chap,
-#             'qut' : qut
-#         }
-#         return render(RandomView , 'Question_Bank/Question_Bank/random.html' , context)
+def question_bank_list(request):
+    # lists = Question_Bank.objects.all()
+    # myFilter = question_bank_form()
+    # context = {'question_bank': lists , 'myFilter' : myFilter}
+    # return render(request, 'Question_Bank/Question_Bank/list.html', context)
+    if request.method == 'POST':
+        lists = Question_Bank.objects.all()
+        myFilter = question_bank_form()
+        context = {'question_bank': lists , 'myFilter' : myFilter}
+        InClasses = request.POST.get('class_')
+        InSubjects = request.POST.get('subject_')
+        InBook = request.POST.get('book_')
+        InChapter = request.POST.get('chapter_')
+        InQType = request.POST.get('quest_type_')
+        classes_ = CLASS()
+        subjects_ = SUBJ()
+        books_ = BOOK()
+        chapters_ = CHAP()
+        quest_types_ = QTYPE()
+        if InClasses == '' and InSubjects == '' and InBook == '' and InChapter == '' and InQType == '':
+            lists = Question_Bank.objects.all()
+        elif InSubjects == '':
+            lists = get_list_or_404(Question_Bank, classes = InClasses)
+        elif InClasses == '':
+            lists = get_list_or_404(Question_Bank, subject = InSubjects)
+        elif InBook == '':
+            lists = get_list_or_404(Question_Bank, book = InBook)
+        elif InChapter == '':
+            lists = get_list_or_404(Question_Bank, chapter = InChapter)
+        elif InQType == "":
+            lists = get_list_or_404(Question_Bank, question_type = InQType)
+        else:
+            lists - get_list_or_404(Question_Bank, classes = InClasses, subject = InSubjects, book = InBook, chapter = InChapter, question_type = InQType)
+        code = {
+            'q_bank': lists,
+            'class' : classes_,
+            'subject': subjects_,
+            'book' : books_,
+            'chapter': chapters_,
+            'quest_type': quest_types_,
+            'question_bank': lists , 
+            'myFilter' : myFilter
+        }
+        return render(request, 'Question_Bank/Question_Bank/list.html', code)
+    else:
+        classes_ = CLASS()
+        subjects_ = SUBJ()
+        books_ = BOOK()
+        chapters_ = CHAP()
+        quest_types_ = QTYPE()
+        quest_bank_ = Q_BANK()
+        code = {
+            'q_bank' : quest_bank_,
+            'class' : classes_,
+            'subject': subjects_,
+            'book' : books_,
+            'chapter': chapters_,
+            'quest_type': quest_types_,
+            'question_bank': lists , 
+            'myFilter' : myFilter,
+        }
+        return render(request, 'Question_Bank/Question_Bank/list.html', code)
+    
