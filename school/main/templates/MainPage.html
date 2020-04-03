@@ -2,25 +2,15 @@
 {% load static %}
 <html>
   <head>
-      <!--bootstrap file "relation stylesheet"-->
-      <link rel="stylesheet" type="text/css" href="{% static './assets/css/bootstrap1.css' %}" />
-      
-      <!--Jquery Calender Files-->
-      <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-      <link rel="stylesheet" href="https://resources/demos/style.css">
-      
-      <!--templates heading files-->
-      <!--FontFamily-->
-      <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700" rel="stylesheet" type="text/css">
-
-      <!-- Style CSS -->
-      <link href="{% static './assets/css/page_heading_stylesheet.css'%}" rel="stylesheet">
-  
-      
+      <link href="{% static './PageSetup/style.css'%}" rel="stylesheet">
+      <link  href="{% static './TopNavbar/style.css'%}" rel="stylesheet"/>
+      <link href="{% static './SideNavbar/style.css'%}" rel="stylesheet"/>
+      <link href="{% static './Footer/style.css'%}" rel="stylesheet"/>
       <!--Page Title-->
       <title>DIGITAL SCHOOL</title>
   </head>
   <body>
+
 
     <!--Navbar menu-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -180,70 +170,22 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:3px"><a href="{% url "logout" %}">Search</a></button>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left:3px"><a href="{% url "logout" %}">Logout</a></button>
         </form> -->
+
+    {% comment %} {% include 'MainExtended/TopNavbar.html' %} {% endcomment %}
+    {% include 'MainExtended/TopNav.html' %}
+    {% comment %} <div class="container"> {% endcomment %}
+      <div class='side-block'>
+        {% include 'MainExtended/SideNavbar.html' %}
+
       </div>
-    </nav>
-            
-      <!--Main-Containt-->
-            {% block content %}
-              <h1 class="text-center p-3 mb-2 bg-light text-dark">Main Page</h1>
-            {% endblock %}
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            
-
-    <!--Footer-->
-    <div class="container-fluid text-dark bg-light">
-
-      <p class="text-center ">Recommended</p>
-
-      <div class="text-center" style="margin:20px 0px">
-        <img src="{% static './assets/images/social-1.png' %}" alt="facebook-image" class="rounded-circle"/>
-        <img src="{% static './assets/images/social-2.png' %}" alt="youtube-image" class="rounded-circle"/>
-        <img src="{% static './assets/images/social-3.png' %}" alt="twitter-image" class="rounded-circle"/>
+      <div class='data'>
+        <div class="col">
+          {% block content %}
+          {% endblock %}
+        </div>
       </div>
-
-      <div class="text-center" style="margin:10px 0px">
-        <a class="btn btn-outline-success" href="#">team</a>
-        <a class="btn btn-outline-success" href="#">about</a>
-        <a class="btn btn-outline-success" href="#">contact</a>
-      </div>
-
-      <div class="text-center">
-        <p>© 2020 DIGITAL SCHOOL. All Rights Reserved</p>
-        <p>Terms of Use Privacy Policy</p>
-        <p>Design By: <span>Our Team</span></p>
-      </div>
-
-    </div>
-    
-      <script src="{% static './assets/js/jquery.js' %}"></script>
-      <script src="{% static './assets/js/bootstrap.min.js' %}"></script>
-
-      <!--Jquery Calender File-->
-      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-      <!--js Date Function-->
-      <script>
-        $( function() {
-          $( "#datepicker" ).datepicker();
-        } );
-      </script>
-      
+    {% comment %} </div> {% endcomment %}
+      {% include 'MainExtended/Footer.html' %}
   </body>
 
 </html>

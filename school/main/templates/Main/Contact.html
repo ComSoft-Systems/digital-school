@@ -1,52 +1,12 @@
-<!DOCTYPE html>
+{% extends 'Main/Comon.html' %}
 {% load static %}
-<html lang="en">
-
-    <head>
-
-        <title>DIGITAL SCHOOL</title>
-
-        <!--FOOTER CSS-->
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
-        
-        <!--FontFamily-->
-			
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700" rel="stylesheet" type="text/css">
-
-        <link href="{% static 'assets/css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
-
-        <link href="{% static 'assets/css/stylesheet.css' %}" rel="stylesheet" type="text/css" />    
-
-        <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-        
-    </head>
-
-    <body>
-        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
-        <section id="about" class="about-section section-padding gray-bg">
-
-            <div class="container">
-                
+{% block content %}
                 <div class="section-title">
-
-                        <!-- top back button -->
-                        <div class="riz-anchor">
-                        
-                            <a href="#">Back</a>
-                        
-                        </div>
-            
-                        <h2>Contact <span class="light-text">DIGITAL SCHOOL</span></h2>
-            
-                        <div class="title-border-container">
-            
-                            <div class="title-border"></div>
-            
-                        </div>
-            
+                    <h2>Contact <span class="light-text">DIGITAL SCHOOL</span></h2>
+                    <div class="title-border-container">
+                        <div class="title-border"></div>
+                    </div>
                 </div>
-            
-            </div>
             
         <div class="contain">
 
@@ -120,32 +80,11 @@
 
             </div>
 
-        <div class="footer">
-			<div class="footer-icons">
-				<img src="{% static 'assets/images/fb.JPG' %}" alt="facebook"/>
-				<img src="{% static 'assets/images/insta.JPG' %}" alt="instagram"/>
-				<img src="{% static 'assets/images/twit.JPG' %}" alt="twitter"/>
-			</div>
-			<p>Recommended</p>
-			<div class="footer-anchors">
-				<a href="#">team</a>
-				<a href="#">about</a>
-				<a href="#">contact</a>
-			</div>
-			<div class="footer-text">
-				<p>© 2020 DIGITAL SCHOOL. All Rights Reserved</p>
-				<p>Terms of Use Privacy Policy</p>
-				<p>Design By: <a href="#" class="team">Our Team</a></p>
-			</div>
-		</div>
-
         </section>
 
-    </body>
-
-</html>
 
 
 
 
 
+    {% endblock %}
