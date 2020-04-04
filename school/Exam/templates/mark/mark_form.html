@@ -1,6 +1,6 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<h1>here we can select mark section</h1>
+<h1>Add Details of Mark</h1>
 <!-- <form action="{% url 'mark_form' %}" method="POST">
 <a>Gr_no = {{mark_form.exam_Gr_no }}</a><a href="{% url 'gr_create' %}"> Add GR </a><br><br>
 <a>Class_code = {{mark_form.class_code }}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
@@ -75,8 +75,8 @@
     </select><br>
     <label>Total Marks</label>
     <input type="text" name="total_marks"/><br>
-    <input class="btn btn primary" type="submit" value="Go"/>
-    <button class="text-center"><a href="{% url 'Mark_list_view' %}">Viw list of marks</a></button>
+    <input class="btn btn-secondary" type="submit" value="Go"/>
+    <button class="text-center"><a href="{% url 'mark_list_view' %}">Viw list of marks</a></button>
     {% csrf_token %}
 </form>
 
