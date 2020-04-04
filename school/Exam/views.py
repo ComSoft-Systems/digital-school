@@ -17,10 +17,11 @@ def form(request):
         user_form = ExamForm(request.POST)
         if user_form.is_valid():
             form = user_form.save()
+            user_form = ExamForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'Exam/exam_form.html',{'user_form':user_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -72,10 +73,11 @@ def semester_form(request):
         semester_form = SemesterForm(request.POST)
         if semester_form.is_valid():
             form = semester_form.save()
+            semester_form = SemesterForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'semester/semester_created.html',context)
+            return render(request,'semester/semester_form.html',{'semester_form':semester_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -123,10 +125,11 @@ def semesterBform(request):
         semesterB_form = SemesterbreakupForm(request.POST)
         if semesterB_form.is_valid():
             form = semesterB_form.save()
+            semesterB_form = SemesterbreakupForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'semesterB/semesterB_created.html',context)
+            return render(request,'semesterB/semesterB_form.html',{'semesterB_form':semesterB_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -175,10 +178,11 @@ def quaterform(request):
         quater_form = QuaterForm(request.POST)
         if quater_form.is_valid():
             form = quater_form.save()
+            quater_form = QuaterForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'quater/quater_created.html',context)
+            return render(request,'quater/quater_form.html',{'quater_form':quater_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -226,10 +230,11 @@ def assesmentform(request):
         assesment_form = AssesmentForm(request.POST)
         if assesment_form.is_valid():
             form = assesment_form.save()
+            assesment_form = AssesmentForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'assesment/assesment_created.html',context)
+            return render(request,'assesment/assesment_form.html',{'assesment_form':assesment_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -357,7 +362,6 @@ def mark_save(request):
                 formtosave.save()
         return render(request,'mark/mark_created.html')
 
-
 def mark_list_view(request):
     save_mark = Mark.objects.all()
     for i in save_mark:
@@ -366,7 +370,7 @@ def mark_list_view(request):
         family = gr.family_code
     myFilter = Mark_filter(request.GET, queryset=save_mark)
     save_mark = myFilter.qs
-    context = {'save': save_mark ,'father': family ,'myFilter' : myFilter }
+    context = {'father': family, 'save': save_mark ,'myFilter' : myFilter }
     return render (request,'mark/mark_list.html', context)
 
 def mark_detail(request,id):
