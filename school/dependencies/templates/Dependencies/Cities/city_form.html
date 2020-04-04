@@ -5,7 +5,7 @@
 <form action ="{% url 'city_form' %}" method = "POST">
 <a>City = {{user_form.cities}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Save">
+<input type ="submit" value="Save and Add Another">
 <button > <a href="{% url 'city_list' %}">Back</a></button>
 <button > <a href="{% url 'city_upload' %}">Add CSV file</a></button>
 

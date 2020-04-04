@@ -13,7 +13,7 @@
 <a>Question From = {{user_form.questions_from}}</a><br><br>
 
 {% csrf_token %}
-<input type ="submit" value="Save"/>
+<input type ="submit" value="Save and Add Another"/>
 <button > <a href="{% url 'question_bank_list' %}">Back</a></button>
 <button > <a href="{% url 'question_bank_upload' %}">Add CSV file</a></button>
 

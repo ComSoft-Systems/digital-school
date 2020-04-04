@@ -6,7 +6,7 @@
 <a>Publisher Name = {{user_form.publisher_name}}</a><br><br>
 <a>City = {{user_form.city}}</a><a href="{% url 'city_form' %}"> Add City </a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Save">
+<input type ="submit" value="Save and Add Another">
 <button > <a href="{% url 'publisher_list' %}">Back</a></button>
 <button > <a href="{% url 'publisher_upload' %}">Add CSV file</a></button>
 

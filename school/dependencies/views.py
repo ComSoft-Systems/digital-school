@@ -2,7 +2,7 @@ import csv, io
 from django.contrib import messages
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, get_list_or_404
 from .models import Class, School, Family, Fee_Concession, Section, Session, Religion, Subject, Class_Subject, Fee_Type, Month, City
-from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, month_form, city_form
+from .forms import class_form, school_form, family_form, fee_concession_form, section_form, session_form, religion_form, subject_form, classes_subject_form, fee_type_form, city_form
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import io, csv
@@ -25,10 +25,12 @@ def classes(request):
         user_form = class_form(request.POST)
         if user_form.is_valid():
             classes = user_form.save()
+            user_form = class_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Classes/created_classes_form.html', context)
+            return render(request,'Dependencies/Classes/classes_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -120,10 +122,12 @@ def schools(request):
         user_form = school_form(request.POST)
         if user_form.is_valid():
             schools = user_form.save()
+            user_form = school_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Schools/created_schools_form.html', context)
+            return render(request,'Dependencies/Schools/schools_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -214,10 +218,12 @@ def families(request):
         user_form = family_form(request.POST)
         if user_form.is_valid():
             families = user_form.save()
+            user_form = family_form()
             context = {
+                'user_form' : user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Family/created_families_form.html', context)
+            return render(request,'Dependencies/Family/families_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -329,10 +335,12 @@ def fee_concession(request):
         user_form = fee_concession_form(request.POST)
         if user_form.is_valid():
             fee_concession = user_form.save()
+            user_form = fee_concession_form()
             context = {
+                'user_form': user_form, 
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/FeeConcession/created_fee_concession_form.html', context)
+            return render(request,'Dependencies/FeeConcession/fee_concession_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -421,10 +429,12 @@ def sections(request):
         user_form = section_form(request.POST)
         if user_form.is_valid():
             sections = user_form.save()
+            user_form = section_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Sections/created_sections_form.html', context)
+            return render(request,'Dependencies/Sections/sections_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -512,10 +522,12 @@ def sessions(request):
         user_form = session_form(request.POST)
         if user_form.is_valid():
             sessions = user_form.save()
+            user_form = session_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Sessions/created_sessions_form.html', context)
+            return render(request,'Dependencies/Sessions/sessions_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -601,10 +613,12 @@ def religions(request):
         user_form = religion_form(request.POST)
         if user_form.is_valid():
             religions = user_form.save()
+            user_form = religion_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Religions/created_religions_form.html', context)
+            return render(request,'Dependencies/Religions/religions_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -691,10 +705,12 @@ def subjects(request):
         user_form = subject_form(request.POST)
         if user_form.is_valid():
             subjects = user_form.save()
+            user_form = subject_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Subjects/created_subjects_form.html', context)
+            return render(request,'Dependencies/Subjects/subjects_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -794,10 +810,12 @@ def class_subjects(request):
         # user_form = classes_subject_form(request.POST)
             if user_form.is_valid():
                 user_form.save()
+                user_form = class_subject_form()
                 context = {
+                    'user_form' : user_form,
                     'return': 'Has been added successfully'
                 }
-        return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html' , context)
+        return render(request,'Dependencies/Class_Subjects/class_subject_form.html' , context)
         # else:
         #     context = {
         #         'return': 'Is not valid'
@@ -856,10 +874,12 @@ def fee_type(request):
         user_form = fee_type_form(request.POST)
         if user_form.is_valid():
             fee_type = user_form.save()
+            user_form = fee_type_form()
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/FeeType/created_fee_type_form.html', context)
+            return render(request,'Dependencies/FeeType/fee_type_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -936,31 +956,6 @@ def delete_fee_type(request, fee_type_code):
     return render(request, 'Dependencies/FeeType/list.html', context)
 
 
-# @login_required(login_url='login_url')
-def month_list(request):
-    mon = Month.objects.all()
-    context = {'month': mon}
-    return render(request, 'Dependencies/Months/list.html', context)
-
-# @login_required(login_url='login_url')
-# @allowed_users(allowed_roles=['Admin','Accountant'])
-def months(request):
-    if request.method == 'POST':
-        user_form = month_form(request.POST)
-        if user_form.is_valid():
-            months = user_form.save()
-            context = {
-                'return': 'Has been added successfully'
-            }
-            return render(request,'Dependencies/Months/created_month_form.html', context)
-        else:
-            context = {
-                'return': 'Is not valid'
-            }
-            return render(request,'Dependencies/Months/created_month_form.html', context)
-    else:
-        user_form = month_form()
-        return render(request,'Dependencies/Months/month_form.html',{'user_form':user_form})
 
 # @login_required(login_url='login_url')
 def city_list(request):
@@ -975,10 +970,13 @@ def cities(request):
         user_form = city_form(request.POST)
         if user_form.is_valid():
             cities = user_form.save()
+            user_form = city_form()
+
             context = {
+                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Dependencies/Cities/created_city_form.html', context)
+            return render(request,'Dependencies/Cities/city_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
