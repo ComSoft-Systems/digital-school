@@ -4,6 +4,8 @@
 <form action="{% url 'exam_form' %}" method="POST">
 <a>exam_session = {{user_form.exam_session }}</a><a href="{% url 'session_form' %}"> Add Session </a><br><br>
 {% csrf_token %}
-<input type="submit" value="Add to Exam">
+<input type="submit" value="Save and Add Another">
+<button class="text-center"><a href="{% url 'exam_list_view' %}">View Exam List</a></button>
+
 </form>
 {% endblock %}

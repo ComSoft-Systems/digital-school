@@ -8,6 +8,7 @@
 <a>Quater_Code = {{assesment_form.quater_code }}</a><a href="{% url 'quater_form' %}"> Add Quater </a><br><br>
 <a>Assesment_name = {{assesment_form.assesment_name }}</a><br><br>
 {% csrf_token %}
-<input type="submit" class="btn btn danger" href="{% url 'assesment_form' %}" value="Save and add another">
+<input type="submit"  value="Save and add another">
+<button class="text-center"><a href="{% url 'assesment_list_view' %}">View List</a></button>
 </form>
 {% endblock %}

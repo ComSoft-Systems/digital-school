@@ -1,6 +1,6 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<h1>here we can mark form</h1>
+<h1>here we can select mark section</h1>
 <!-- <form action="{% url 'mark_form' %}" method="POST">
 <a>Gr_no = {{mark_form.exam_Gr_no }}</a><a href="{% url 'gr_create' %}"> Add GR </a><br><br>
 <a>Class_code = {{mark_form.class_code }}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
@@ -16,13 +16,14 @@
 <input type="submit" value="Add to Mark">
 </form> -->
 <form method="POST">
-    <label>Select Exam</label>
-    <select name="exam" >
+    <tr><label></label>Select Exam</label>
+    <td><select name="exam" >
         <option value="">---------</option>
         {% for i in exam %}
         <option value="{{ i.exam_code }}">{{ i.exam_session }}</option>
         {% endfor %}
-    </select><br>
+    </select></td><br>
+    </tr>
     <label>Select Semester</label>
     <select name="semester" >
         <option value="">---------</option>
@@ -74,7 +75,8 @@
     </select><br>
     <label>Total Marks</label>
     <input type="text" name="total_marks"/><br>
-    <input type="submit" value="Go"/>
+    <input class="btn btn primary" type="submit" value="Go"/>
+    <button class="text-center"><a href="{% url 'Mark_list_view' %}">Viw list of marks</a></button>
     {% csrf_token %}
 </form>
 
