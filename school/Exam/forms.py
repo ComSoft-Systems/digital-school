@@ -65,5 +65,5 @@ class MarkForm(forms.ModelForm):
             'quater_code',
             'assesment_code',
             'total_marks',
-            'obtained_marks'
+            'obtained_marks',
         }

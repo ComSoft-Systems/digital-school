@@ -1,27 +1,17 @@
-<!DOCTYPE html>
+{% extends 'Main/Comon.html' %}
 {% load static %}
-<html>
-	<head>
-		<title>DIGITAL SCHOOL</title>
-		<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}" />
-		
-		<style>
-			table, th, td {
-			border: 1px solid black;
-			}
-		</style>
-	</head>
-	<body>
+    {% block content %}
 	<div class="school-list">
-		<table>
+		<table class="table table-hover table-sm table-dark">
+		<thead align="center">
 			<tr>
-				<th>Schools List</th>
-				<th>$</th>
+                        <h2>School List <span class="light-text">DIGITAL SCHOOL</span></h2>
+				<td>$</td>
 			</tr>
+		</thead>
+		<tbody align="center">
 			<tr>
-			<tr>
-				<td>New Vision Public School</td>
+				<td class="editable" >New Vision Public School</td>
 				<td>500$</td>
 			</tr>
 			<tr>
@@ -32,25 +22,8 @@
 				<td>New Roomi School</td>
 				<td>300$</td>
 			</tr>
+		</tbody>
 		</table>
 	</div>
-	<div class="footer">
-			<div class="footer-icons">
-				<img src="{% static 'assets/images/fb.JPG' %}" alt="facebook"/>
-				<img src="{% static 'assets/images/insta.JPG' %}" alt="instagram"/>
-				<img src="{% static 'assets/images/twit.JPG' %}" alt="twitter"/>
-			</div>
-			<p>Recommended</p>
-			<div class="footer-anchors">
-				<a href="#">team</a>
-				<a href="#">about</a>
-				<a href="#">contact</a>
-			</div>
-			<div class="footer-text">
-				<p>© 2020 DIGITAL SCHOOL. All Rights Reserved</p>
-				<p>Terms of Use Privacy Policy</p>
-				<p>Design By: <a href="#" class="team">Our Team</a></p>
-			</div>
-		</div>
-	</body>
-</html>
+		
+    {% endblock %}

@@ -1,0 +1,40 @@
+{% extends "MainPage.html" %}
+{% block content %}
+<form action="{% url 'save_mark' %}" method="POST">
+
+    <label>Exam = </label><a> <input type="text" value="{{ exam }}" name="exam" readonly/></a><br>
+    <label>Semester = </label><a> <input type="text" value="{{ semester }}" name="semester" readonly/></a><br>
+    <label>Semester Breakup = </label><a> <input type="text" value="{{ semester_b }}" name="semester_b" readonly/></a><br>
+    <label>Quarter = </label><a> <input type="text" value="{{ quater }}" name="quater" readonly/></a><br>
+    <label>Assisment = </label><a> <input type="text" value="{{ assesment }}" name="assesment" readonly/></a><br>
+    <label>Subject = </label><a> <input type="text" value="{{ subjects }}" name="subjects" readonly/></a><br>
+    <div class="container">
+        <table class="table table-hover table-sm table-dark">
+            <thead align="center">
+                <tr>
+                    <th>Gr Number</th>
+                    <th>Name</th>
+                    <th>Father</th>
+                    <th>Total Marks</th>
+                    <th>Obtained Marks</th>
+                </tr>
+            </thead>
+            <tbody align="center">
+                {% for student in students %}
+                <tr>
+                    <input type="text" value="{{ student.gr_number }}" name="gr" hidden readonly/>
+                    <input type="text" value="{{ total_marks }}" name="total" readonly/>
+                    <th>{{ student.gr_number }}</th>
+                    <th>{{ student.name }}</th>
+                    <th>{{ student.family_code }}</th>
+                    <th>{{ total_marks }}</th>
+                    <th><input type="text" name="obtained_marks"/></th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input class="btn btn-secondary" type="submit" value="Save"/>
+    </div>
+    {% csrf_token %}
+</form>
+{% endblock %}

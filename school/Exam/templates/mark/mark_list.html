@@ -19,17 +19,13 @@
       <table class="table table-hover table-sm table-dark">
         <thead>
           <tr>
-          <th>exam_Gr_no</th>
-          <th>class_code</th>
-          <th>subject_code</th>
-          <th>exam_code</th>
-          <th>semester_code</th>
-          <th>semesterbreakup_code</th>
-          <th>quater-code</th>
-          <th>assesment_code</th>
+          <th>Name</th>
+          <th>Father</th>
+          <th>Total mark</th>
+          <th>Obtained Mark</th>
           </tr>
         </thead>
-        {% for i in Entry %}
+        {% for i in save %}
         <form action="{% url 'mark_print' %}" method="POST">
         <tbody>
           <tr>
@@ -37,43 +33,23 @@
                         background-color: #343a40;
                         color: white;
                         text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="gr" value="{{i.exam_Gr_no}}" readonly></td></a></td> 
+                        border: 1px solid #ff818140;" type="text" name="name" value="{{i.exam_Gr_no}}" readonly></td></a></td> 
             <td><input style="border-radius: 20px;
                         background-color: #343a40;
                         color: white;
                         text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="class" value="{{i.class_code}}" readonly></td>
+                        border: 1px solid #ff818140;" type="text" name="father_name" value="{{father}}" readonly></td>
             <td><input style="border-radius: 20px;
                         background-color: #343a40;
                         color: white;
                         text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="subject" value="{{i.subject_code}}" readonly></td>
+                        border: 1px solid #ff818140;" type="text" name="Total_marks" value="{{i.total_marks}}" readonly></td>            
             <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="exam" value="{{i.exam_code}}" readonly></td>
-            <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="semister" value="{{i.semester_code}}" readonly></td> 
-            <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="breakup" value="{{i.semesterbreakup_code}}" readonly></td>
-            <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="quarter" value="{{i.quater_code}}" readonly></td>
-            <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;" type="text" name="assesment" value="{{i.assesment_code}}" readonly></td>            
-            
+              background-color: #343a40;
+              color: white;
+              text-align: center;
+              border: 1px solid #ff818140;" type="text" name="Obtained_marks" value="{{i.obtained_marks}}" readonly></td>            
+  
             <td><a href="{% url 'edit_mark' i.id %}">Edit</a></td>
             <td><a href="{% url 'delete_mark' i.id %}">Delete</a></td>
           </tr>
@@ -84,10 +60,6 @@
         </form>
       </table>
       <button class="text-center"><a href="{% url 'mark_form' %}">Add</a></button>
-      <button class="text-center"><a href="{% url 'mark_upload' %}">Add File</a></button>
-      <button class="text-center"><a href="{% url 'mark_download' %}">Download formate</a></button>
-
-      
       
   </div>
    

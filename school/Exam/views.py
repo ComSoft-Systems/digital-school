@@ -1,5 +1,5 @@
 import csv, io
-from django.shortcuts import render,redirect, get_object_or_404,HttpResponse
+from django.shortcuts import render,redirect, get_object_or_404,HttpResponse,get_list_or_404
 from django.contrib import messages
 from .models import *
 from .forms import *
@@ -17,10 +17,11 @@ def form(request):
         user_form = ExamForm(request.POST)
         if user_form.is_valid():
             form = user_form.save()
+            user_form = ExamForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'Exam/created.html',context)
+            return render(request,'Exam/exam_form.html',{'user_form':user_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -72,10 +73,11 @@ def semester_form(request):
         semester_form = SemesterForm(request.POST)
         if semester_form.is_valid():
             form = semester_form.save()
+            semester_form = SemesterForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'semester/semester_created.html',context)
+            return render(request,'semester/semester_form.html',{'semester_form':semester_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -123,10 +125,11 @@ def semesterBform(request):
         semesterB_form = SemesterbreakupForm(request.POST)
         if semesterB_form.is_valid():
             form = semesterB_form.save()
+            semesterB_form = SemesterbreakupForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'semesterB/semesterB_created.html',context)
+            return render(request,'semesterB/semesterB_form.html',{'semesterB_form':semesterB_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -175,10 +178,11 @@ def quaterform(request):
         quater_form = QuaterForm(request.POST)
         if quater_form.is_valid():
             form = quater_form.save()
+            quater_form = QuaterForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'quater/quater_created.html',context)
+            return render(request,'quater/quater_form.html',{'quater_form':quater_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -226,10 +230,11 @@ def assesmentform(request):
         assesment_form = AssesmentForm(request.POST)
         if assesment_form.is_valid():
             form = assesment_form.save()
+            assesment_form = AssesmentForm()
             context = {
                 'return': 'Has Been Added SuccessFully'
             }
-            return render(request,'assesment/assesment_created.html',context)
+            return render(request,'assesment/assesment_form.html',{'assesment_form':assesment_form})
         else:
             context = {
                 'return': 'Is Not Valid'
@@ -276,27 +281,96 @@ def assesment_delete(request, assesment_code):
 ####Mark MODEL
 def markform(request):
     if request.method == 'POST':
-        mark_form = MarkForm(request.POST)
-        if mark_form.is_valid():
-            form = mark_form.save()
-            context = {
-                'return': 'Has Been Added SuccessFully'
-            }
-            return render(request,'mark/mark_created.html',context)
-        else:
-            context = {
-                'return': 'Is Not Valid'
-            }
-            return render(request,'mark/mark_created.html',context)
+        incoming = request.POST
+        clas = incoming.get('class')
+        section = incoming.get('section')
+        exam = incoming.get('exam')
+        for i in exam:
+            exam = i
+        semester = incoming.get('semester')
+        for i in semester:
+            semester = i
+        semester_b = incoming.get('semester_b')
+        for i in semester_b:
+            semester_b = i
+        quater = incoming.get('quater')
+        for i in quater:
+            quater = i
+        assesment = incoming.get('assesment')
+        for i in assesment:
+            assesment = i
+        subjects = incoming.get('subject')
+        for i in subjects:
+            subjects = i
+        total_marks = incoming.get('total_marks')
+        context = {
+            'exam' : get_object_or_404(Exam , exam_code = exam) ,
+            'semester' : get_object_or_404(Semester , semester_code = semester ) ,
+            'semester_b' : get_object_or_404(Semesterbreakup , semesterbreakup_code = semester_b ) ,
+            'quater' : get_object_or_404(Quater , quater_code = quater ) ,
+            'assesment' : get_object_or_404(Assesment , assesment_code = assesment ) ,
+            'subjects' : get_object_or_404(Subject , subject_code = subjects ) ,
+            'students' : get_list_or_404(Gr , section = section , current_class = clas ) ,
+            'total_marks' : total_marks ,
+        }
+        return render(request,'mark/mark_entry.html',context)
     else:
-        mark_form = MarkForm()
-        return render(request,'mark/mark_form.html',{'mark_form':mark_form})
+        context = {
+        'exam' : Exam.objects.all() ,
+        'semester' : Semester.objects.all() ,
+        'semester_b' : Semesterbreakup.objects.all() ,
+        'quater' : Quater.objects.all() ,
+        'assesment' : Assesment.objects.all() ,
+        'class' : Class.objects.all() ,
+        'subjects' : Subject.objects.all() ,
+        'section' : Section.objects.all() ,
+        }
+        return render(request,'mark/mark_form.html',context)
+
+def mark_save(request):
+    if request.method == 'POST':
+        datatosave = request.POST
+        exam = datatosave.get('exam')
+        semester = datatosave.get('semester')
+        semester_b = datatosave.get('semester_b')
+        quater = datatosave.get('quater')
+        assesment = datatosave.get('assesment')
+        subjects = datatosave.get('subjects')
+        gr = datatosave.get('gr')
+        obtained_marks = datatosave.get('obtained_marks')
+        total_marks = datatosave.get('total')
+        count = '0'
+        for i in gr:
+            count = int(count) + 1
+            student = get_object_or_404(Gr , gr_number = gr[int(count)-1])
+            grNum = student.gr_number
+            class_ = student.current_class
+            fname = student.family_code
+            formtosave = MarkForm({
+                'exam_Gr_no' : (grNum ) ,
+                'class_code' : (class_.class_code ) ,
+                'subject_code' : (get_object_or_404(Subject , subjects = subjects ).subject_code ) ,
+                'exam_code' : (get_object_or_404(Session , session_name = exam).session_code ) ,
+                'semester_code' : (get_object_or_404(Semester , semester_name = semester ).semester_code ) ,
+                'semesterbreakup_code' : (get_object_or_404(Semesterbreakup , semesterbreakup_name = semester_b ).semesterbreakup_code ) ,
+                'quater_code' : (get_object_or_404(Quater , quater_name = quater ).quater_code ) ,
+                'assesment_code' : (get_object_or_404(Assesment , assesment_name = assesment ).assesment_code ) ,
+                'total_marks' : (total_marks ) ,
+                'obtained_marks' : (obtained_marks) ,
+             })
+            if formtosave.is_valid:
+                formtosave.save()
+        return render(request,'mark/mark_created.html')
 
 def mark_list_view(request):
-    Entry_mark = Mark.objects.all()
-    myFilter = Mark_filter(request.GET, queryset=Entry_mark)
-    Entry_mark = myFilter.qs
-    context = {'Entry': Entry_mark, 'myFilter' : myFilter}
+    save_mark = Mark.objects.all()
+    for i in save_mark:
+        nam = i.exam_Gr_no
+        gr = get_object_or_404(Gr,name = nam)
+        family = gr.family_code
+    myFilter = Mark_filter(request.GET, queryset=save_mark)
+    save_mark = myFilter.qs
+    context = {'father': family, 'save': save_mark ,'myFilter' : myFilter }
     return render (request,'mark/mark_list.html', context)
 
 def mark_detail(request,id):
@@ -323,7 +397,7 @@ def mark_delete(request, id):
     context = {
         'Entry' : a
     }
-    return render(request, 'mark/mark_list.html', context)
+    return render(request, 'mark/mark_delete.html', context)
 
 def mark_upload(request):
     template = "mark/mark_upload.html"
@@ -362,6 +436,7 @@ def markprint(request):
     data = []
     if request.method == 'POST':
         rawdata = request.POST
+        print(rawdata)
         gr_ = rawdata.getlist('gr' , default='1')
         class_ = rawdata.getlist('class' , default='1')
         subject_ = rawdata.getlist('subject' , default='1')

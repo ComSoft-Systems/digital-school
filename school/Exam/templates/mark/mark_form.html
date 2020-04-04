@@ -1,7 +1,7 @@
 {% extends "MainPage.html" %}
 {% block content %}
-<h1>here we can mark form</h1>
-<form action="{% url 'mark_form' %}" method="POST">
+<h1>Add Details of Mark</h1>
+<!-- <form action="{% url 'mark_form' %}" method="POST">
 <a>Gr_no = {{mark_form.exam_Gr_no }}</a><a href="{% url 'gr_create' %}"> Add GR </a><br><br>
 <a>Class_code = {{mark_form.class_code }}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
 <a>Subject_code = {{mark_form.subject_code }}</a><a href="{% url 'subject_form' %}"> Add Subject </a><br><br>
@@ -14,5 +14,70 @@
 <a>Obtained_marks= {{mark_form.obtained_marks }}</a><br><br>
 {% csrf_token %}
 <input type="submit" value="Add to Mark">
+</form> -->
+<form method="POST">
+    <tr><label></label>Select Exam</label>
+    <td><select name="exam" >
+        <option value="">---------</option>
+        {% for i in exam %}
+        <option value="{{ i.exam_code }}">{{ i.exam_session }}</option>
+        {% endfor %}
+    </select></td><br>
+    </tr>
+    <label>Select Semester</label>
+    <select name="semester" >
+        <option value="">---------</option>
+        {% for i in semester %}
+        <option value="{{ i.semester_code }}">{{ i.semester_name }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Select Semester Breakup</label>
+    <select name="semester_b" >
+        <option value="">---------</option>
+        {% for i in semester_b %}
+        <option value="{{ i.semesterbreakup_code }}">{{ i.semesterbreakup_name }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Select Quater</label>
+    <select name="quater" >
+        <option value="">---------</option>
+        {% for i in quater %}
+        <option value="{{ i.quater_code }}">{{ i.quater_name }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Select Assesment</label>
+    <select name="assesment" >
+        <option value="">---------</option>
+        {% for i in assesment %}
+        <option value="{{ i.assesment_code }}">{{ i.assesment_name }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Select class</label>
+    <select name="class" >
+        <option value="">---------</option>
+        {% for i in class %}
+        <option value="{{ i.class_code }}">{{ i.class_name }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Select Section</label>
+    <select name="section" >
+        <option value="">---------</option>
+        {% for i in section %}
+        <option value="{{ i.sect_code }}">{{ i.sect_name }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Select Subject</label>
+    <select name="subject" >
+        <option value="">---------</option>
+        {% for i in subjects %}
+        <option value="{{ i.subject_code }}">{{ i.subjects }}</option>
+        {% endfor %}
+    </select><br>
+    <label>Total Marks</label>
+    <input type="text" name="total_marks"/><br>
+    <input class="btn btn-secondary" type="submit" value="Go"/>
+    <button class="text-center"><a href="{% url 'mark_list_view' %}">Viw list of marks</a></button>
+    {% csrf_token %}
 </form>
+
 {% endblock %}

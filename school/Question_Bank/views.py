@@ -14,6 +14,16 @@ from static.renderer import PdfMaker
 # Create your views here.
 
 # @login_required(login_url='login_url')
+# def book_list(request):
+#     boo = Book.objects.all()
+#     clas = Class.objects.all()
+#     sub = Subject.objects.all()
+#     publ = Publisher.objects.all()
+#     context = {'book': boo, 'class': clas, 'subject': sub, 'publisher': publ }
+#     return render(request, 'Question_Bank/Books/list.html', context)
+
+@login_required(login_url='login_url')
+@allowed_users(allowed_roles=['Admin','Accountant'])
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_list(request):
     boo = Book.objects.all()
@@ -26,6 +36,7 @@ def book_list(request):
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
+
 def books(request):
     if request.method == 'POST':
         user_form = book_form(request.POST)

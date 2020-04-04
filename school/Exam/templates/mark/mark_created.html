@@ -1,5 +1,6 @@
 {% extends "MainPage.html" %}
-{% block content %}<h1> Mark {{return}} </h1>
-<button class="text-center"><a href="{% url 'mark_list_view' %}">Back</a></button>
+{% block content %}
+<h1> Mark Has Been Added Successfully </h1>
+<button class="text-center"><a href="{% url 'mark_list_view' %}">Back To list</a></button>
 <button class="text-center"><a href="{% url 'mark_form' %}">Add Form</a></button>
 {% endblock %}

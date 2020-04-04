@@ -59,6 +59,7 @@ class Mark(models.Model):
     id = models.AutoField(primary_key = True , unique = True)
     exam_Gr_no = models.ForeignKey(Gr, on_delete= models.CASCADE, related_name='number')
     class_code = models.ForeignKey(Class, on_delete= models.CASCADE)
+    section_code = models.ForeignKey(Section, on_delete= models.CASCADE, default=1)
     subject_code = models.ForeignKey(Subject, on_delete= models.CASCADE)
     exam_code = models.ForeignKey(Exam, on_delete= models.CASCADE)
     semester_code = models.ForeignKey(Semester, on_delete= models.CASCADE)
