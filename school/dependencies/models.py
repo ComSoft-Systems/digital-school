@@ -86,8 +86,22 @@ class Fee_Type(models.Model):
         return self.fee_type
 
 class Month(models.Model):
+    MONTH_CHOICES = (
+        ('January','January'),
+        ('February','Fabruary'),
+        ('March','March'),
+        ('April','April'),
+        ('May','May'),
+        ('Jun', 'Jun'),
+        ('July', 'July'),
+        ('August', 'August'),
+        ('September', 'September'),
+        ('October', 'October'),
+        ('November', 'November'),
+        ('December', 'December'),
+    )
     month_code= models.AutoField(unique=True, primary_key=True)
-    months = models.CharField(max_length=200)
+    months = models.CharField(max_length=200, choices=MONTH_CHOICES, default=1)
     def __str__(self):
         return self.months
 
