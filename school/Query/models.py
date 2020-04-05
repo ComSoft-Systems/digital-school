@@ -1,4 +1,4 @@
-from django.db import models
+from dependencies.models import *
 from dependencies.models import Fee_Concession , Class , School , Section , Family
 from django.urls import reverse
 
