@@ -810,7 +810,7 @@ def class_subjects(request):
         # user_form = classes_subject_form(request.POST)
             if user_form.is_valid():
                 user_form.save()
-                user_form = class_subject_form()
+                user_form = classes_subject_form()
                 context = {
                     'user_form' : user_form,
                     'return': 'Has been added successfully'
