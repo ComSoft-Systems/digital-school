@@ -45,8 +45,8 @@ urlpatterns = [
     path('mark_list_view/', views.mark_list_view, name = 'mark_list_view'),
     path('mark_detail/<id>+/', views.mark_detail, name = 'mark_detail'),
     path('mark_edit/<id>+/', views.mark_edit, name='edit_mark'),
-    path('mark_save/', views.mark_save, name='save_mark'),
     path('mark_delete/<id>+/', views.mark_delete, name='delete_mark'),
+    path('mark_upload/', views.mark_upload , name = 'mark_upload'),
     path('download_mark/', views.mark_download , name = 'mark_download')
 
 ]

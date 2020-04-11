@@ -5,11 +5,7 @@ from .models import Mark, Exam, Semesterbreakup, Semester,Quater,Assesment
 class Mark_filter(django_filters.FilterSet):
     class Meta:
         model = Mark
-        fields = {
-            'exam_Gr_no',
-            'class_code',
-            'section_code'
-        }
+        fields = '__all__'
 
 class Exam_filter(django_filters.FilterSet):
     class Meta:

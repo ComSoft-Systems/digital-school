@@ -7,8 +7,6 @@
 <a>semesterB_code = {{quater_form.semesterbreakup_code }}</a><a href="{% url 'semesterB_form' %}"> Add Semester </a><br><br>
 <a>Quater_name = {{quater_form.quater_name }}</a><br><br>
 {% csrf_token %}
-<input type="submit" value="Save and Add Another">
-<button class="text-center"><a href="{% url 'quater_list_view' %}">View List of Quater</a></button>
-
+<input type="submit" value="Add to Quater">
 </form>
 {% endblock %}
