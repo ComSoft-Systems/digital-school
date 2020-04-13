@@ -1,3 +1,5 @@
+{% extends "Mainpage.html" %}
+{% block content %}
 {% if messages %}
     {% for message in messages %}
         <div>
@@ -7,11 +9,15 @@
 {% else %}
 {{order}}
 <form method="post" enctype="multipart/form-data">
+<h1>{{fam}}</h1>
     {% csrf_token %}
     
     <label><h3>Upload a file</h3></label>
     <input type="file" name="file">
     <p><b>Only accepts CSV files</b></p>
     <button type="submit">Upload</button>
+    <button class="text-center"><a href="{% url 'family_list' %}">Family List</a></button>
+    <button class="text-center"><a href="{% url 'family_form' %}">Back</a></button>
 </form>
 {% endif %}
+{% endblock %}
