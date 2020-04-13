@@ -4,6 +4,7 @@ from django.shortcuts import render , redirect , get_object_or_404 , get_list_or
 from .forms import *
 from .models import *
 from dependencies.forms import *
+from dependencies.models import *
 from django.contrib.auth.decorators import login_required
 from authentication.user_handeling import unauthenticated_user, allowed_users, admin_only
 import datetime
@@ -208,33 +209,33 @@ def ManageFeeRegisterDeleteView(request, fee_reg_id):
     a = FeeRegister.objects.all()
     return render(request, 'FeesRegister/Delete/delete.html')
 
-def GR():
-    gr = Gr.objects.all()
-    return gr
+def CLAS():
+    clas = Class.objects.all()
+    return clas
 
 def FEE():
-    fe = FeeRegister.objects.all()
+    fe = ClassFee.objects.all()
     return fe
 
 def ManageFeeTypeListView(ListView):
     if ListView.method == 'POST':
-        InGr = ListView.POST.get('gr')
-        grs = GR()
-        if InGr == '':
-            lis = FeeRegister.objects.all()
+        InClass = ListView.POST.get('class')
+        classes = CLAS()
+        if InClass == '':
+            lis = ClassFee.objects.all()
         else:
-            lis = get_list_or_404(FeeRegister, gr_number = InGr)
+            lis = get_list_or_404(ClassFee, class_code = InClass)
         data = {
             'fee' : lis,
-            'gr' : grs,
+            'class' : classes,
         }
         return render(ListView, 'ClassFee/list.html', data)
     else:
-        grs = GR()
+        classes = CLAS()
         fee = FEE()
         data = {
             'fees': fee,
-            'gr': grs,
+            'class': classes,
         }
         return render(ListView, 'ClassFee/list.html', data)
 

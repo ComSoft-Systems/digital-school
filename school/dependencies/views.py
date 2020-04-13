@@ -65,7 +65,8 @@ def class_upload(request):
             class_name=column[1],
             remarks=column[2]
         )
-    context = {}
+        print(created)
+    context = {'hel': 'Added Successfully'}
     return render(request, template, context)
 
 
@@ -163,7 +164,8 @@ def school_upload(request):
             school_area=column[2],
             remarks=column[3]
         )
-    context = {}
+    print(created)
+    context = {'sch': 'Added Successfully'}
     return render(request, template, context)
 
 
@@ -262,7 +264,8 @@ def family_upload(request):
             ph_no_mother=column[5],
             address=column[6]
         )
-    context = {}
+    print(created)
+    context = {'fam': 'Added Successfully'}
     return render(request, template, context)
 
 
@@ -375,7 +378,8 @@ def fee_concession_upload(request):
             concession_percent=column[2],
             description=column[3]
         )
-    context = {}
+    print(created)
+    context = {'fe': 'Added Successfully'}
     return render(request, template, context)
 
 
@@ -468,7 +472,8 @@ def section_upload(request):
             sect_name=column[1],
             remarks=column[2]          
         )
-    context = {}
+    print(created)
+    context = {'sec': 'Added Successfully'}
     return render(request, template, context)
 
 def section_download(request):
@@ -560,7 +565,8 @@ def session_upload(request):
             session_code=column[0],
             session_name=column[1]         
         )
-    context = {}
+    print(created)
+    context = {'ses': 'Added Successfully'}
     return render(request, template, context)
 
 def session_download(request):
@@ -651,7 +657,8 @@ def religion_upload(request):
             religion_code=column[0],
             religion=column[1]         
         )
-    context = {}
+    print(created)
+    context = {'rel': 'Added Successfully'}
     return render(request, template, context)
 
 def religion_download(request):
@@ -744,7 +751,8 @@ def subject_upload(request):
             subject_code=column[0],
             subjects=column[1]         
         )
-    context = {}
+    print(created)
+    context = {'sub': 'Added Successfully'}
     return render(request, template, context)
 
 def subject_download(request):
@@ -914,7 +922,8 @@ def fee_type_upload(request):
             fee_type=column[1],
             description=column[2]         
         )
-    context = {}
+    print(created)
+    context = {'pri': 'Added Successfully'}
     return render(request, template, context)
 
 def fee_type_download(request):
@@ -1010,7 +1019,8 @@ def city_upload(request):
             city_code=column[0],
             cities=column[1]        
         )
-    context = {}
+    print(created)
+    context = {'cit': 'Added Successfully'}
     return render(request, template, context)
 
 def city_download(request):
