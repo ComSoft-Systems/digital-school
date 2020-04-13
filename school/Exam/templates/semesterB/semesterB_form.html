@@ -6,8 +6,6 @@
 <a>semester_code = {{semesterB_form.semester_code }}</a><a href="{% url 'semester_form' %}"> Add Semester </a><br><br>
 <a>semesterB_name = {{semesterB_form.semesterbreakup_name }}</a><br><br>
 {% csrf_token %}
-<input type="submit" value="Save and Add Another">
-<button class="text-center"><a href="{% url 'semesterB_list_view' %}">View Semester Breakup List</a></button>
-
+<input type="submit" value="Add to Semesterbreakup">
 </form>
 {% endblock %}

@@ -14,16 +14,6 @@ from static.renderer import PdfMaker
 # Create your views here.
 
 # @login_required(login_url='login_url')
-# def book_list(request):
-#     boo = Book.objects.all()
-#     clas = Class.objects.all()
-#     sub = Subject.objects.all()
-#     publ = Publisher.objects.all()
-#     context = {'book': boo, 'class': clas, 'subject': sub, 'publisher': publ }
-#     return render(request, 'Question_Bank/Books/list.html', context)
-
-@login_required(login_url='login_url')
-@allowed_users(allowed_roles=['Admin','Accountant'])
 # @allowed_users(allowed_roles=['Admin','Accountant'])
 def book_list(request):
     boo = Book.objects.all()
@@ -36,18 +26,15 @@ def book_list(request):
 
 # @login_required(login_url='login_url')
 # @allowed_users(allowed_roles=['Admin','Accountant'])
-
 def books(request):
     if request.method == 'POST':
         user_form = book_form(request.POST)
         if user_form.is_valid():
             books = user_form.save()
-            user_form = book_form()
             context = {
-                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Question_Bank/Books/book_form.html', context)
+            return render(request,'Question_Bank/Books/created_book_form.html', context)
             
         else:
             context = {
@@ -169,12 +156,10 @@ def publishers(request):
         user_form = publisher_form(request.POST)
         if user_form.is_valid():
             publishers = user_form.save()
-            user_form = publisher_form()
             context = {
-                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Question_Bank/Publishers/publisher_form.html', context)
+            return render(request,'Question_Bank/Publishers/created_publisher_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -277,12 +262,10 @@ def chapters(request):
         user_form = chapter_form(request.POST)
         if user_form.is_valid():
             chapters = user_form.save()
-            user_form = chapter_form()
             context = {
-                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Question_Bank/Chapters/chapter_form.html', context)
+            return render(request,'Question_Bank/Chapters/created_chapter_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
@@ -378,12 +361,10 @@ def questions_types(request):
         user_form = question_type_form(request.POST)
         if user_form.is_valid():
             question_types = user_form.save()
-            user_form = question_type()
             context = {
-                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Question_Bank/Question_Type/question_type_form.html', context)
+            return render(request,'Question_Bank/Question_Type/created_question_type_form.html', context)
             
         else:
             context = {
@@ -513,12 +494,10 @@ def question_banks(request):
         user_form = question_bank_form(request.POST)
         if user_form.is_valid():
             question_banks = user_form.save()
-            user_form = question_bank_form()
             context = {
-                'user_form': user_form,
                 'return': 'Has been added successfully'
             }
-            return render(request,'Question_Bank/Question_Bank/question_bank_form.html', context)
+            return render(request,'Question_Bank/Question_Bank/created_question_bank_form.html', context)
         else:
             context = {
                 'return': 'Is not valid'
