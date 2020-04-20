@@ -10,8 +10,8 @@
 <a>Mother Phone_No = {{user_form.ph_no_mother}}</a><br><br>
 <a>Address = {{user_form.address}}</a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Save and Add Another">
-<button > <a href="{% url 'family_list' %}">Back</a></button>
-<button > <a href="{% url 'family_upload' %}">Add CSV file</a></button>
+<input class="btn btn-primary" type ="submit" value="Save and Add Another">
+ <a class="btn btn-primary" href="{% url 'family_list' %}">Back</a>
+ <a class="btn btn-primary" href="{% url 'family_upload' %}">Add CSV file</a>
 </form>
 {% endblock %}

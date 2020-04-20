@@ -2,6 +2,6 @@
     {% block content %}
     <br><br>
 <h3> Question {{return}} </h3>
-<button > <a href="{% url 'question_bank_list' %}">Back</a></button>
-<button > <a href="{% url 'question_bank_form' %}">Add Another</a></button>
+ <a class="btn btn=primary" href="{% url 'question_bank_list' %}">Back</a>
+ <a class="btn btn=primary" href="{% url 'question_bank_form' %}">Add Another</a>
 {% endblock %}

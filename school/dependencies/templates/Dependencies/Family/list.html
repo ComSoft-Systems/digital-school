@@ -52,8 +52,8 @@
     {% endfor %}
   </tbody>
     </table>
-    <button ><a href="{% url 'family_form' %}">Add</a></button>    
-    <button ><a href="{% url 'family_download' %}">Download CSV Format</a></button>
+    <a class="btn btn-primary" href="{% url 'family_form' %}">Add</a>    
+    <a class="btn btn-primary" href="{% url 'family_download' %}">Download CSV Format</a>
     <a class="btn btn-primary" href="{% url 'family_print' %}" value="Print">Print</a>
   </div>
     {% endblock %}

@@ -94,6 +94,7 @@ DATABASES = {
         'USER': 'comsoft',
         'PASSWORD': 'Admin@123',
         'HOST' : '127.0.0.1',
+        # 'HOST': '192.168.2.103'
         'PORT': '5432',
     }
 }

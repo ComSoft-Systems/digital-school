@@ -6,9 +6,9 @@
 <a>Chapter Name = {{user_form.chapter_name}}</a><br><br>
 <a>Books = {{user_form.books}}</a><a href="{% url 'book_form' %}"> Add Book </a><br><br>
 {% csrf_token %}
-<input type ="submit" value="Save and Add Another">
-<button > <a href="{% url 'chapter_list' %}">Back</a></button>
-<button > <a href="{% url 'chapter_upload' %}">Add CSV file</a></button>
+<input class="btn btn-primary" type ="submit" value="Save and Add Another">
+ <a class="btn btn-primary" href="{% url 'chapter_list' %}">Back</a>
+ <a class="btn btn-primary" href="{% url 'chapter_upload' %}">Add CSV file</a>
 
 </form>
 {% endblock %}

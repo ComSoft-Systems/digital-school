@@ -24,7 +24,7 @@
     {% endfor %}
   </tbody>
     </table>
-    <button ><a href="{% url 'fee_type_form' %}">Add</a></button>    
-    <button ><a href="{% url 'fee_type_download' %}">Download CSV Format</a></button>   
+    <a class="btn btn-primary" href="{% url 'fee_type_form' %}">Add</a>    
+    <a class="btn btn-primary" href="{% url 'fee_type_download' %}">Download CSV Format</a>   
   </div>
     {% endblock %}
