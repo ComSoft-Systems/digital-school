@@ -10,8 +10,15 @@
         <a><input type="checkbox" name="subject" value="{{ i.subject_code }}" >{{ i.subjects }}</input></a><br><br>
     {% endfor %}
 
+
         
+<<<<<<< HEAD
 <input class="btn btn-primary" type ="submit" value="Save and Add Another">
 <a class="btn btn-primary" href="{% url "class_subject_list" %}">Back</a>
+=======
+<input type ="submit" value="Save and Add Another">
+
+<button ><a href="{% url 'class_subject_list' %}">Back</a></button>
+>>>>>>> 5a35615e96323f864406e4e29835f76336cfc5e1
 </form>
 {% endblock %}

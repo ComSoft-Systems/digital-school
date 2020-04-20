@@ -4,8 +4,4 @@ from .models import Entry_data
 class Query_filter(django_filters.FilterSet):
     class Meta:
         model = Entry_data
-        fields = {
-            'Name',
-            'gender',
-            'date_of_test'
-            }
+        fields = '__all__'

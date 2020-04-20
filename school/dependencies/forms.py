@@ -99,6 +99,15 @@ class fee_type_form(forms.ModelForm):
         }
 
 
+class month_form(forms.ModelForm):
+    class Meta:
+        model = Month
+        fields = {
+            'month_code',
+            'months'
+        }
+
+
 class city_form(forms.ModelForm):
     class Meta:
         model = City

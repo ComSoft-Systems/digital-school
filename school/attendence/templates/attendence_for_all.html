@@ -45,11 +45,9 @@
 
     <br>
     {% if date == '' %}
-        <input class="editable" type="text" name="date" value="{{ tdate }}" hidden readonly>
-        <a>Date : {{tdate}}</a>
+        <a>Date : {{tdate}} </a>
     {% else %}
-        <input class="editable" type="text" name="date" value="{{date}}" hidden readonly>
-        <a>Date : {{date}}</a>
+        <a>Date : {{date}} </a>
     {% endif %}
     <form action="{% url 'attendence_save_template' %}" method="POST">
         <table class="table table-hover table-sm table-dark">
@@ -64,44 +62,24 @@
                     <th class="editable" >Leave</th>
                 </tr>
             </thead>
-
                 <tbody>
                     <tr>
                         {% for i in attend %}
+                        <td><input class="editable" type="text" name="gr" value="{{ i.gr_number }}" readonly></td>
+                        <td><input class="editable" type="text" name="name" value="{{ i.name }}" readonly></td>
+                        <td><input class="editable" type="text" name="class" value="{{ i.current_class }}" readonly></td>
+                        <td><input class="editable" type="text" name="section" value="{{ i.section }}" readonly></td>
 
-                        <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;"
-                        type="text" name="gr" value="{{ i.gr_number }}" readonly></td>
-                        
-                        <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;"
-                        type="text" name="name" value="{{ i.name }}" readonly></td>
-                        
-                        <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;"
-                        type="text" name="class" value="{{ i.current_class }}" readonly></td>
-                        
-                        <td><input style="border-radius: 20px;
-                        background-color: #343a40;
-                        color: white;
-                        text-align: center;
-                        border: 1px solid #ff818140;"
-                        type="text" name="section" value="{{ i.section }}" readonly></td>
-          
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="present"></td>
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="absent"></td>
                         <td style="text-align:center;"><input type="radio" name="{{ i.gr_number }}" value="leave"></td>
                         
-                        
+                        {% if date == '' %}
+                            <input class="editable" type="text" name="date" value="{{ tdate }}" hidden readonly>
+                        {% else %}
+                            <input class="editable" type="text" name="date" value="{{date}}" hidden readonly>
+                        {% endif %}
+
                         {% csrf_token %}
                     </tr>
                     {% endfor %}
