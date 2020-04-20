@@ -7,9 +7,13 @@
 <a>Remarks = {{user_form.remarks}}</a><br><br>
 {% csrf_token %}
 
+<<<<<<< HEAD
+<input class="btn btn-primary" type ="submit" value="Save and Add Another">
+=======
 <input type ="submit" value="Save">
+>>>>>>> 5a35615e96323f864406e4e29835f76336cfc5e1
 
-<button > <a href="{% url 'class_list' %}">Back</a></button>
-<button > <a href="{% url 'class_upload' %}">Add CSV file</a></button>
+<a class="btn btn-primary" href="{% url 'class_list' %}">Back</a>
+<a class="btn btn-primary" href="{% url 'class_upload' %}">Add CSV file</a>
 </form>
 {% endblock %}

@@ -16,8 +16,8 @@
     <input type="file" name="file">
     <p><b>Only accepts CSV files</b></p>
     <button type="submit">Upload</button>
-    <button class="text-center"><a href="{% url 'subject_list' %}">Subject List</a></button>
-    <button class="text-center"><a href="{% url 'subject_form' %}">Back</a></button>
+    <a class="btn btn-primary" href="{% url 'subject_list' %}">Subject List</a>
+    <a class="btn btn-primary" href="{% url 'subject_form' %}">Back</a>
 </form>
 {% endif %}
 {% endblock %}

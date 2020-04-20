@@ -802,10 +802,9 @@ def class_subjects(request):
         # user_form = classes_subject_form(request.POST)
             if user_form.is_valid():
                 user_form.save()
-                context = {
-                    'return': 'Has been added successfully'
-                }
-        return render(request,'Dependencies/Class_Subjects/created_class_subject_form.html' , context)
+            
+        return redirect('class_subject_form')
+        # return render(request,'Dependencies/Class_Subjects/class_subject_form.html' , context)
         # else:
         #     context = {
         #         'return': 'Is not valid'
