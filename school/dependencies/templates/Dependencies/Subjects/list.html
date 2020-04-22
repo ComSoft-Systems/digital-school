@@ -3,9 +3,9 @@
 
     
 <div class="container">
-    <h2 class="text-center" style="font-family:sans-serif;">Subjects</h2><hr/>
+    <h2 style="color:purple;" class="text-center" style="font-family:sans-serif;"><b>Subjects</b></h2><hr/>
     <table class="table table-hover table-sm table-dark">
-      <caption>Subjects</caption>
+      <caption style="color:purple">Subjects</caption>
     <thead>
     <tr align="center">
     <th>Subjects</th>
@@ -22,7 +22,7 @@
     {% endfor %}
   </tbody>
     </table>
-    <a class="btn btn-primary" href="{% url 'subject_form' %}">Add</a>    
-    <a class="btn btn-primary" href="{% url 'subject_download' %}">Download CSV Format</a> 
+    <a style="background-color:purple; color:white;" class="btn btn-primary" href="{% url 'subject_form' %}"><b>Add</b></a>    
+    <a style="background-color:purple; color:white;" class="btn btn-primary" href="{% url 'subject_download' %}"><b>Download CSV Format</b></a> 
   </div>
     {% endblock %}

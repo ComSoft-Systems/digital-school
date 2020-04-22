@@ -1,7 +1,7 @@
 {% extends 'MainPage.html' %}
     {% block content %}
          <div class="container">
-            <h4 class="text-center">Edit Religion</h4>
+            <h4 style="color:purple;" class="text-center"><b>Edit Religion</b></h4>
             <hr/> 
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary" name="button">Update</button>
+                <button "background-color:purple; color:white;" type="submit" class="btn btn-primary" name="button"><b>Update</b></button>
             </form>
          <br/><br/>
         </div>  

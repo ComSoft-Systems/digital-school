@@ -12,12 +12,12 @@
 <h1>{{ses}}</h1>
     {% csrf_token %}
     
-    <label><h3>Upload a file</h3></label>
+    <label><h3 style="color:purple;">Upload a file</h3></label>
     <input type="file" name="file">
-    <p><b>Only accepts CSV files</b></p>
-    <button type="submit">Upload</button>
-    <a class="btn btn-primary" href="{% url 'session_list' %}">Session List</a>
-    <a class="btn btn-primary" href="{% url 'session_form' %}">Back</a>
+    <p style="color:purple;"><b>Only accepts CSV files</b></p>
+    <button "background-color:purple; color:white;" type="submit">Upload</button>
+    <a "background-color:purple; color:white;" class="btn btn-primary" href="{% url 'session_list' %}"><b>Session List</b></a>
+    <a "background-color:purple; color:white;" class="btn btn-primary" href="{% url 'session_form' %}"><b>Back</b></a>
 </form>
 {% endif %}
 {% endblock %}

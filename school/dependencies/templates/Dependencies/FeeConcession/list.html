@@ -3,9 +3,9 @@
 
     
 <div class="container">
-    <h2 class="text-center" style="font-family:sans-serif;">Fee Concession</h2><hr/>
+    <h2 style="color:purple;" class="text-center" style="font-family:sans-serif;"><b>Fee Concession</b></h2><hr/>
     <table class="table table-hover table-sm table-dark">
-      <caption>Fee Concession</caption>
+      <caption style="color:purple;">Fee Concession</caption>
     <thead>
     <tr align="center">
     <th>Fee concession Name</th>
@@ -26,7 +26,7 @@
     {% endfor %}
   </tbody>
     </table>
-    <button ><a href="{% url 'fee_concession_form' %}">Add</a></button>    
-    <button ><a href="{% url 'fee_concession_download' %}">Download CSV Format</a></button>  
+    <a style="background-color:purple; color:white;" class="btn btn-primary" href="{% url 'fee_concession_form' %}"><b>Add</b></a>    
+    <a style="background-color:purple; color:white;" class="btn btn-primary" href="{% url 'fee_concession_download' %}"><b>Download CSV Format</b></a>  
   </div>
     {% endblock %}

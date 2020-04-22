@@ -1,7 +1,7 @@
 {% extends 'MainPage.html' %}
 
 {% block content %}
-<h1>Add Class Subject</h1>
+<h1 style="color:purple;"><b>Add Class Subject</b></h1>
 <form action ="{% url 'class_subject_form' %}" method = "POST">
     {% csrf_token %}
     <a>Classes= {{user_form.Class}}</a><a href="{% url 'class_form' %}"> Add Class </a><br><br>
@@ -12,13 +12,7 @@
 
 
         
-<<<<<<< HEAD
-<input class="btn btn-primary" type ="submit" value="Save and Add Another">
-<a class="btn btn-primary" href="{% url "class_subject_list" %}">Back</a>
-=======
-<input type ="submit" value="Save and Add Another">
-
-<button ><a href="{% url 'class_subject_list' %}">Back</a></button>
->>>>>>> 5a35615e96323f864406e4e29835f76336cfc5e1
+<input style="background-color:purple; color:white;" class="btn btn-primary" type ="submit" value="Save and Add Another">
+<a style="background-color:purple; color:white;" class="btn btn-primary" href="{% url "class_subject_list" %}"><b>Back</b></a>
 </form>
 {% endblock %}
