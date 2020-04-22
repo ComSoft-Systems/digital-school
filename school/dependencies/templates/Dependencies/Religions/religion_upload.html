@@ -12,12 +12,12 @@
 <h1>{{rel}}</h1>
     {% csrf_token %}
     
-    <label><h3>Upload a file</h3></label>
+    <label><h3 style="color:purple;">Upload a file</h3></label>
     <input type="file" name="file">
-    <p><b>Only accepts CSV files</b></p>
-    <button type="submit">Upload</button>
-    <a class="btn btn-primary" href="{% url 'religion_list' %}">Religion List</a>
-    <a class="btn btn-primary" href="{% url 'religion_form' %}">Back</a>
+    <p style="color:purple;"><b>Only accepts CSV files</b></p>
+    <button "background-color:purple; color:white;" type="submit"><b>Upload</b></button>
+    <a "background-color:purple; color:white;" class="btn btn-primary" href="{% url 'religion_list' %}"><b>Religion List</b></a>
+    <a "background-color:purple; color:white;" class="btn btn-primary" href="{% url 'religion_form' %}"><b>Back</b></a>
 </form>
 {% endif %}
 {% endblock %}
