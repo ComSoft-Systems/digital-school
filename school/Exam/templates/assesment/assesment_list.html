@@ -37,7 +37,7 @@
             <th><a href="{{ i.get_absolute_url }}">{{i.assesment_code}}</a></th> 
             <td>{{i.assesment_name}}</td>
             
-            <td><a href="{% url 'edit_assesment' i.assesment_code %}">Edit</a></td>
+            <td><a href="{% url 'edit_assesment' i.pk %}">Edit</a></td>
             <td><a href="{% url 'delete_assesment' i.assesment_code %}">Delete</a></td>
           </tr>
         </tbody>
@@ -46,6 +46,7 @@
       </table>
       <button class="text-center"><a href="{% url 'assesment_form' %}">Add</a></button>
       <button class="text-center"><a href="{% url 'assesment_upload' %}">Add File</a></button>
+      <button class="text-center"><a href="{% url 'assesment_download' %}">download format</a></button>
   </div>
    
 {% endblock %}

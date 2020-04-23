@@ -49,7 +49,7 @@ class AssesmentForm(forms.ModelForm):
             'semesterbreakup_code',
             'quater_code',
             'assesment_code',
-            'assesment_name'
+            'assesment_name',
         }
 
 class MarkForm(forms.ModelForm):

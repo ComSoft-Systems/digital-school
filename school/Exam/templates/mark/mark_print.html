@@ -4,21 +4,24 @@
         <table class="table table-hover table-sm table-dark">
             <thead align="center">
                 <tr>
-                    <th>Name</th>
+                    <th>Gr</th>
                     <th>Class</th>
-                    <th>Subject</th>
+                    <th>Sect</th>
+                    <th>Subj</th>
                     <th>Exam</th>
-                    <th>Semister</th>
-                    <th>Semister_B</th>
-                    <th>Quarter</th>
-                    <th>Assesment</th>
+                    <th>Sem</th>
+                    <th>SemBr</th>
+                    <th>Qua</th>
+                    <th>Asses</th>
+                    <th>Tom</th>
+                    <th>Obm</th>
                 </tr>
             </thead>
-            {% for i in data %}
+            {% for v in data %}
             <tbody align="center">
                 <tr>
-                    {% for v in i %}
-                        <td>{{ v }}</td>
+                    {% for i in v %}
+                        <th>{{ i }}</th>
                     {% endfor %}
                 </tr>
             </tbody>

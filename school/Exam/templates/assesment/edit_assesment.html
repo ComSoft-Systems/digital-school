@@ -5,14 +5,19 @@
         <form method="POST">
             <br>
             {% csrf_token %}
-            {% for field in assesment_form %}
+            <!-- {% for field in assesment_form %}
             <div class="form-group row">
                 <label for="id_{{ field.name }}" class="col-2 col-form-label">{{ field.label }}</label>
                 <div class="col-10">
                     {{ field }}
                 </div>
             </div>
-            {% endfor %}
+            {% endfor %} -->
+            exam_code = {{ assesment_form.exam_code }}<br>
+            semester_code = {{ assesment_form.semester_code }}<br>
+            semesterbreakup_code = {{ assesment_form.semesterbreakup_code }}<br>
+            quater_code = {{ assesment_form.quater_code }}<br>
+            assesment_name = {{ assesment_form.assesment_name }}<br>
             <button type="submit" class="btn btn-primary" name="button">UPDATE</button>
         </form>
     </div>  

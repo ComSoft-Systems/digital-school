@@ -1,0 +1,52 @@
+<html>
+<body>
+<div class="container">
+    <h1 align="center">Assesment Sheet </h1>
+    
+        <table class="table table-hover table-sm table-dark">
+            <h3>Class name: ______________
+               Section : _____________
+               Date:____________</h3>
+            <thead align="center">
+                <tr>
+                    <td><b>Exam</b></td>
+                    <td><b>Semester</b></td>
+                    <td><b>Semester Breakup</b></td>
+                    <td><b>Quater</b></td>
+                    <td><b>Assesment</b></td>
+                    <td><b>Subjects</b></td>
+                    <td><b>Total</b></td>
+                </tr>
+            </thead>
+            {% for v in data %}
+            
+            <tbody align="center">
+                <tr><hr>
+                    {% for i in v %}
+                        <td>{{ i }}<hr><br><br></td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+            {% endfor %}
+            <tbody align="center">
+                <tr>
+                    <td><b><i>Name</i></b></td>
+                    <td><b><i>Father Name</i></b></td>
+                    <td><b><i>Obtained Marks</i></b></td>
+                    <td><b><i>Remarks</i></b></td>
+                </tr>
+                <br>
+                {% for v in student %}
+                    <tr></tr>
+                    <tr>
+                        <td>{{ v.name }}</td>
+                        <td>{{ v.family_code }}</td>
+                        <td>___________</td>
+                        <td>_______________________________________________</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

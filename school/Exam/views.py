@@ -260,7 +260,8 @@ def assesment_detail(request,assesment_code):
     return render(request, 'assesment/assesment_detail.html', context)
 
 def assesment_edit(request,assesment_code):
-    i = get_object_or_404(Assesment, assesment_code=assesment_code)
+    i = get_object_or_404(Assesment, pk=assesment_code)
+    print(i)
     if request.method == "POST":
         assesment_form = AssesmentForm(request.POST, instance=i)
         if assesment_form.is_valid():
@@ -432,38 +433,83 @@ def mark_upload(request):
     context = {'abc' : 'Added Successfully'}
     return render(request, "mark/mark_upload.html", context)
 
+def markprintsample(request):
+    students = []
+    data = []
+    if request.method == 'POST':
+        rawdata = request.POST
+        exam_ = rawdata.get('exam')
+        semester_ = rawdata.get('semester')
+        semester_b_ = rawdata.get('semester_b')
+        quater_ = rawdata.get('quater')
+        assesment_ = rawdata.get('assesment')
+        subjects_ = rawdata.get('subjects')
+        total_ = rawdata.get('total')
+        stud = rawdata.getlist('stu')
+        for i in stud:
+            stude = get_object_or_404(Gr , gr_number = i)
+            students.append(stude)
+        abc = (exam_ ,semester_ ,semester_b_ ,quater_ ,assesment_ ,subjects_ ,total_ )
+        data.append(abc)
+    context = {
+        'data' : data ,
+        'student' : students ,
+    }
+    pdf = PdfMaker("mark/mark_sample_print.html",context)
+    return HttpResponse(pdf , content_type='application/pdf')
+
 def markprint(request):
     data = []
     if request.method == 'POST':
         rawdata = request.POST
-        print(rawdata)
-        gr_ = rawdata.getlist('gr' , default='1')
-        class_ = rawdata.getlist('class' , default='1')
-        subject_ = rawdata.getlist('subject' , default='1')
-        exam_ = rawdata.getlist('exam' , default='1')
-        semister_ = rawdata.getlist('semister' , default='1')
-        breakup_ = rawdata.getlist('breakup' , default='1')
-        quarter_ = rawdata.getlist('quarter' , default='1')
-        assesment_ = rawdata.getlist('assesment' , default='1')
-        count = '0'
-        for i in gr_:
-            count = int(count) + 1
-            gr__ = gr_[int(count)-1]
-            class__ = class_[int(count)-1]
-            subject__ = subject_[int(count)-1]
-            exam__ = exam_[int(count)-1]
-            semister__ = semister_[int(count)-1]
-            breakup__ = breakup_[int(count)-1]
-            quarter__ = quarter_[int(count)-1]
-            assesment__ = assesment_[int(count)-1]
-            abc = (gr__ , class__ , subject__ , exam__ , semister__ , breakup__ , quarter__ , assesment__ )
+        id_ = rawdata.getlist('id' , default='1')
+        for i in id_:
+            mark = get_object_or_404(Mark , pk = i )
+            gr__ = mark.exam_Gr_no.name
+            class__ = mark.exam_Gr_no.current_class
+            section_code_ = mark.section_code
+            subject_code_ = mark.subject_code
+            exam_code_ = mark.exam_code
+            semester_code_ = mark.semester_code
+            semesterbreakup_code_ = mark.semesterbreakup_code
+            quater_code_ = mark.quater_code
+            assesment_code_ = mark.assesment_code
+            total_marks_ = mark.total_marks
+            obtained_marks_ = mark.obtained_marks
+            abc = (gr__ ,class__ ,section_code_ ,subject_code_ ,exam_code_ ,semester_code_ ,semesterbreakup_code_ ,quater_code_ ,assesment_code_ ,total_marks_ ,obtained_marks_ ,)
             data.append(abc)
+            print(abc)
     context = {
         'data' : data ,
     }
     pdf = PdfMaker("mark/mark_print.html",context)
     return HttpResponse(pdf , content_type='application/pdf')
     # return render(request , 'mark/mark_print.html',context)
+
+def exam_upload(request):
+    template = "exam/exam_upload.html"
+
+    prompt = {
+        'order': 'Order by same sequence of exam'
+    }
+    if request.method == "GET":
+        return render(request,"exam/exam_upload.html",prompt)
+    csv_file = request.FILES['file']
+    
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'This is not a csv file')
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        created = ExamForm({ 
+            'exam_code':column[0],
+            'exam_session':column[1]
+        })
+        print(created)
+        created.save()
+    context = {'abc' : 'Added Successfully'}
+    return render(request, "exam/exam_upload.html", context)
 
 def semester_upload(request):
     template = "semester/semester_upload.html"
@@ -512,7 +558,8 @@ def assesment_upload(request):
             'semester_code':column[1],
             'semesterbreakup_code':column[2],
             'quater_code':column[3],
-            'assesment_name':column[4]
+            'assesment_code':column[4],
+            'assesment_name':column[5]
         })
         print(created)
         created.save()
@@ -582,4 +629,54 @@ def mark_download(request):
     writer.writerow(['exam_Gr_no','class_code','subject_code','exam_code','semester_code','semesterbreakup_code','quater_code','assesment_code','total_marks','obtained_marks'])
     for obj in items:
         writer.writerow([obj.exam_Gr_no, obj.class_code, obj.subject_code, obj.exam_code, obj.semester_code, obj.semesterbreakup_code, obj.quater_code, obj.assesment_code, obj.total_marks, obj.obtained_marks])
+    return response
+
+def exam_download(request):
+    items = Exam.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="exam.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['exam_code','exam_session'])
+    for obj in items:
+        writer.writerow([obj.exam_code, obj.exam_session])
+    return response
+
+def semester_download(request):
+    items = Semester.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="semester.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['exam_code','semester_code','semester_name'])
+    for obj in items:
+        writer.writerow([obj.exam_code, obj.semester_code, obj.semester_name])
+    return response
+
+def semesterbreakup_download(request):
+    items = Semesterbreakup.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="semesterbreakup.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['exam_code','semester_code','semesterbreakup_code','semesterbreakup_name'])
+    for obj in items:
+        writer.writerow([obj.exam_code, obj.semester_code, obj.semesterbreakup_code, obj.semesterbreakup_name])
+    return response
+
+def quater_download(request):
+    items = Quater.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="quater.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['exam_code','semester_code','semesterbreakup_code','quater_code','quater_name'])
+    for obj in items:
+        writer.writerow([obj.exam_code, obj.semester_code, obj.semesterbreakup_code, obj.quater_code, obj.quater_name])
+    return response
+
+def assesment_download(request):
+    items = Assesment.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="assesment.csv"'
+    writer = csv.writer(response, delimiter=',')
+    writer.writerow(['exam_code','semester_code','semesterbreakup_code','quater_code','assesment_code','assesment_name'])
+    for obj in items:
+        writer.writerow([obj.exam_code, obj.semester_code, obj.semesterbreakup_code, obj.quater_code, obj.assesment_code, obj.assesment_name])
     return response

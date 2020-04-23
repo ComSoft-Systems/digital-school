@@ -1,13 +1,13 @@
 {% extends "MainPage.html" %}
 {% block content %}
 <form action="{% url 'save_mark' %}" method="POST">
-
     <label>Exam = </label><a> <input type="text" value="{{ exam }}" name="exam" readonly/></a><br>
     <label>Semester = </label><a> <input type="text" value="{{ semester }}" name="semester" readonly/></a><br>
     <label>Semester Breakup = </label><a> <input type="text" value="{{ semester_b }}" name="semester_b" readonly/></a><br>
     <label>Quarter = </label><a> <input type="text" value="{{ quater }}" name="quater" readonly/></a><br>
     <label>Assisment = </label><a> <input type="text" value="{{ assesment }}" name="assesment" readonly/></a><br>
     <label>Subject = </label><a> <input type="text" value="{{ subjects }}" name="subjects" readonly/></a><br>
+    <label>Total = </label><a> <input type="text" value="{{ total_marks }}" name="total" readonly/></a><br>
     <div class="container">
         <table class="table table-hover table-sm table-dark">
             <thead align="center">
@@ -23,7 +23,6 @@
                 {% for student in students %}
                 <tr>
                     <input type="text" value="{{ student.gr_number }}" name="gr" hidden readonly/>
-                    <input type="text" value="{{ total_marks }}" name="total" readonly/>
                     <th>{{ student.gr_number }}</th>
                     <th>{{ student.name }}</th>
                     <th>{{ student.family_code }}</th>
@@ -36,5 +35,21 @@
         <input class="btn btn-secondary" type="submit" value="Save"/>
     </div>
     {% csrf_token %}
+</form>
+
+<form action="{% url 'print_mark_sample' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" value="{{ exam }}" name="exam" hidden readonly/></a><br>
+    <input type="text" value="{{ semester }}" name="semester" hidden readonly/></a><br>
+    <input type="text" value="{{ semester_b }}" name="semester_b" hidden readonly/></a><br>
+    <input type="text" value="{{ quater }}" name="quater" hidden readonly/></a><br>
+    <input type="text" value="{{ assesment }}" name="assesment" hidden readonly/></a><br>
+    <input type="text" value="{{ subjects }}" name="subjects" hidden readonly/></a><br>
+    <input type="text" value="{{ total_marks }}" name="total" hidden readonly/></a><br>
+    <input type="text" value="{{ assesment }}" name="class" hidden readonly/></a><br>
+    {% for i in students %}
+        <input type="text" value="{{ i.pk }}" name="stu" readonly/></a><br>
+    {% endfor %}
+    <input type="submit" value="Print Sample"/>
 </form>
 {% endblock %}
